@@ -1,4 +1,4 @@
-package com.knights_move;
+package com.knights_move.view;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
