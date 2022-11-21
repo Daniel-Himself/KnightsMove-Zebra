@@ -7,12 +7,19 @@ public class Player {
     private String userName;
     private String password;
     private HashMap<Integer, Tile> stepHistory;
+    //gameID, garde
+    private HashMap<Game, Integer> scoreInGame;
 
-    public Player(int playerID, String userName, String password, HashMap<Integer, Tile> stepHistory) {
+    public Player(int playerID, String userName, String password, HashMap<Integer, Tile> stepHistory,HashMap<Integer, Integer> scoreInGame) {
         this.playerID = playerID;
         this.userName = userName;
         this.password = password;
-        this.stepHistory = new HashMap <Integer, Tile>();
+        this.stepHistory = new HashMap <>();
+        this.scoreInGame = new HashMap<>();
+    }
+
+    public HashMap<Game, Integer> getScoreInGame() {
+        return scoreInGame;
     }
 
     public int getPlayerID() {
@@ -45,6 +52,15 @@ public class Player {
 
     public void setStepHistory(HashMap<Integer, Tile> stepHistory) {
         this.stepHistory = stepHistory;
+    }
+
+    //save user scores by game
+    public boolean addScoreOfPlayer (Game game, int totalGrade){
+        if(game != null && totalGrade != -1 && !scoreInGame.containsKey(game)){
+            scoreInGame.put(game,totalGrade);
+            return true;
+        }
+        return false;
     }
 
     @Override

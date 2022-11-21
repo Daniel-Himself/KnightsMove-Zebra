@@ -134,7 +134,7 @@ public class Board {
         return false;
     }
 
-    // for each board that belong to stage in game ->  HashMap<Integer,HashMap<Position,Tile>> tilesPositionInBoard
+    // for each board that belong to game ->  HashMap<Integer,HashMap<Position,Tile>> tilesPositionInBoard
     public boolean addTilesPositionToBoard (Position p, Tile t){
         if(!tilesPositionInBoard.containsKey(boardId)) {
             if(p != null && t != null){
