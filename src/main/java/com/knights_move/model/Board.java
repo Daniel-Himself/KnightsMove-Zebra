@@ -7,6 +7,7 @@ public class Board {
     private int width;
     private List<Tile> visitedTile;
     private List<Tile> emptyTile;
+    //private HashMap<Position, TypeTile> positionOfTiles; -> in game
 
     public Board(int boardId, int height, int width, List<Tile> visitedTile, List<Tile> emptyTile) {
         this.boardId = boardId;
@@ -14,6 +15,7 @@ public class Board {
         this.width = width;
         this.visitedTile = new ArrayList<>();
         this.emptyTile = new ArrayList<>();
+
     }
 
     public int getBoardId() {
@@ -57,7 +59,7 @@ public class Board {
     }*/
 
     public boolean addVisitedTile(Tile tile){
-        if(tile != null && tile.isVisited()) {
+        if(tile != null && tile.isVisited() && !visitedTile.contains(tile)) {
             visitedTile.add(tile);
             return true;
         }
@@ -78,7 +80,7 @@ public class Board {
     public boolean addEmptyTile(Tile tile){
         //64 tiles in board
         //add to list only if type is empty
-        if(tile != null && (emptyTile.size() <= 64) && tile.getType().equals(TypeTile.EMPTY)){
+        if(tile != null && (emptyTile.size() <= 64) && tile.getType().equals(TypeTile.EMPTY) && !emptyTile.contains(tile)){
             emptyTile.add(tile);
             return true;
         }
