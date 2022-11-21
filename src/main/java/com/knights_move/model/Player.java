@@ -46,4 +46,14 @@ public class Player {
     public void setStepHistory(HashMap<Integer, Tile> stepHistory) {
         this.stepHistory = stepHistory;
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "playerID=" + playerID +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", stepHistory=" + stepHistory +
+                '}';
+    }
 }
