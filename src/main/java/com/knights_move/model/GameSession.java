@@ -135,6 +135,8 @@ public class GameSession {
     //init game -> stage one
     public void initGame(){
         setStartTime(java.time.LocalDateTime.now());
+        HashMap<Integer, HashMap<Position, Tile>> tilesPositionInBoard = new HashMap<>();
+        //Board b = new Board(game.getGameID(),tilesPositionInBoard);
         //the func returns list of init positions.
         Position positionList[] = game.getGameBoard().initPosition();
         int sizeOfBoard = 64;
@@ -150,7 +152,7 @@ public class GameSession {
         System.out.print("position list" + positionList);
         System.out.print("tile List" + tileList);
         //init with first stage
-        Board boardOfGame = game.setTilesInLevel(1);
+        Board boardOfGame = game.setSpecialTilesInLevel(1, game.getGameBoard());
 
         List<Figure> figurePosition = game.initFigureInStage(1);
 
@@ -164,7 +166,11 @@ public class GameSession {
             }
         }
         return false;
-
     }
+
+    //public boolean addPlayer()
+    //public removePlayer
+
+    //public int changeSpeed(){}
 
 }

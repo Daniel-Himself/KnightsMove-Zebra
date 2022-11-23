@@ -21,6 +21,12 @@ public class Board {
 
     }
 
+    public Board(int boardId, HashMap<Integer, HashMap<Position, Tile>> tilesPositionInBoard) {
+        this.boardId = boardId;
+        this.tilesPositionInBoard = new HashMap<>();
+        this.tilePositions = new HashMap<>();
+    }
+
     public int getBoardId() {
         return boardId;
     }
