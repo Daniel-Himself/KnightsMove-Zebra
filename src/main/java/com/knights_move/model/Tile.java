@@ -11,7 +11,7 @@ public class Tile {
     public Tile(Position tilePosition, TypeTile type, Color tileColor, Question tileQuestion, boolean isVisited) {
         this.tilePosition = tilePosition;
 
-        if(type.equals("EMPTY"))
+        /*if(type.equals("EMPTY"))
             this.setType(type.EMPTY);
         if(type.equals("VISITED"))
             this.setType(type.VISITED);
@@ -22,18 +22,50 @@ public class Tile {
         if(type.equals("BLOCKED"))
             this.setType(type.BLOCKED);
         if(type.equals("SPECIAL"))
-            this.setType(type.SPECIAL);
+            this.setType(type.SPECIAL);*/
+
 
 
         this.type = type;
-        if(tileColor.equals("BLUE"))
+        this.tileColor = tileColor;
+        /*if(tileColor.equals("BLUE"))
             this.setTileColor(tileColor.BLUE);
         if(tileColor.equals("RED"))
             this.setTileColor(tileColor.RED);
         if(tileColor.equals("WHITE"))
-            this.setTileColor(tileColor.WHITE);
+            this.setTileColor(tileColor.WHITE);*/
 
         this.tileQuestion = tileQuestion;
+        this.isVisited = isVisited;
+    }
+
+    public Tile(Position tilePosition, TypeTile type, Color tileColor, boolean isVisited) {
+        this.tilePosition = tilePosition;
+
+        /*if(type.equals("EMPTY"))
+            this.setType(type.EMPTY);
+        if(type.equals("VISITED"))
+            this.setType(type.VISITED);
+        if(type.equals("RANDOMPJUMP"))
+            this.setType(type.RANDOMPJUMP);
+        if(type.equals("FORGOTTEN"))
+            this.setType(type.FORGOTTEN);
+        if(type.equals("BLOCKED"))
+            this.setType(type.BLOCKED);
+        if(type.equals("SPECIAL"))
+            this.setType(type.SPECIAL);*/
+
+
+
+        this.type = type;
+        this.tileColor = tileColor;
+        /*if(tileColor.equals("BLUE"))
+            this.setTileColor(tileColor.BLUE);
+        if(tileColor.equals("RED"))
+            this.setTileColor(tileColor.RED);
+        if(tileColor.equals("WHITE"))
+            this.setTileColor(tileColor.WHITE);*/
+
         this.isVisited = isVisited;
     }
 

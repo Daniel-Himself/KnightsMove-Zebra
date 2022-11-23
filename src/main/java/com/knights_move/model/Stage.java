@@ -4,15 +4,17 @@ import java.util.*;
 public class Stage {
     private int stageNum;
     private int typeOfStage;
-    private int  numOfForgottenTiles;
+    private int numOfForgottenTiles;
+    private List<Figure> figures;
 
 
 
 
-    public Stage(int stageNum, int typeOfStage, int numOfForgottenTiles) {
+    public Stage(int stageNum, int typeOfStage, int numOfForgottenTiles, List<Figure> figures) {
         this.stageNum = stageNum;
         this.typeOfStage = typeOfStage;
         this.numOfForgottenTiles = numOfForgottenTiles;
+        this.figures = new ArrayList<>();
 
 
     }
@@ -25,7 +27,9 @@ public class Stage {
         this.stageNum = stageNum;
     }
 
-
+    public List<Figure> getFigures() {
+        return Collections.unmodifiableList(figures);
+    }
 
 
     public int getTypeOfStage() {
@@ -47,6 +51,9 @@ public class Stage {
 
 
 
+    }
 
 
-}
+
+
+

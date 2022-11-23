@@ -136,20 +136,29 @@ public class Board {
 
     // for each board that belong to game ->  HashMap<Integer,HashMap<Position,Tile>> tilesPositionInBoard
     public boolean addTilesPositionToBoard (Position p, Tile t){
-        if(!tilesPositionInBoard.containsKey(boardId)) {
-            if(p != null && t != null){
-                boolean result = addTilePosition(p,t);
-                if(result){
-                    tilesPositionInBoard.put(boardId, tilePositions);
-                    return true;
-                }
-                else
-                    return false;
+        if(p != null && t != null){
+            boolean result = addTilePosition(p,t);
+            if(result){
+                tilesPositionInBoard.put(boardId, tilePositions);
+                return true;
+            }
+            else
+                return false;
             }
             else
                 return false;
         }
-        return false;
+
+    //init positions values.
+    public Position[] initPosition(){
+        int sizeOfBoard = 64;
+        Position positionList[] = new Position[64];
+        for(int i = 0; i < sizeOfBoard ; i++){
+            for(int j = 0 ; j < sizeOfBoard ; i++){
+                positionList[i] = new Position(i, j);
+            }
+        }
+        return positionList;
     }
 
 }

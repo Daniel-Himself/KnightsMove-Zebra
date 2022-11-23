@@ -1,5 +1,6 @@
 package com.knights_move.model;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class GameSession {
@@ -9,13 +10,13 @@ public class GameSession {
     private int gameLevel;
     private Position playerPosition;
     private Position enemyPosition;
-    private LocalDate startTime;
-    private LocalDate finishTime;
+    private LocalDateTime startTime;
+    private LocalDateTime finishTime;
     private int currentLevelScore;
     private int totalScoreInGame;
     private Boolean award;
 
-    public GameSession(Game game, List<Question> usedQuestion, Player player, int gameLevel, Position playerPosition, Position enemyPosition, LocalDate startTime, LocalDate finishTime, int currentLevelScore, int totalScoreInGame, Boolean award) {
+    public GameSession(Game game, List<Question> usedQuestion, Player player, int gameLevel, Position playerPosition, Position enemyPosition, LocalDateTime startTime, LocalDateTime finishTime, int currentLevelScore, int totalScoreInGame, Boolean award) {
         this.game = game;
         this.usedQuestion = new ArrayList<>();
         this.player = player;
@@ -73,19 +74,19 @@ public class GameSession {
         this.enemyPosition = enemyPosition;
     }
 
-    public LocalDate getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDate startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDate getFinishTime() {
+    public LocalDateTime getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(LocalDate finishTime) {
+    public void setFinishTime(LocalDateTime finishTime) {
         this.finishTime = finishTime;
     }
 
@@ -117,12 +118,10 @@ public class GameSession {
     //add used qus
     //add total score per player
 
-   /* public void InitiateGame() {
-
-    }*/
 
     public boolean addTotalScore(){
-        if(totalScoreInGame != -1) {
+        if(currentLevelScore != -1) {
+            totalScoreInGame += currentLevelScore;
             boolean result = player.addScoreOfPlayer(game, totalScoreInGame);
             if (result)
                 return true;
@@ -131,6 +130,41 @@ public class GameSession {
         }
        else
            return false;
+    }
+
+    //init game -> stage one
+    public void initGame(){
+        setStartTime(java.time.LocalDateTime.now());
+        //the func returns list of init positions.
+        Position positionList[] = game.getGameBoard().initPosition();
+        int sizeOfBoard = 64;
+        Tile tileList[] = new Tile[sizeOfBoard];
+        // init empty tile
+        for(int i = 0; i < sizeOfBoard ; i++){
+            for (Position p: positionList) {
+                tileList[i] = new Tile(p, TypeTile.EMPTY, Color.WHITE, false);
+                game.getGameBoard().addEmptyTile(tileList[i]);
+            }
+
+        }
+        System.out.print("position list" + positionList);
+        System.out.print("tile List" + tileList);
+        //init with first stage
+        Board boardOfGame = game.setTilesInLevel(1);
+
+        List<Figure> figurePosition = game.initFigureInStage(1);
+
+    }
+
+    public boolean finishStageInGame() {
+        if(startTime != null && finishTime != null) {
+            if(finishTime.getMinute() - startTime.getMinute() >= 1 || currentLevelScore >= 15) {
+                currentLevelScore = 0;
+                return true;
+            }
+        }
+        return false;
+
     }
 
 }
