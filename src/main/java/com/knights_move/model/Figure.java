@@ -1,5 +1,4 @@
 package com.knights_move.model;
-import java.util.*;
 
 public class Figure {
     private int figureId;
@@ -44,5 +43,15 @@ public class Figure {
 
     public void setSpeedRate(int speedRate) {
         this.speedRate = speedRate;
+    }
+
+    @Override
+    public String toString() {
+        return "Figure{" +
+                "figureId=" + figureId +
+                ", position=" + position +
+                ", typeOfFigure='" + typeOfFigure + '\'' +
+                ", speedRate=" + speedRate +
+                '}';
     }
 }

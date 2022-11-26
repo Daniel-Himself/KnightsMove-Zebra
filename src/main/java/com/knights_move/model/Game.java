@@ -50,99 +50,121 @@ public class Game {
         return Collections.unmodifiableList(question);
     }
 
-    public List<Figure> initFigureInStage(int stageNumber){
-        //init the position of figures At the beginning of the stage
-        Position p = new Position(0,0);
-        Figure horse = new Figure(1, p,"horse", 0);
-        List<Figure> listOfFigures = new ArrayList<>();
-        listOfFigures.add(horse);
+    @Override
+    public String toString() {
+        return "Game{" +
+                "gameID=" + gameID +
+                ", gameBoard=" + gameBoard +
+                ", stageGame=" + stageGame +
+                ", question=" + question +
+                '}';
+    }
 
-         if(stageNumber >= 1 && stageNumber <=2){
-             Position p2 = new Position(63,63);
-             Figure queen = new Figure(3, p2,"queen", 0);
-             listOfFigures.add(queen);
-         }
-         else {
-             Position p1 = new Position(63,63);
-             Figure king = new Figure(2, p1,"king", 0);
-             listOfFigures.add(king);
-         }
-         return listOfFigures;
+    public List<Figure> initFigureInStage(int stageNumber){
+        try {
+            //init the position of figures At the beginning of the stage
+            Position p = new Position(0,0);
+            Figure horse = new Figure(1, p,"horse", 0);
+            List<Figure> listOfFigures = new ArrayList<>();
+            listOfFigures.add(horse);
+
+            if(stageNumber >= 1 && stageNumber <=2){
+                Position p2 = new Position(63,63);
+                Figure queen = new Figure(3, p2,"queen", 0);
+                listOfFigures.add(queen);
+            }
+            else {
+                Position p1 = new Position(63,63);
+                Figure king = new Figure(2, p1,"king", 0);
+                listOfFigures.add(king);
+            }
+            return listOfFigures;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
     //waiting for Question class
         //public void addQuestion
         //removeQuestion
         //editQuestion
     public Board setSpecialTilesInLevel(int gameLevel, Board b){
-        Random rand = new Random();
-        if(gameLevel == 1) {
-            //random position cannot be 0,0 or 63,63
-            //create new 3 jumpingTiles
-            Tile tiles[] = new Tile[3];
+        try {
+            Random rand = new Random();
+            if(gameLevel == 1) {
+                //random position cannot be 0,0 or 63,63
+                //create new 3 jumpingTiles
+                Tile[] tiles = new Tile[3];
 
-            for(int i = 0; i < 3; i++){
-                int randomPositionX = rand.ints(1,63).findFirst().getAsInt();
-                int randomPositionY = rand.ints(1,63).findFirst().getAsInt();
-                Position p = new Position(randomPositionX, randomPositionY);
-                tiles[i] = new Tile(p, TypeTile.RANDOMPJUMP, Color.WHITE, false);
-                b.addTilePosition(p, tiles[i]);
+                for(int i = 0; i < 3; i++){
+                    int randomPositionX = rand.ints(1,63).findFirst().getAsInt();
+                    int randomPositionY = rand.ints(1,63).findFirst().getAsInt();
+                    Position p = new Position(randomPositionX, randomPositionY);
+                    tiles[i] = new Tile(p, TypeTile.RANDOMPJUMP, Color.WHITE, false);
+                    b.addTilePosition(p, tiles[i]);
+                }
+                return b;
+
+
             }
-            return b;
+            if(gameLevel == 2){
+                //random position cannot be 0,0 or 63,63
+                //create new 3 FORGOTTEN tile
+                Tile[] tiles1 = new Tile[3];
+                for(int i = 0; i < 3; i++){
+                    int randomPositionX = rand.ints(1,63).findFirst().getAsInt();
+                    int randomPositionY = rand.ints(1,63).findFirst().getAsInt();
+                    Position p = new Position(randomPositionX, randomPositionY);
+                    tiles1[i] = new Tile(p, TypeTile.FORGOTTEN, Color.WHITE, false);
+                    //gameBoard.removeTilePosition(p)
+                    b.addTilePosition(p, tiles1[i]);
+                }
+                return b;
 
+            }
+            if (gameLevel == 3) {
+                Tile[] tiles2 = new Tile[2];
+                Tile[] tiles3 = new Tile[2];
+                for(int i = 0; i < 2; i++){
+                    int randomPositionX1 = rand.ints(1,63).findFirst().getAsInt();
+                    int randomPositionY = rand.ints(1,63).findFirst().getAsInt();
+                    Position p = new Position(randomPositionX1, randomPositionY);
+                    tiles2[i] = new Tile(p, TypeTile.FORGOTTEN, Color.WHITE, false);
+                    //gameBoard.removeTilePosition(p)
+                    b.addTilePosition(p, tiles2[i]);
+                }
+                for(int i = 0; i < 2; i++){
+                    int randomPositionX2 = rand.ints(1,63).findFirst().getAsInt();
+                    int randomPositionY = rand.ints(1,63).findFirst().getAsInt();
+                    Position p = new Position(randomPositionX2, randomPositionY);
+                    tiles3[i] = new Tile(p, TypeTile.RANDOMPJUMP, Color.WHITE, false);
+                    //gameBoard.removeTilePosition(p)
+                    b.addTilePosition(p, tiles3[i]);
+                }
+                return b;
 
+            }
+            if(gameLevel == 4) {
+                Tile[] tiles4 = new Tile[3];
+                for(int i = 0; i < 3; i++){
+                    int randomPositionX = rand.ints(1,63).findFirst().getAsInt();
+                    int randomPositionY = rand.ints(1,63).findFirst().getAsInt();
+                    Position p = new Position(randomPositionX, randomPositionY);
+                    tiles4[i] = new Tile(p, TypeTile.BLOCKED, Color.RED, false);
+                    b.addTilePosition(p, tiles4[i]);
+                }
+                return b;
+
+            }
+
+            else
+                return null;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        if(gameLevel == 2){
-            //random position cannot be 0,0 or 63,63
-            //create new 3 FORGOTTEN tile
-            Tile tiles1[] = new Tile[3];
-            for(int i = 0; i < 3; i++){
-                int randomPositionX = rand.ints(1,63).findFirst().getAsInt();
-                int randomPositionY = rand.ints(1,63).findFirst().getAsInt();
-                Position p = new Position(randomPositionX, randomPositionY);
-                tiles1[i] = new Tile(p, TypeTile.FORGOTTEN, Color.WHITE, false);
-                //gameBoard.removeTilePosition(p)
-                b.addTilePosition(p, tiles1[i]);
-            }
-            return b;
 
-        }
-        if (gameLevel == 3) {
-            Tile tiles2[] = new Tile[2];
-            Tile tiles3[] = new Tile[2];
-            for(int i = 0; i < 2; i++){
-                int randomPositionX1 = rand.ints(1,63).findFirst().getAsInt();
-                int randomPositionY = rand.ints(1,63).findFirst().getAsInt();
-                Position p = new Position(randomPositionX1, randomPositionY);
-                tiles2[i] = new Tile(p, TypeTile.FORGOTTEN, Color.WHITE, false);
-                //gameBoard.removeTilePosition(p)
-                b.addTilePosition(p, tiles2[i]);
-            }
-            for(int i = 0; i < 2; i++){
-                int randomPositionX2 = rand.ints(1,63).findFirst().getAsInt();
-                int randomPositionY = rand.ints(1,63).findFirst().getAsInt();
-                Position p = new Position(randomPositionX2, randomPositionY);
-                tiles3[i] = new Tile(p, TypeTile.RANDOMPJUMP, Color.WHITE, false);
-                //gameBoard.removeTilePosition(p)
-                b.addTilePosition(p, tiles3[i]);
-            }
-            return b;
-
-        }
-        if(gameLevel == 4) {
-            Tile tiles4[] = new Tile[3];
-            for(int i = 0; i < 3; i++){
-                int randomPositionX = rand.ints(1,63).findFirst().getAsInt();
-                int randomPositionY = rand.ints(1,63).findFirst().getAsInt();
-                Position p = new Position(randomPositionX, randomPositionY);
-                tiles4[i] = new Tile(p, TypeTile.BLOCKED, Color.RED, false);
-                b.addTilePosition(p, tiles4[i]);
-            }
-            return b;
-
-        }
-
-    else
-        return null;
     }
 
 }

@@ -131,16 +131,22 @@ public class Tile {
      */
 
     public void changeColor(){
-        //EMPTY, VISITED, RANDOMPJUMP, FORGOTTEN, BLOCKED, SPECIAL
-        if (tilePosition != null) {
-            if(type.equals(type.VISITED))
-                setTileColor(tileColor.BLUE);
-            else if(type.equals(type.BLOCKED))
-                setTileColor(tileColor.RED);
-            //if type of tile is empty or  RANDOMPJUMP,FORGOTTEN, SPECIAL, then set color of tile to white.
-            else
-                setTileColor(tileColor.WHITE);
+        try {
+            //EMPTY, VISITED, RANDOMPJUMP, FORGOTTEN, BLOCKED, SPECIAL
+            if (tilePosition != null) {
+                if(type.equals(TypeTile.VISITED))
+                    setTileColor(Color.BLUE);
+                else if(type.equals(TypeTile.BLOCKED))
+                    setTileColor(Color.RED);
+                    //if type of tile is empty or  RANDOMPJUMP,FORGOTTEN, SPECIAL, then set color of tile to white.
+                else
+                    setTileColor(Color.WHITE);
 
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+
     }
 }
