@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="body" stylesheets="@design.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.controller.RulesController">
+    <children>
+        <BorderPane prefHeight="600.0" prefWidth="800.0" styleClass="body">
+            <left>
+                <VBox prefHeight="600.0" prefWidth="185.0" styleClass="vbox" stylesheets="@design.css" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button id="logo" fx:id="logoBtn" mnemonicParsing="false" prefHeight="72.0" prefWidth="185.0" text="Knight's Move" textFill="#fff9f9">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Button>
+                        <Pane prefHeight="73.0" prefWidth="185.0" />
+                        <Button fx:id="playBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Play" textFill="#fff9f9" />
+                        <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Home" textAlignment="RIGHT" textFill="#fff9f9" />
+                        <Button fx:id="historyBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="History" textFill="#fff9f9" />
+                        <Button fx:id="qaBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Q &amp; A" textFill="#fff9f9" />
+                        <Button fx:id="rulesBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Rules" textFill="#64ffda" />
+                        <Pane prefHeight="152.0" prefWidth="200.0" />
+                        <Button fx:id="signInBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Sign In" textFill="#fff9f9" />
+                        <Button fx:id="exitBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Exit" textFill="#fff9f9" />
+                    </children></VBox>
+            </left>
+            <center>
+                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <top>
+                        <Pane prefHeight="598.0" prefWidth="615.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <Label contentDisplay="CENTER" layoutX="201.0" layoutY="38.0" nodeOrientation="RIGHT_TO_LEFT" text="Rules and Onboarding" />
+                        <TextArea layoutX="14.0" layoutY="88.0" prefHeight="461.0" prefWidth="583.0" styleClass="body" text="The game board&#10;The board consists of 8x8 squares, where the knight (as well as&#10; the king and queen) can exit at one end of the board and enter&#10;At the other end is a return (rotational - cyclic movement).&#10;&#10;Horse:&#10;In a game of chess, the horse &quot;skips&quot; over other pieces when &#10;making its move and only stabilizes in the target square &#10;(the horse can move from a straight square to a diagonal square &#10;or diagonal checkerboard and straight checkerboard - see a &#10;partial example in the attached picture.&#10;Starting position - in every game the horse starts from the &#10;same starting point - in the upper left corner of the board.&#10;Goal - maximum accumulation of points by passing on squares&#10;(ideally covering all slots, answering questions) without returning&#10; to the same slot, within a limited time (depending on the stage), &#10;when the game starts with 0 points.&#10;Moving - the way the horse is moved depends on the stage of the&#10; game will be detailed below (the illustration).&#10;&#10;King:&#10;Starting position - each king stage starts from the same starting&#10; point on top the board in the upper right corner.&#10;Goal - damage to the horse.&#10;Moving - the king moves across all the squares of the board in &#10;consecutive straight or diagonal order, One square per step (see &#10;picture). He starts moving at the beginning of the game and moves&#10;One slot every unit of time when it moves towards the horse &#10;continuously. speed The movement changes during the game.&#10;Contact - when the king collides with the horse, the game is over.&#10;&#10;Queen:&#10;Starting position - each queen phase starts from the same starting &#10;point on top the board in the upper right corner.&#10;Purpose - harming the horse/restricting its movement and &#10;interfering with the accumulation of points.&#10;Move - the queen moves across all the board squares straight or &#10;diagonally, along a number unlimited number of slots and can &#10;leave the board and enter back on the other side.&#10;The queen starts moving at the beginning of the game and moves &#10;every time it's her turn, when She moved towards the horse.&#10;Touch - when the queen collides with the knight, the game is over." />
+                            </children>
+                        </Pane>
+                    </top>
+                </BorderPane>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

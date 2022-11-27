@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="body" stylesheets="@design.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.controller.HomeController">
+    <children>
+        <BorderPane prefHeight="600.0" prefWidth="800.0" styleClass="body">
+            <left>
+                <VBox prefHeight="600.0" prefWidth="185.0" styleClass="vbox" stylesheets="@design.css" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button id="logo" fx:id="logoBtn" mnemonicParsing="false" prefHeight="72.0" prefWidth="185.0" text="Knight's Move" textFill="#fff9f9">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Button>
+                        <Pane prefHeight="73.0" prefWidth="185.0" />
+                        <Button fx:id="playBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Play" textFill="#fff9f9" />
+                        <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Home" textAlignment="RIGHT" textFill="#64ffda" />
+                        <Button fx:id="historyBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="History" textFill="#fff9f9" />
+                        <Button fx:id="qaBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Q &amp; A" textFill="#fff9f9" />
+                        <Button fx:id="rulesBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Rules" textFill="#fff9f9" />
+                        <Pane prefHeight="152.0" prefWidth="200.0" />
+                        <Button fx:id="signInBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Sign In" textFill="#fff9f9" />
+                        <Button fx:id="exitBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Exit" textFill="#fff9f9" />
+                    </children></VBox>
+            </left>
+            <center>
+                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <top>
+                        <Pane prefHeight="376.0" prefWidth="615.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <Label contentDisplay="CENTER" layoutX="201.0" layoutY="38.0" nodeOrientation="RIGHT_TO_LEFT" text="Welcome to Knight's Move" />
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="208.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@chess.JPG" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="tosignInBtn" layoutX="268.0" layoutY="234.0" mnemonicParsing="false" stylesheets="@design.css" text="Sign In" textFill="#fff9f9" />
+                        <Button fx:id="onboardingBtn" layoutX="247.0" layoutY="323.0" mnemonicParsing="false" text="Onboarding" textFill="#fff9f9" />
+                            </children>
+                        </Pane>
+                    </top>
+                </BorderPane>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>
