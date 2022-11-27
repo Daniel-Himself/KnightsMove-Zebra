@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="body" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.controller.PlayController">
+    <children>
+        <BorderPane prefHeight="600.0" prefWidth="800.0">
+            <left>
+                <VBox prefHeight="600.0" prefWidth="185.0" styleClass="vbox" stylesheets="@design.css" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button id="logo" fx:id="logoBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Knight's Move" textFill="#fff9f9">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Button>
+                        <Pane prefHeight="98.0" prefWidth="200.0" />
+                        <Button fx:id="playBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Play" textFill="#64ffda" />
+                        <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Home" textAlignment="RIGHT" textFill="#fff9f9" />
+                        <Button fx:id="historyBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="History" textFill="#fff9f9" />
+                        <Button fx:id="qaBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Q &amp; A" textFill="#fff9f9" />
+                        <Button fx:id="rulesBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Rules" textFill="#fff9f9" />
+                        <Pane prefHeight="152.0" prefWidth="200.0" />
+                        <Button fx:id="signInBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Sign In" textFill="#fff9f9" />
+                        <Button fx:id="exitBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Exit" textFill="#fff9f9" />
+                    </children></VBox>
+            </left>
+            <center>
+                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <center>
+                        <GridPane alignment="CENTER_RIGHT" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.35" prefHeight="333.0" prefWidth="340.0" styleClass="grid" BorderPane.alignment="CENTER">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                        </GridPane>
+                    </center>
+                    <top>
+                        <Pane prefHeight="89.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <Label layoutX="28.0" layoutY="30.0" text="Level 1" />
+                                <Label id="scoreLabel" fx:id="timeLbl" layoutX="524.0" layoutY="30.0" text="02:59" textFill="#e91e63" />
+                            </children>
+                        </Pane>
+                    </top>
+                    <bottom>
+                        <Pane prefHeight="89.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <Label layoutX="24.0" layoutY="26.0" text="Score" />
+                                <Label fx:id="scoreLbl" layoutX="516.0" layoutY="25.0" text="00:00" textFill="#e91e63" />
+                            </children>
+                        </Pane>
+                    </bottom>
+                    <right>
+                        <Pane prefHeight="422.0" prefWidth="163.0" BorderPane.alignment="CENTER" />
+                    </right>
+                </BorderPane>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>
