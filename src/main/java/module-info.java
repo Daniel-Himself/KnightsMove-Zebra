@@ -1,6 +1,9 @@
 module com.knights_move {
     requires javafx.controls;
     requires javafx.fxml;
+    requires json.simple;
+    requires jackson.mapper.asl;
+    requires jackson.core.asl;
 
 
     exports com.knights_move.view;

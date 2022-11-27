@@ -6,19 +6,12 @@ public class Stage {
     private int typeOfStage;
     private int numOfForgottenTiles;
     private List<Figure> figures;
-
-
-
-
     public Stage(int stageNum, int typeOfStage, int numOfForgottenTiles, List<Figure> figures) {
         this.stageNum = stageNum;
         this.typeOfStage = typeOfStage;
         this.numOfForgottenTiles = numOfForgottenTiles;
         this.figures = new ArrayList<>();
-
-
     }
-
     public int getStageNum() {
         return stageNum;
     }

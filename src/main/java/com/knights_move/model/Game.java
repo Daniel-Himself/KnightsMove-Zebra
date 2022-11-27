@@ -1,8 +1,15 @@
 package com.knights_move.model;
 import javafx.geometry.Pos;
+import org.codehaus.jackson.JsonParseException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
-
 import java.util.*;
 
 public class Game {
@@ -11,15 +18,15 @@ public class Game {
     private Stage stageGame;
     private List<Question> question;
 
-
-
-
-
     public Game(int gameID, Board gameBoard, Stage stageGame, List<Question> question) {
         this.gameID = gameID;
         this.gameBoard = gameBoard;
         this.stageGame = stageGame;
         this.question = new ArrayList<>();
+    }
+
+    public Game() {
+
     }
 
     public int getGameID() {
@@ -143,6 +150,56 @@ public class Game {
 
     else
         return null;
+    }
+    public Game fromJson(JSONObject obj){
+        JSONArray jsonArray=(JSONArray)((JSONObject)obj).get("questions");
+        ArrayList<Question> quesArray= new ArrayList<>();
+        for(Object object:jsonArray) {
+            quesArray.add((Question) object);
+        }
+        int gameID= (int) obj.get("gameID");
+        Board Boardgame= (Board) obj.get("gameBoard");
+        Stage stageGame= (Stage) obj.get("stage");
+        Game game= new Game(gameID,Boardgame,stageGame,quesArray);
+        return game;
+    }
+
+    /**
+     * second method for convert json to java object, another option for do it
+     * @return
+     */
+    public Game fromJson(){
+        ObjectMapper mapper=new ObjectMapper();
+        Game game;
+        try{
+            //convert JSON string from file to Object
+             game=mapper.readValue("Games.json", Game.class);
+
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonParseException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return game;
+    }
+
+    /**
+     * java object to JSON
+     */
+    public void toJson(Game game)
+    {
+        ObjectMapper mapper=new ObjectMapper();
+        try{
+            mapper.writeValue(new File("Games.json"),game);
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonGenerationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
