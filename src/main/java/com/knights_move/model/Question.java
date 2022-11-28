@@ -5,10 +5,8 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

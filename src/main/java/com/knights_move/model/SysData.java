@@ -3,10 +3,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +67,11 @@ public class SysData {
      */
 
     public boolean DesJsonQuestions() {
+        File file=new File(".\\lib\\QuestionsFormat.json");
+        if(file.length()==0) {
+            System.out.println("the file is empty");
+            return false;
+        }
         JSONParser jsonParser = new JSONParser();
         try (FileReader reader = new FileReader(".\\lib\\QuestionsFormat.json")) {
             //read json file
@@ -99,6 +102,12 @@ public class SysData {
      */
 
     public boolean DesJsonGame() {
+        File file=new File(".\\lib\\Games.json");
+        if(file.length()==0)
+        {
+            System.out.println("the file is empty");
+            return false;
+        }
         JSONParser jsonParser = new JSONParser();
         try (FileReader reader = new FileReader("Games.json")) {
             //read json file
@@ -142,8 +151,8 @@ public class SysData {
                 gameobj.put("stage", game.getStageGame());
                 gameobj.put("question", game.getQuestion());
                 gamelist.add(gameobj);
-                listJson.put("Game",gamelist);
             }
+            listJson.put("Game",gamelist);
             file.write(listJson.toJSONString());
             file.flush();
             return true;
@@ -157,7 +166,7 @@ public class SysData {
      */
     public boolean serJsonQuestion()
     {
-        try(FileWriter file=new FileWriter("Question.json")){
+        try(FileWriter file=new FileWriter(".\\lib\\QuestionsFormat.json")){
             //we can write any JSONArray or JSONobject instance to the file
             JSONObject questionObj=new JSONObject();
             JSONArray questionList=new JSONArray();
@@ -165,16 +174,17 @@ public class SysData {
 
             for (Question question:questions) {
                 questionObj.put("question", question.getQuesId());
-                questionObj.put("answers", question.getAnswers());
+                questionObj.put("answers", question.getAnswers().toString());
                 questionObj.put("correct_ans", question.getCorrect_answerID());
                 questionObj.put("level", question.getLevel());
                 questionObj.put("team", question.getTeamNick());
 
                 questionList.add(questionObj);
-                listJson.put("Game",questionList);
           }
+            listJson.put("question",questionList);
             file.write(listJson.toJSONString());
             file.flush();
+
             return true;
         } catch (IOException e) {
             throw new RuntimeException(e);

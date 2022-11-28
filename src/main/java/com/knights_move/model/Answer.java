@@ -25,4 +25,9 @@ public class Answer {
         this.content = content;
     }
 
+    @Override
+    public String toString() {
+        return  content ;
+
+    }
 }
