@@ -1,11 +1,11 @@
 package com.knights_move.model;
 
 public class Answer {
-    private int answerID;
+    private static int answerID=0;
     private String content;
 
-    public Answer(int answerID, String content) {
-        this.answerID = answerID;
+    public Answer(String content) {
+        this.answerID +=1;
         this.content = content;
     }
 
@@ -24,4 +24,5 @@ public class Answer {
     public void setContent(String content) {
         this.content = content;
     }
+
 }

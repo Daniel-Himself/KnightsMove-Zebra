@@ -14,13 +14,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Question {
-    private int quesID;
+    private String quesID;
     private ArrayList<Answer> answers;
     private int correct_answerID;
     private int level;
     private String teamNick;
 
-    public Question(int quesId,ArrayList<Answer> answers, int correct_answerID, int level, String teamNick) {
+    public Question(String quesId,ArrayList<Answer> answers, int correct_answerID, int level, String teamNick) {
         this.quesID= quesId;
         this.answers = answers;
         if(answers.size()==4) {
@@ -38,63 +38,11 @@ public class Question {
 
     }
 
-    public Question fromJsonQuestion(JSONObject questionJson)
-    {
-        JSONArray arrayAnswerJson=(JSONArray)questionJson.get("answers");
-        ArrayList<Answer> answerArray=new ArrayList<Answer>();
-        for(Object obj:arrayAnswerJson)
-        {
-            answerArray.add((Answer)obj);
-        }
-        int quesId= (int) questionJson.get("question");
-        int correct_ans=(int)questionJson.get("correct_ans");
-        int level=(int)questionJson.get("level");
-        String teamNick=questionJson.get("team").toString();
-        Question question=new Question(quesId,answers,correct_ans,level,teamNick);
-        return question;
-    }
-    /**
-     * second method for convert json to java object, another option for do it
-     * @return
-     */
-    public Question fromJson(){
-        ObjectMapper mapper=new ObjectMapper();
-        Question question;
-        try{
-            //convert JSON string from file to Object
-            question=mapper.readValue("Questions.json", Question.class);
-
-        } catch (JsonMappingException e) {
-            throw new RuntimeException(e);
-        } catch (JsonParseException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return question;
-    }
-
-    /**
-     * java object to JSON
-     */
-    public void toJson (Question question)
-    {
-        ObjectMapper mapper=new ObjectMapper();
-        try{
-            mapper.writeValue(new File("Question.json"),question);
-        } catch (JsonMappingException e) {
-            throw new RuntimeException(e);
-        } catch (JsonGenerationException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public int getQuesId() {
+    public String getQuesId() {
         return this.quesID;
     }
 
-    public void setQuesId(int quesId) {
+    public void setQuesId(String quesId) {
         this.quesID = quesId;
     }
 
@@ -130,4 +78,69 @@ public class Question {
         this.teamNick = teamNick;
     }
 
+    public Question fromJsonQuestion(JSONObject questionJson)
+    {
+        JSONArray arrayAnswerJson=(JSONArray)questionJson.get("answers");
+        ArrayList<Answer> answerArray=new ArrayList<Answer>();
+        for(Object obj:arrayAnswerJson)
+        {
+            answerArray.add((new Answer(obj.toString())));
+        }
+        String quesId= (questionJson.get("question").toString());
+        int correct_ans=Integer.valueOf(questionJson.get("correct_ans").toString());
+        int level=Integer.valueOf(questionJson.get("level").toString());
+        String teamNick=questionJson.get("team").toString();
+        Question question=new Question(quesId,answerArray,correct_ans,level,teamNick);
+        return question;
+     }
+    /**
+     * second method for convert json to java object, another option for do it
+     * @return
+     */
+    //delete
+    public static Question fromJson2(){
+        ObjectMapper mapper=new ObjectMapper();
+        Question question;
+        try{
+            //convert JSON string from file to Object
+            question=mapper.readValue("Questions.json", Question.class);
+            System.out.println(question);
+
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonParseException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return question;
+    }
+
+    /**
+     * java object to JSON
+     */
+    public void toJson (Question question)
+    {
+        ObjectMapper mapper=new ObjectMapper();
+        try{
+            mapper.writeValue(new File("Question.json"),question);
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonGenerationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "quesID='" + quesID + '\'' +
+                ", answers=" + answers +
+                ", correct_answerID=" + correct_answerID +
+                ", level=" + level +
+                ", teamNick='" + teamNick + '\'' +
+                '}';
+    }
 }

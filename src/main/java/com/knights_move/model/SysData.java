@@ -70,13 +70,17 @@ public class SysData {
 
     public boolean DesJsonQuestions() {
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("QuestionsFormat.json")) {
+        try (FileReader reader = new FileReader("C:\\Users\\noaas\\OneDrive\\שולחן העבודה\\KnightsMove\\lib\\QuestionsFormat.json")) {
             //read json file
             Object obj = jsonParser.parse(reader);
             //getting questions array from JSON object
             JSONArray quesArray= (JSONArray) ((JSONObject)obj).get("questions");
             for (Object object :quesArray ) {
                 Question question=new Question();
+                if(this.questions==null)
+                {
+                    this.questions=new ArrayList<>();
+                }
                 this.questions.add(question.fromJsonQuestion((JSONObject)object));
             }
             return true;
@@ -103,6 +107,10 @@ public class SysData {
             JSONArray questionsArray = ((JSONArray) (((JSONObject) obj).get("Games")));
             for (Object object : questionsArray) {
                 Game game= new Game();
+                if(this.games==null)
+                {
+                    this.games=new ArrayList<>();
+                }
                 this.games.add(game.fromJson((JSONObject) object));
 
             }

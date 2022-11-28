@@ -163,7 +163,7 @@ public class Game {
         Game game= new Game(gameID,Boardgame,stageGame,quesArray);
         return game;
     }
-
+    /**
     /**
      * second method for convert json to java object, another option for do it
      * @return
