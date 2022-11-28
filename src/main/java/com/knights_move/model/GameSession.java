@@ -114,58 +114,89 @@ public class GameSession {
         this.award = award;
     }
 
+    @Override
+    public String toString() {
+        return "GameSession{" +
+                "game=" + game +
+                ", usedQuestion=" + usedQuestion +
+                ", player=" + player +
+                ", gameLevel=" + gameLevel +
+                ", playerPosition=" + playerPosition +
+                ", enemyPosition=" + enemyPosition +
+                ", startTime=" + startTime +
+                ", finishTime=" + finishTime +
+                ", currentLevelScore=" + currentLevelScore +
+                ", totalScoreInGame=" + totalScoreInGame +
+                ", award=" + award +
+                '}';
+    }
 
     //add used qus
     //add total score per player
 
 
-    public boolean addTotalScore(){
-        if(currentLevelScore != -1) {
-            totalScoreInGame += currentLevelScore;
-            boolean result = player.addScoreOfPlayer(game, totalScoreInGame);
-            if (result)
-                return true;
-            else
+    public boolean addTotalScore() {
+        try {
+            if (currentLevelScore != -1) {
+                totalScoreInGame += currentLevelScore;
+                boolean result = player.addScoreOfPlayer(game, totalScoreInGame);
+                if (result)
+                    return true;
+                else
+                    return false;
+            } else
                 return false;
         }
-       else
-           return false;
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //init game -> stage one
     public void initGame(){
-        setStartTime(java.time.LocalDateTime.now());
-        HashMap<Integer, HashMap<Position, Tile>> tilesPositionInBoard = new HashMap<>();
-        //Board b = new Board(game.getGameID(),tilesPositionInBoard);
-        //the func returns list of init positions.
-        Position positionList[] = game.getGameBoard().initPosition();
-        int sizeOfBoard = 64;
-        Tile tileList[] = new Tile[sizeOfBoard];
-        // init empty tile
-        for(int i = 0; i < sizeOfBoard ; i++){
-            for (Position p: positionList) {
-                tileList[i] = new Tile(p, TypeTile.EMPTY, Color.WHITE, false);
-                game.getGameBoard().addEmptyTile(tileList[i]);
+        try {
+            setStartTime(java.time.LocalDateTime.now());
+            HashMap<Integer, HashMap<Position, Tile>> tilesPositionInBoard = new HashMap<>();
+            //Board b = new Board(game.getGameID(),tilesPositionInBoard);
+            //the func returns list of init positions.
+            Position[] positionList = game.getGameBoard().initPosition();
+            int sizeOfBoard = 64;
+            Tile[] tileList = new Tile[sizeOfBoard];
+            // init empty tile
+            for(int i = 0; i < sizeOfBoard ; i++){
+                for (Position p: positionList) {
+                    tileList[i] = new Tile(p, TypeTile.EMPTY, Color.WHITE, false);
+                    game.getGameBoard().addEmptyTile(tileList[i]);
+                }
+
             }
+            System.out.print("position list" + positionList);
+            System.out.print("tile List" + tileList);
+            //init with first stage
+            Board boardOfGame = game.setSpecialTilesInLevel(1, game.getGameBoard());
 
+            List<Figure> figurePosition = game.initFigureInStage(1);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        System.out.print("position list" + positionList);
-        System.out.print("tile List" + tileList);
-        //init with first stage
-        Board boardOfGame = game.setSpecialTilesInLevel(1, game.getGameBoard());
 
-        List<Figure> figurePosition = game.initFigureInStage(1);
 
     }
 
     public boolean finishStageInGame() {
-        if(startTime != null && finishTime != null) {
-            if(finishTime.getMinute() - startTime.getMinute() >= 1 || currentLevelScore >= 15) {
-                currentLevelScore = 0;
-                return true;
+        try {
+            if(startTime != null && finishTime != null) {
+                if(finishTime.getMinute() - startTime.getMinute() >= 1 || currentLevelScore >= 15) {
+                    currentLevelScore = 0;
+                    return true;
+                }
             }
+            return false;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return false;
+
     }
 
     //public boolean addPlayer()

@@ -54,13 +54,20 @@ public class Player {
         this.stepHistory = stepHistory;
     }
 
+
+
     //save user scores by game
     public boolean addScoreOfPlayer (Game game, int totalGrade){
-        if(game != null && totalGrade != -1 && !scoreInGame.containsKey(game)){
-            scoreInGame.put(game,totalGrade);
-            return true;
+        try {
+            if(game != null && totalGrade != -1 && !scoreInGame.containsKey(game)){
+                scoreInGame.put(game,totalGrade);
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return false;
+
     }
 
     @Override

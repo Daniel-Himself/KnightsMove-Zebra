@@ -62,55 +62,85 @@ public class Board {
     }
 
 
-    /*public void setVisitedTile(List<Tile> visitedTile) {
-        this.visitedTile = visitedTile;
-    }*/
 
     public List<Tile> getEmptyTile() {
         return Collections.unmodifiableList(emptyTile);
     }
 
-    /*public void setEmptyTile(List<Tile> emptyTile) {
-        this.emptyTile = emptyTile;
-    }*/
+    @Override
+    public String toString() {
+        return "Board{" +
+                "boardId=" + boardId +
+                ", height=" + height +
+                ", width=" + width +
+                ", visitedTile=" + visitedTile +
+                ", emptyTile=" + emptyTile +
+                ", tilesPositionInBoard=" + tilesPositionInBoard +
+                ", tilePositions=" + tilePositions +
+                '}';
+    }
 
     public boolean addVisitedTile(Tile tile){
-        if(tile != null && tile.isVisited() && !visitedTile.contains(tile)) {
-            visitedTile.add(tile);
-            return true;
+        try {
+            if(tile != null && tile.isVisited() && !visitedTile.contains(tile)) {
+                visitedTile.add(tile);
+                return true;
+            }
+            else
+                return false;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        else
-            return false;
+
     }
 
     public boolean removeVisitedTile(Tile tile){
-        if(tile != null && visitedTile.contains(tile)) {
-            tile.setVisited(false);
-            visitedTile.remove(tile);
-            return true;
+        try {
+            if(tile != null && visitedTile.contains(tile)) {
+                tile.setVisited(false);
+                visitedTile.remove(tile);
+                return true;
+            }
+            else
+                return false;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        else
-            return false;
+
     }
 
     public boolean addEmptyTile(Tile tile){
-        //64 tiles in board
-        //add to list only if type is empty
-        if(tile != null && (emptyTile.size() <= 64) && tile.getType().equals(TypeTile.EMPTY) && !emptyTile.contains(tile)){
-            emptyTile.add(tile);
-            return true;
+        try {
+            //64 tiles in board
+            //add to list only if type is empty
+            if(tile != null && (emptyTile.size() <= 64) && tile.getType().equals(TypeTile.EMPTY) && !emptyTile.contains(tile)){
+                emptyTile.add(tile);
+                return true;
+            }
+            else
+                return false;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        else
-            return false;
+
     }
 
     public boolean removeEmptyTile(Tile tile){
-        if(tile != null && emptyTile.contains(tile)){
-            emptyTile.remove(tile);
-            return true;
+        try {
+            if(tile != null && emptyTile.contains(tile)){
+                emptyTile.remove(tile);
+                return true;
+            }
+            else
+                return false;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        else
-            return false;
+
     }
 
     public HashMap<Position, Tile> getTilePositions() {
@@ -118,53 +148,78 @@ public class Board {
     }
     //all tiles positions in each stage
     public boolean addTilePosition(Position p, Tile t){
-        if(p != null && t != null && !tilePositions.containsKey(p))
-        {
-            //position range of x -> 0 till 63, y -> 0 till 63.
-            if(p.getX() < 64 && p.getY() <64) {
-                tilePositions.put(p,t);
-                return true;
+        try {
+            if(p != null && t != null && !tilePositions.containsKey(p))
+            {
+                //position range of x -> 0 till 63, y -> 0 till 63.
+                if(p.getX() < 64 && p.getY() <64) {
+                    tilePositions.put(p,t);
+                    return true;
+                }
+                else
+                    return false;
             }
             else
                 return false;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        else
-            return false;
+
     }
 
     public boolean removeTilePosition(Position p){
-        if(p != null && tilePositions.containsKey(p)) {
-            tilePositions.remove(p);
-            return true;
+        try {
+            if(p != null && tilePositions.containsKey(p)) {
+                tilePositions.remove(p);
+                return true;
+            }
+            return false;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return false;
+
     }
 
     // for each board that belong to game ->  HashMap<Integer,HashMap<Position,Tile>> tilesPositionInBoard
+    // if the key is already in the map, override with new value.
     public boolean addTilesPositionToBoard (Position p, Tile t){
-        if(p != null && t != null){
-            boolean result = addTilePosition(p,t);
-            if(result){
-                tilesPositionInBoard.put(boardId, tilePositions);
-                return true;
+        try {
+            if(p != null && t != null){
+                boolean result = addTilePosition(p,t);
+                if(result){
+                    tilesPositionInBoard.put(boardId, tilePositions);
+                    return true;
+                }
+                else
+                    return false;
             }
             else
                 return false;
-            }
-            else
-                return false;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+
+    }
 
     //init positions values.
     public Position[] initPosition(){
-        int sizeOfBoard = 64;
-        Position positionList[] = new Position[64];
-        for(int i = 0; i < sizeOfBoard ; i++){
-            for(int j = 0 ; j < sizeOfBoard ; i++){
-                positionList[i] = new Position(i, j);
+        try {
+            int sizeOfBoard = 64;
+            Position[] positionList = new Position[64];
+            for(int i = 0; i < sizeOfBoard ; i++){
+                for(int j = 0 ; j < sizeOfBoard ; j++){
+                    positionList[i] = new Position(i, j);
+                }
             }
+            return positionList;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return positionList;
+
     }
 
 }

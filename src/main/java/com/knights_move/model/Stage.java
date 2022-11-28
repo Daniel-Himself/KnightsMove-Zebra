@@ -24,7 +24,7 @@ public class Stage {
         return Collections.unmodifiableList(figures);
     }
 
-
+    //add figure to stage
     public int getTypeOfStage() {
         return typeOfStage;
     }
@@ -41,10 +41,16 @@ public class Stage {
         this.numOfForgottenTiles = numOfForgottenTiles;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "Stage{" +
+                "stageNum=" + stageNum +
+                ", typeOfStage=" + typeOfStage +
+                ", numOfForgottenTiles=" + numOfForgottenTiles +
+                ", figures=" + figures +
+                '}';
     }
+}
 
 
 

@@ -1,0 +1,35 @@
+
+
+AnchorPane{
+    -fx-background-image: url(background.JPG)
+}
+.body
+{
+    -fx-background-image: url(background.JPG)
+  /*  -fx-font-family: 'Poppins', sans-serif;*/
+}
+.button
+{
+    -fx-background-color: #424242
+}
+.button:hover
+{
+    -fx-background-color: #616161
+}
+
+.vbox
+{
+    -fx-background-color: #424242
+}
+
+
+
+}
+#buttonVbox
+{
+    -fx-background-color: #424242
+}
+.grid
+{
+    -fx-background-color: #F4F7FA;
+}
