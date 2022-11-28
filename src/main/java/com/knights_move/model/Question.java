@@ -103,9 +103,8 @@ public class Question {
         Question question;
         try{
             //convert JSON string from file to Object
-            question=mapper.readValue("Questions.json", Question.class);
+            question=mapper.readValue("QuestionsFormat.json", Question.class);
             System.out.println(question.getQuesId());
-            System.out.
 
         } catch (JsonMappingException e) {
             throw new RuntimeException(e);

@@ -70,7 +70,7 @@ public class SysData {
 
     public boolean DesJsonQuestions() {
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("C:\\Users\\noaas\\OneDrive\\שולחן העבודה\\KnightsMove\\lib\\QuestionsFormat.json")) {
+        try (FileReader reader = new FileReader(".\\lib\\QuestionsFormat.json")) {
             //read json file
             Object obj = jsonParser.parse(reader);
             //getting questions array from JSON object
