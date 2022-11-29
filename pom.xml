@@ -7,7 +7,7 @@
 
     <groupId>com</groupId>
     <artifactId>knights_move</artifactId>
-    <version>0.01-SNAPSHOT</version>
+    <version>0.02-SNAPSHOT</version>
     <name>knights_move</name>
 
     <properties>
@@ -76,12 +76,6 @@
                 <artifactId>jackson-core</artifactId>
                 <version>2.14.1</version>
             </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.9.13</version>
-        </dependency>
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
