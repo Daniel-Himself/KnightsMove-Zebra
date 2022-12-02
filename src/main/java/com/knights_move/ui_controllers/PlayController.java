@@ -1,4 +1,4 @@
-package com.knights_move.controller;
+package com.knights_move.ui_controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

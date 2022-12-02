@@ -1,8 +1,6 @@
-package com.knights_move.controller;
+package com.knights_move.ui_controllers;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import com.knights_move.view.HelloApplication;
 import javafx.fxml.FXML;
@@ -10,44 +8,51 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
-public class HistoryController {
+public class QAController {
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
-    private TableView<?> historTbl;
-
-    @FXML
-    private TableColumn<?, ?> scoreCol;
-
-    @FXML
-    private TableColumn<?, ?> awardCol;
+    private Tab manageQuestTab;
 
     @FXML
     private Button historyBtn;
 
     @FXML
-    private TableColumn<?, ?> dateCol;
+    private TableView<?> questionsTab;
+
+    @FXML
+    private TableColumn<?, ?> questionCol;
+
+    @FXML
+    private TableColumn<?, ?> answDCol;
 
     @FXML
     private Button exitBtn;
 
     @FXML
-    private Button logoBtn;
+    private TableColumn<?, ?> answBCol;
+
+    @FXML
+    private TableColumn<?, ?> answCCol;
 
     @FXML
     private Button qaBtn;
 
     @FXML
     private Button rulesBtn;
+
+    @FXML
+    private Tab qATab;
+
+    @FXML
+    private TableColumn<?, ?> answACol;
+
+    @FXML
+    private Button logoBtn;
 
     @FXML
     private Button playBtn;
@@ -58,16 +63,15 @@ public class HistoryController {
     @FXML
     private Button signInBtn;
 
-
     @FXML
     void initialize() {
         playBtn.setOnAction(event -> {
             playBtn.getScene().getWindow().hide();
             openScene("Play.fxml");
         });
-        qaBtn.setOnAction(event -> {
-            qaBtn.getScene().getWindow().hide();
-            openScene("QuestionsAnswers.fxml");
+        historyBtn.setOnAction(event -> {
+            historyBtn.getScene().getWindow().hide();
+            openScene("History.fxml");
         });
         homeBtn.setOnAction(event -> {
             homeBtn.getScene().getWindow().hide();

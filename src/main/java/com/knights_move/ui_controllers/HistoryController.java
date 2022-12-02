@@ -1,4 +1,5 @@
-package com.knights_move.controller;
+package com.knights_move.ui_controllers;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -7,20 +8,34 @@ import com.knights_move.view.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
-public class HomeController {
+public class HistoryController {
 
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private TableView<?> historTbl;
+
+    @FXML
+    private TableColumn<?, ?> scoreCol;
+
+    @FXML
+    private TableColumn<?, ?> awardCol;
 
     @FXML
     private Button historyBtn;
 
     @FXML
-    private Button onboardingBtn;
+    private TableColumn<?, ?> dateCol;
 
     @FXML
     private Button exitBtn;
@@ -43,8 +58,6 @@ public class HomeController {
     @FXML
     private Button signInBtn;
 
-    @FXML
-    private Button tosignInBtn;
 
     @FXML
     void initialize() {
@@ -52,13 +65,13 @@ public class HomeController {
             playBtn.getScene().getWindow().hide();
             openScene("Play.fxml");
         });
-        historyBtn.setOnAction(event -> {
-            historyBtn.getScene().getWindow().hide();
-            openScene("History.fxml");
-        });
         qaBtn.setOnAction(event -> {
             qaBtn.getScene().getWindow().hide();
             openScene("QuestionsAnswers.fxml");
+        });
+        homeBtn.setOnAction(event -> {
+            homeBtn.getScene().getWindow().hide();
+            openScene("Home.fxml");
         });
         rulesBtn.setOnAction(event -> {
             rulesBtn.getScene().getWindow().hide();

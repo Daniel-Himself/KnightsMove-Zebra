@@ -1,4 +1,4 @@
-package com.knights_move.controller;
+package com.knights_move.ui_controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -10,51 +10,30 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
-public class QAController {
+public class RulesController {
 
     @FXML
-    private Tab manageQuestTab;
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
 
     @FXML
     private Button historyBtn;
 
     @FXML
-    private TableView<?> questionsTab;
-
-    @FXML
-    private TableColumn<?, ?> questionCol;
-
-    @FXML
-    private TableColumn<?, ?> answDCol;
-
-    @FXML
     private Button exitBtn;
 
     @FXML
-    private TableColumn<?, ?> answBCol;
-
-    @FXML
-    private TableColumn<?, ?> answCCol;
+    private Button logoBtn;
 
     @FXML
     private Button qaBtn;
 
     @FXML
     private Button rulesBtn;
-
-    @FXML
-    private Tab qATab;
-
-    @FXML
-    private TableColumn<?, ?> answACol;
-
-    @FXML
-    private Button logoBtn;
 
     @FXML
     private Button playBtn;
@@ -64,6 +43,7 @@ public class QAController {
 
     @FXML
     private Button signInBtn;
+
 
     @FXML
     void initialize() {
@@ -79,9 +59,9 @@ public class QAController {
             homeBtn.getScene().getWindow().hide();
             openScene("Home.fxml");
         });
-        rulesBtn.setOnAction(event -> {
-            rulesBtn.getScene().getWindow().hide();
-            openScene("Rules.fxml");
+        qaBtn.setOnAction(event -> {
+            qaBtn.getScene().getWindow().hide();
+            openScene("QuestionsAnswers.fxml");
         });
 
     }

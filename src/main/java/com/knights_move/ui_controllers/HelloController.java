@@ -1,4 +1,4 @@
-package com.knights_move.controller;
+package com.knights_move.ui_controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

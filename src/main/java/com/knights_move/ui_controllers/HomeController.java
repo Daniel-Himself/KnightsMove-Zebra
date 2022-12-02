@@ -1,8 +1,5 @@
-package com.knights_move.controller;
-
+package com.knights_move.ui_controllers;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import com.knights_move.view.HelloApplication;
 import javafx.fxml.FXML;
@@ -12,16 +9,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class RulesController {
+public class HomeController {
 
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Button historyBtn;
+
+    @FXML
+    private Button onboardingBtn;
 
     @FXML
     private Button exitBtn;
@@ -44,6 +39,8 @@ public class RulesController {
     @FXML
     private Button signInBtn;
 
+    @FXML
+    private Button tosignInBtn;
 
     @FXML
     void initialize() {
@@ -55,13 +52,13 @@ public class RulesController {
             historyBtn.getScene().getWindow().hide();
             openScene("History.fxml");
         });
-        homeBtn.setOnAction(event -> {
-            homeBtn.getScene().getWindow().hide();
-            openScene("Home.fxml");
-        });
         qaBtn.setOnAction(event -> {
             qaBtn.getScene().getWindow().hide();
             openScene("QuestionsAnswers.fxml");
+        });
+        rulesBtn.setOnAction(event -> {
+            rulesBtn.getScene().getWindow().hide();
+            openScene("Rules.fxml");
         });
 
     }

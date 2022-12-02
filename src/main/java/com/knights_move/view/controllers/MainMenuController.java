@@ -1,4 +1,4 @@
-package com.knights_move.view.contcollers;
+package com.knights_move.view.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
