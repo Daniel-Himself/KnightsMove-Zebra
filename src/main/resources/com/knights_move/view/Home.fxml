@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="body" stylesheets="@design.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.ui_controllers.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="body" stylesheets="@design.scss" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.ui_controllers.HomeController">
     <children>
         <BorderPane prefHeight="600.0" prefWidth="800.0" styleClass="body">
             <left>
-                <VBox prefHeight="600.0" prefWidth="185.0" styleClass="vbox" stylesheets="@design.css" BorderPane.alignment="CENTER">
+                <VBox prefHeight="600.0" prefWidth="185.0" styleClass="vbox" stylesheets="@design.scss" BorderPane.alignment="CENTER">
                     <children>
                         <Button id="logo" fx:id="logoBtn" mnemonicParsing="false" prefHeight="72.0" prefWidth="185.0" text="Knight's Move" textFill="#fff9f9">
                             <font>
@@ -42,7 +42,7 @@
                               <Image url="@chess.JPG" />
                            </image>
                         </ImageView>
-                        <Button fx:id="tosignInBtn" layoutX="268.0" layoutY="234.0" mnemonicParsing="false" stylesheets="@design.css" text="Sign In" textFill="#fff9f9" />
+                        <Button fx:id="tosignInBtn" layoutX="268.0" layoutY="234.0" mnemonicParsing="false" stylesheets="@design.scss" text="Sign In" textFill="#fff9f9" />
                         <Button fx:id="onboardingBtn" layoutX="247.0" layoutY="323.0" mnemonicParsing="false" text="Onboarding" textFill="#fff9f9" />
                             </children>
                         </Pane>

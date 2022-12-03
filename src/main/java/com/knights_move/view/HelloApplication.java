@@ -13,7 +13,8 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("MainFrame.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
-        URL url = getClass().getResource("design.css");
+        URL url = getClass().getResource("design.scss");
+        assert url != null;
         String css = url.toExternalForm();
         scene.getStylesheets().add(css);
         stage.setTitle("Knights Move");
