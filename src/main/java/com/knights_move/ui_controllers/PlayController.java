@@ -1,16 +1,12 @@
 package com.knights_move.ui_controllers;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-import com.knights_move.view.HelloApplication;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class PlayController {
 
@@ -36,6 +32,9 @@ public class PlayController {
     private Button qaBtn;
 
     @FXML
+    private AnchorPane pnlGameBoard;
+
+    @FXML
     private Button rulesBtn;
 
     @FXML
@@ -52,36 +51,8 @@ public class PlayController {
 
     @FXML
     void initialize() {
-        homeBtn.setOnAction(event -> {
-            homeBtn.getScene().getWindow().hide();
-            openScene("Home.fxml");
-        });
-        historyBtn.setOnAction(event -> {
-            historyBtn.getScene().getWindow().hide();
-            openScene("History.fxml");
-        });
-        qaBtn.setOnAction(event -> {
-            qaBtn.getScene().getWindow().hide();
-            openScene("QuestionsAnswers.fxml");
-        });
-        rulesBtn.setOnAction(event -> {
-            rulesBtn.getScene().getWindow().hide();
-            openScene("Rules.fxml");
-        });
-
-    }
-
-    public void openScene(String window) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(HelloApplication.class.getResource(window));
-        try {
-            loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+        assert pnlGameBoard != null : "fx:id=\"pnlGameBoard\" was not injected: check your FXML file 'Play.fxml'.";
+        assert scoreLbl != null : "fx:id=\"scoreLbl\" was not injected: check your FXML file 'Play.fxml'.";
+        assert timeLbl != null : "fx:id=\"timeLbl\" was not injected: check your FXML file 'Play.fxml'.";
     }
 }

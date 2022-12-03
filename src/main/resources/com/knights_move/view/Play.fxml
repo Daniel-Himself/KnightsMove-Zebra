@@ -1,35 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="body" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.ui_controllers.PlayController">
+<AnchorPane fx:id="pnlGameBoard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" styleClass="body" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.ui_controllers.PlayController">
     <children>
         <BorderPane prefHeight="600.0" prefWidth="800.0">
-            <left>
-                <VBox prefHeight="600.0" prefWidth="185.0" styleClass="vbox" stylesheets="@design.css" BorderPane.alignment="CENTER">
-                    <children>
-                        <Button id="logo" fx:id="logoBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Knight's Move" textFill="#fff9f9">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Button>
-                        <Pane prefHeight="98.0" prefWidth="200.0" />
-                        <Button fx:id="playBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Play" textFill="#64ffda" />
-                        <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Home" textAlignment="RIGHT" textFill="#fff9f9" />
-                        <Button fx:id="historyBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="History" textFill="#fff9f9" />
-                        <Button fx:id="qaBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Q &amp; A" textFill="#fff9f9" />
-                        <Button fx:id="rulesBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Rules" textFill="#fff9f9" />
-                        <Pane prefHeight="152.0" prefWidth="200.0" />
-                        <Button fx:id="signInBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Sign In" textFill="#fff9f9" />
-                        <Button fx:id="exitBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="201.0" text="Exit" textFill="#fff9f9" />
-                    </children></VBox>
-            </left>
             <center>
                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <center>

@@ -1,18 +1,13 @@
 package com.knights_move.ui_controllers;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import com.knights_move.view.HelloApplication;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class HistoryController {
 
@@ -53,6 +48,9 @@ public class HistoryController {
     private Button playBtn;
 
     @FXML
+    private AnchorPane pnlHistory;
+
+    @FXML
     private Button homeBtn;
 
     @FXML
@@ -61,36 +59,10 @@ public class HistoryController {
 
     @FXML
     void initialize() {
-        playBtn.setOnAction(event -> {
-            playBtn.getScene().getWindow().hide();
-            openScene("Play.fxml");
-        });
-        qaBtn.setOnAction(event -> {
-            qaBtn.getScene().getWindow().hide();
-            openScene("QuestionsAnswers.fxml");
-        });
-        homeBtn.setOnAction(event -> {
-            homeBtn.getScene().getWindow().hide();
-            openScene("Home.fxml");
-        });
-        rulesBtn.setOnAction(event -> {
-            rulesBtn.getScene().getWindow().hide();
-            openScene("Rules.fxml");
-        });
-
-    }
-
-    public void openScene(String window) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(HelloApplication.class.getResource(window));
-        try {
-            loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+        assert awardCol != null : "fx:id=\"awardCol\" was not injected: check your FXML file 'History.fxml'.";
+        assert dateCol != null : "fx:id=\"dateCol\" was not injected: check your FXML file 'History.fxml'.";
+        assert historTbl != null : "fx:id=\"historTbl\" was not injected: check your FXML file 'History.fxml'.";
+        assert pnlHistory != null : "fx:id=\"pnlHistory\" was not injected: check your FXML file 'History.fxml'.";
+        assert scoreCol != null : "fx:id=\"scoreCol\" was not injected: check your FXML file 'History.fxml'.";
     }
 }

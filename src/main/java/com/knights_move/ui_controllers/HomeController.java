@@ -1,17 +1,21 @@
 package com.knights_move.ui_controllers;
-import java.io.IOException;
 
-import com.knights_move.view.HelloApplication;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class HomeController {
 
 
+    public Pane pnlChoosedPage;
+    public AnchorPane pnlHome;
     @FXML
     private Button historyBtn;
 
@@ -40,40 +44,91 @@ public class HomeController {
     private Button signInBtn;
 
     @FXML
+    private AnchorPane pnlHistory;
+
+    @FXML
     private Button tosignInBtn;
 
     @FXML
     void initialize() {
-        playBtn.setOnAction(event -> {
-            playBtn.getScene().getWindow().hide();
-            openScene("Play.fxml");
-        });
-        historyBtn.setOnAction(event -> {
-            historyBtn.getScene().getWindow().hide();
-            openScene("History.fxml");
-        });
-        qaBtn.setOnAction(event -> {
-            qaBtn.getScene().getWindow().hide();
-            openScene("QuestionsAnswers.fxml");
-        });
-        rulesBtn.setOnAction(event -> {
-            rulesBtn.getScene().getWindow().hide();
-            openScene("Rules.fxml");
-        });
+        assert onboardingBtn != null : "fx:id=\"onboardingBtn\" was not injected: check your FXML file 'HomePanel.fxml'.";
+        assert pnlHome != null : "fx:id=\"pnlHome\" was not injected: check your FXML file 'HomePanel.fxml'.";
+        assert tosignInBtn != null : "fx:id=\"tosignInBtn\" was not injected: check your FXML file 'HomePanel.fxml'.";
 
+        try{
+            pnlChoosedPage.getChildren().clear();
+            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/HomePanel.fxml")));
+            pnlChoosedPage.getChildren().add(node);
+        } catch(IOException | NullPointerException e){
+            System.out.println(e.getMessage());
+        }
     }
 
-    public void openScene(String window) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(HelloApplication.class.getResource(window));
-        try {
-            loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+    @FXML
+    private void handleButtonClick(ActionEvent e) {
+        if(e.getSource() == playBtn){
+            initMenuItems(e);
         }
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+        if(e.getSource() == historyBtn){
+            initMenuItems(e);
+        }
+        if(e.getSource() == qaBtn){
+            initMenuItems(e);
+        }
+        if(e.getSource() == rulesBtn){
+            initMenuItems(e);
+        }
+        if(e.getSource() == homeBtn){
+            initialize();
+        }
+    }
+
+    @FXML
+    private void initMenuItems(ActionEvent e){
+        if(e.getSource() == homeBtn){
+            try{
+                pnlChoosedPage.getChildren().clear();
+                Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/HomePanel.fxml")));
+                pnlChoosedPage.getChildren().add(node);
+            } catch(IOException | NullPointerException ex){
+                System.out.println(ex.getMessage());
+            }
+        }
+        if(e.getSource() == playBtn){
+            try{
+                pnlChoosedPage.getChildren().clear();
+                Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/Play.fxml")));
+                pnlChoosedPage.getChildren().add(node);
+            } catch(IOException | NullPointerException ex){
+                System.out.println(ex.getMessage());
+            }
+        }
+        if(e.getSource() == historyBtn){
+            try{
+                pnlChoosedPage.getChildren().clear();
+                Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/History.fxml")));
+                pnlChoosedPage.getChildren().add(node);
+            } catch(IOException | NullPointerException ex){
+                System.out.println(ex.getMessage());
+            }
+        }
+        if(e.getSource() == qaBtn){
+            try{
+                pnlChoosedPage.getChildren().clear();
+                Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/QuestionsAnswers.fxml")));
+                pnlChoosedPage.getChildren().add(node);
+            } catch(IOException | NullPointerException ex){
+                System.out.println(ex.getMessage());
+            }
+        }
+        if(e.getSource() == rulesBtn){
+            try{
+                pnlChoosedPage.getChildren().clear();
+                Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/Rules.fxml")));
+                pnlChoosedPage.getChildren().add(node);
+            } catch(IOException | NullPointerException ex){
+                System.out.println(ex.getMessage());
+            }
+        }
     }
 }

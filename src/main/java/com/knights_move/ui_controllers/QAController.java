@@ -1,22 +1,19 @@
 package com.knights_move.ui_controllers;
 
-import java.io.IOException;
-
-import com.knights_move.view.HelloApplication;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
 
 public class QAController {
 
     @FXML
     private Tab manageQuestTab;
+
+    @FXML
+    private AnchorPane pnlQuestions;
 
     @FXML
     private Button historyBtn;
@@ -65,36 +62,14 @@ public class QAController {
 
     @FXML
     void initialize() {
-        playBtn.setOnAction(event -> {
-            playBtn.getScene().getWindow().hide();
-            openScene("Play.fxml");
-        });
-        historyBtn.setOnAction(event -> {
-            historyBtn.getScene().getWindow().hide();
-            openScene("History.fxml");
-        });
-        homeBtn.setOnAction(event -> {
-            homeBtn.getScene().getWindow().hide();
-            openScene("Home.fxml");
-        });
-        rulesBtn.setOnAction(event -> {
-            rulesBtn.getScene().getWindow().hide();
-            openScene("Rules.fxml");
-        });
-
-    }
-
-    public void openScene(String window) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(HelloApplication.class.getResource(window));
-        try {
-            loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+        assert answACol != null : "fx:id=\"answACol\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
+        assert answBCol != null : "fx:id=\"answBCol\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
+        assert answCCol != null : "fx:id=\"answCCol\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
+        assert answDCol != null : "fx:id=\"answDCol\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
+        assert manageQuestTab != null : "fx:id=\"manageQuestTab\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
+        assert pnlQuestions != null : "fx:id=\"pnlQuestions\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
+        assert qATab != null : "fx:id=\"qATab\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
+        assert questionCol != null : "fx:id=\"questionCol\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
+        assert questionsTab != null : "fx:id=\"questionsTab\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
     }
 }
