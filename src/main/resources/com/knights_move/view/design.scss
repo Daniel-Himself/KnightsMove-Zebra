@@ -16,6 +16,10 @@ AnchorPane{
 {
     -fx-background-color: #616161
 }
+.button:pressed
+{
+    -fx-background-color: #363636
+}
 
 .vbox
 {
