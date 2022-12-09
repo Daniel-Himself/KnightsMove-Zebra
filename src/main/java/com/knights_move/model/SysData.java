@@ -1,4 +1,5 @@
 package com.knights_move.model;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -6,7 +7,8 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashMap;
 
 
 public class SysData {
@@ -191,5 +193,38 @@ public class SysData {
         }
     }
 
+    //return questions by level for pie chart
+    public  HashMap<Integer, Question> getQuestionByLevel(int level) {
+        if(questions.isEmpty())
+            return null;
+        else {
+            Collections.sort(questions, (q1, q2) -> (q1.getLevel() > q2.getLevel()) ? 1 : 0);
+        }
 
+        HashMap<Integer, Question> questionByLevel = new HashMap<>();
+        if (level == 1) {
+            for (Question q : questions) {
+                if (q.getLevel() == 1)
+                    questionByLevel.put(q.getLevel(), q);
+            }
+        }
+        if (level == 2) {
+            for (Question q : questions) {
+                if (q.getLevel() == 2)
+                    questionByLevel.put(q.getLevel(), q);
+            }
+        } else {
+            for (Question q : questions) {
+                if (q.getLevel() == 3)
+                    questionByLevel.put(q.getLevel(), q);
+            }
+        }
+        if(questionByLevel.isEmpty())
+            return null;
+        else
+            return questionByLevel;
     }
+}
+
+
+
