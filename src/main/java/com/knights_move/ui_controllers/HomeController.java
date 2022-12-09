@@ -41,7 +41,7 @@ public class HomeController {
     private Button homeBtn;
 
     @FXML
-    private Button signInBtn;
+    private Button signOutBtn;
 
     @FXML
     private AnchorPane pnlHistory;
