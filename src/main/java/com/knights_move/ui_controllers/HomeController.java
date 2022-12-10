@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -81,6 +82,10 @@ public class HomeController {
         if(e.getSource() == homeBtn){
             initialize();
         }
+        exitBtn.setOnAction(event -> {
+            Stage stage = (Stage) exitBtn.getScene().getWindow();
+            stage.close();
+        });
     }
 
     @FXML
