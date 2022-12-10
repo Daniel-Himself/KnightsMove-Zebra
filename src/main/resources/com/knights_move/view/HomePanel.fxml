@@ -4,27 +4,21 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-
-<AnchorPane fx:id="pnlHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" styleClass="body" stylesheets="@design.scss" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.ui_controllers.HomeController">
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="pnlHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" styleClass="body" stylesheets="@design.scss" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.ui_controllers.HomeController">
     <children>
           <BorderPane prefHeight="200.0" prefWidth="200.0">
               <top>
-                  <Pane prefHeight="376.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                      <children>
-                          <Label contentDisplay="CENTER" layoutX="201.0" layoutY="38.0" nodeOrientation="RIGHT_TO_LEFT" text="Welcome to Knight's Move" />
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="208.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@chess.JPG" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="tosignInBtn" layoutX="268.0" layoutY="234.0" mnemonicParsing="false" stylesheets="@design.scss" text="Sign In" textFill="#fff9f9" />
-                  <Button fx:id="onboardingBtn" layoutX="247.0" layoutY="323.0" mnemonicParsing="false" text="Onboarding" textFill="#fff9f9" />
-                      </children>
-                  </Pane>
+                  <Pane prefHeight="376.0" prefWidth="301.0" BorderPane.alignment="CENTER" />
               </top>
           </BorderPane>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="200.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="395.16243743896484" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="150.0">
+         <image>
+            <Image url="@chess.JPG" />
+         </image>
+      </ImageView>
+              <Label contentDisplay="CENTER" layoutX="229.0" layoutY="48.0" nodeOrientation="RIGHT_TO_LEFT" text="Welcome to Knight's Move" AnchorPane.leftAnchor="229.0" AnchorPane.rightAnchor="228.0" />
+      <Button fx:id="onboardingBtn" layoutX="258.0" layoutY="265.0" mnemonicParsing="false" text="Onboarding" textFill="#fff9f9" />
+      <Button fx:id="tosignInBtn" layoutX="272.0" layoutY="343.0" mnemonicParsing="false" stylesheets="@design.scss" text="Sign In" textFill="#fff9f9" />
     </children>
 </AnchorPane>
