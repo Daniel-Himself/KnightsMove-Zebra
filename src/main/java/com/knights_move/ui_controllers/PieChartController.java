@@ -26,7 +26,7 @@ public class PieChartController extends Application {
     private PieChart pieChart;
     @FXML
     private AnchorPane piePanel;
-
+//c
     public Pane pnlChoosedPage;
 
 
