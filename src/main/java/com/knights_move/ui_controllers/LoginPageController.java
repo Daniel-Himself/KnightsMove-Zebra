@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,6 +29,9 @@ public class LoginPageController {
 
     @FXML
     private Button logoBtn;
+
+    @FXML
+    private Text loginErrorLabel;
 
     @FXML
     private Pane pnlChoosedPage;
@@ -65,11 +69,18 @@ public class LoginPageController {
 
             else
                 try {
-                    SysData.getInstance().setUsername(UsernameField.getText());
-                    Parent root = FXMLLoader.load(HelloApplication.class.getResource("/com/knights_move/view/MainFrame.fxml"));
-                    Stage stage = (Stage) LoginBtn.getScene().getWindow();
-                    stage.setScene(new Scene(root));
-                    stage.show();
+                    // check if username field has illegal characters
+                    if (!UsernameField.getText().matches("[a-zA-Z]+")) {
+                        loginErrorLabel.setStyle("-fx-fill: red");
+                        loginErrorLabel.setText("Username can only contain english letters");
+                    }
+                    else{
+                        SysData.getInstance().setUsername(UsernameField.getText());
+                        Parent root = FXMLLoader.load(HelloApplication.class.getResource("/com/knights_move/view/MainFrame.fxml"));
+                        Stage stage = (Stage) LoginBtn.getScene().getWindow();
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
