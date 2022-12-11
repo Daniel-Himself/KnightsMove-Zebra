@@ -1,12 +1,18 @@
 package com.knights_move.ui_controllers;
 
+import com.knights_move.model.SysData;
+import com.knights_move.view.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -19,6 +25,8 @@ public class HomeController {
     @FXML
     private Button historyBtn;
 
+    @FXML
+    private Label usernameLabel;
     @FXML
     private Button onboardingBtn;
 
@@ -41,7 +49,7 @@ public class HomeController {
     private Button homeBtn;
 
     @FXML
-    private Button signInBtn;
+    private Button signOutBtn;
 
     @FXML
     private AnchorPane pnlHistory;
@@ -54,6 +62,21 @@ public class HomeController {
         assert onboardingBtn != null : "fx:id=\"onboardingBtn\" was not injected: check your FXML file 'HomePanel.fxml'.";
         assert pnlHome != null : "fx:id=\"pnlHome\" was not injected: check your FXML file 'HomePanel.fxml'.";
         assert tosignInBtn != null : "fx:id=\"tosignInBtn\" was not injected: check your FXML file 'HomePanel.fxml'.";
+        usernameLabel.setText("Hello " + SysData.getInstance().getUsername());
+
+        exitBtn.setOnAction(event -> {
+            Stage stage = (Stage) exitBtn.getScene().getWindow();
+            stage.close();
+        });
+        signOutBtn.setOnAction(event ->{
+            try {
+                Parent root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("LoginPage.fxml")));
+                Stage stage = (Stage) signOutBtn.getScene().getWindow();
+                stage.setScene(new Scene(root));
+            } catch (IOException err) {
+                err.printStackTrace();
+            }
+        });
 
         try{
             pnlChoosedPage.getChildren().clear();
@@ -81,6 +104,7 @@ public class HomeController {
         if(e.getSource() == homeBtn){
             initialize();
         }
+
     }
 
     @FXML
