@@ -1,5 +1,6 @@
 package com.knights_move.ui_controllers;
 
+import com.knights_move.model.SysData;
 import com.knights_move.view.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,6 +65,7 @@ public class LoginPageController {
 
             else
                 try {
+                    SysData.getInstance().setUsername(UsernameField.getText());
                     Parent root = FXMLLoader.load(HelloApplication.class.getResource("/com/knights_move/view/MainFrame.fxml"));
                     Stage stage = (Stage) LoginBtn.getScene().getWindow();
                     stage.setScene(new Scene(root));

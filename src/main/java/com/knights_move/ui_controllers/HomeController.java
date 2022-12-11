@@ -1,5 +1,6 @@
 package com.knights_move.ui_controllers;
 
+import com.knights_move.model.SysData;
 import com.knights_move.view.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,6 +62,7 @@ public class HomeController {
         assert onboardingBtn != null : "fx:id=\"onboardingBtn\" was not injected: check your FXML file 'HomePanel.fxml'.";
         assert pnlHome != null : "fx:id=\"pnlHome\" was not injected: check your FXML file 'HomePanel.fxml'.";
         assert tosignInBtn != null : "fx:id=\"tosignInBtn\" was not injected: check your FXML file 'HomePanel.fxml'.";
+        usernameLabel.setText("Hello " + SysData.getInstance().getUsername());
 
         try{
             pnlChoosedPage.getChildren().clear();

@@ -1,5 +1,6 @@
 package com.knights_move.ui_controllers;
 
+import com.knights_move.model.SysData;
 import com.knights_move.view.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -71,6 +72,7 @@ public class ManagerPasswordPageController {
             // if password is correct, open main menu - manager
             if(passwordField.getText().equals("1234")){
                 try {
+                    SysData.getInstance().setUsername("Manager");
                     Parent root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("MainFrame.fxml")));
                     Stage stage = (Stage) managerLoginBtn.getScene().getWindow();
                     stage.setScene(new Scene(root));
