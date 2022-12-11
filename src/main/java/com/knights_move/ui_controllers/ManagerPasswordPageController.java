@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,6 +24,9 @@ public class ManagerPasswordPageController {
 
     @FXML
     private URL location;
+
+    @FXML
+    private Text message;
 
     @FXML
     private Button backBtn;
@@ -61,22 +65,31 @@ public class ManagerPasswordPageController {
             stage.close();
         });
 
+
         managerLoginBtn.setOnAction(event -> {
             // manager password is 1234
+            // if password is correct, open main menu - manager
             if(passwordField.getText().equals("1234")){
                 try {
-                    Parent root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("ManagerPage.fxml")));
+                    Parent root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("MainFrame.fxml")));
                     Stage stage = (Stage) managerLoginBtn.getScene().getWindow();
                     stage.setScene(new Scene(root));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }// if pass is incorrect, show error message
+            else {
+                message.setText("Incorrect password!");
+                message.setStyle("-fx-fill: red");
+                System.out.println("Wrong password");
             }
+
+        });
+        backBtn.setOnAction(event -> {
             try {
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/MainFrame.fxml")));
+                Parent root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("LoginPage.fxml")));
                 Stage stage = (Stage) managerLoginBtn.getScene().getWindow();
                 stage.setScene(new Scene(root));
-                stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }

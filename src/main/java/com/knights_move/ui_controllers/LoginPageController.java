@@ -12,12 +12,12 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class LoginPageController {
 
     @FXML
     private Button LoginBtn;
+
 
     @FXML
     private TextField UsernameField;
@@ -54,7 +54,7 @@ public class LoginPageController {
             // TODO fix manager password window on correct credentials
             if(UsernameField.getText().equals("manager")){
                 try {
-                    Parent root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("ManagerPasswordPage.fxml")));
+                    Parent root = FXMLLoader.load(HelloApplication.class.getResource("ManagerPasswordPage.fxml"));
                     Stage stage = (Stage) LoginBtn.getScene().getWindow();
                     stage.setScene(new Scene(root));
                 } catch (IOException e) {
@@ -62,10 +62,9 @@ public class LoginPageController {
                 }
             }
 
-
             else
                 try {
-                    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/MainFrame.fxml")));
+                    Parent root = FXMLLoader.load(HelloApplication.class.getResource("/com/knights_move/view/MainFrame.fxml"));
                     Stage stage = (Stage) LoginBtn.getScene().getWindow();
                     stage.setScene(new Scene(root));
                     stage.show();

@@ -1,10 +1,14 @@
 package com.knights_move.ui_controllers;
 
+import com.knights_move.view.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -20,6 +24,8 @@ public class HomeController {
     @FXML
     private Button historyBtn;
 
+    @FXML
+    private Label usernameLabel;
     @FXML
     private Button onboardingBtn;
 
@@ -85,6 +91,15 @@ public class HomeController {
         exitBtn.setOnAction(event -> {
             Stage stage = (Stage) exitBtn.getScene().getWindow();
             stage.close();
+        });
+        signOutBtn.setOnAction(event ->{
+            try {
+                Parent root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("LoginPage.fxml")));
+                Stage stage = (Stage) signOutBtn.getScene().getWindow();
+                stage.setScene(new Scene(root));
+            } catch (IOException err) {
+                err.printStackTrace();
+            }
         });
     }
 
