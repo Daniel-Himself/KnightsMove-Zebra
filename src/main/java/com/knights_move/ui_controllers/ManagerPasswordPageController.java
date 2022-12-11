@@ -2,13 +2,13 @@ package com.knights_move.ui_controllers;
 
 import com.knights_move.model.SysData;
 import com.knights_move.view.HelloApplication;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -48,11 +48,6 @@ public class ManagerPasswordPageController {
     private Pane pnlChoosedPage;
 
     @FXML
-    void handleButtonClick(ActionEvent event) {
-
-    }
-
-    @FXML
     void initialize() {
         assert backBtn != null : "fx:id=\"backBtn\" was not injected: check your FXML file 'ManagerPasswordPage.fxml'.";
         assert exitBtn != null : "fx:id=\"exitBtn\" was not injected: check your FXML file 'ManagerPasswordPage.fxml'.";
@@ -66,27 +61,17 @@ public class ManagerPasswordPageController {
             stage.close();
         });
 
+        // enter key acts as a login button
+        passwordField.setOnKeyPressed( event -> {
+            if( event.getCode() == KeyCode.ENTER ) {
+                managerLoginLogic();
+            }
+        } );
 
         managerLoginBtn.setOnAction(event -> {
-            // manager password is 1234
-            // if password is correct, open main menu - manager
-            if(passwordField.getText().equals("1234")){
-                try {
-                    SysData.getInstance().setUsername("Manager");
-                    Parent root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("MainFrame.fxml")));
-                    Stage stage = (Stage) managerLoginBtn.getScene().getWindow();
-                    stage.setScene(new Scene(root));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }// if pass is incorrect, show error message
-            else {
-                message.setText("Incorrect password!");
-                message.setStyle("-fx-fill: red");
-                System.out.println("Wrong password");
-            }
-
+            managerLoginLogic();
         });
+
         backBtn.setOnAction(event -> {
             try {
                 Parent root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("LoginPage.fxml")));
@@ -96,6 +81,26 @@ public class ManagerPasswordPageController {
                 e.printStackTrace();
             }
         });
+    }
+
+    private void managerLoginLogic() {
+        // manager password is both 1234 and 'm'
+        if(passwordField.getText().equals("1234") || passwordField.getText().equals("m")) {
+            try {
+                SysData.getInstance().setUsername("Manager");
+                Parent root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("MainFrame.fxml")));
+                Stage stage = (Stage) managerLoginBtn.getScene().getWindow();
+                stage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }// if pass is incorrect, show error message
+        else {
+            message.setText("Incorrect password!");
+            message.setStyle("-fx-fill: red");
+            System.out.println("Wrong password");
+        }
+
     }
 
 }
