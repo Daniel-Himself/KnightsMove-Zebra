@@ -22,7 +22,7 @@ public class Answer {
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content=content;
     }
 
     @Override

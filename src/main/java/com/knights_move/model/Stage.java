@@ -12,6 +12,11 @@ public class Stage {
         this.numOfForgottenTiles = numOfForgottenTiles;
         this.figures = new ArrayList<>();
     }
+
+    public Stage() {
+
+    }
+
     public int getStageNum() {
         return stageNum;
     }

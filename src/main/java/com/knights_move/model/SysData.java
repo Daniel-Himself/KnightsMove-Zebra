@@ -11,8 +11,8 @@ import java.util.List;
 
 public class SysData {
     private static SysData instance=null;
-    ArrayList<Game> games;
-    ArrayList<Question> questions;
+    private  ArrayList<Game> games;
+    private  ArrayList<Question> questions;
 
     //singleton constructor
     public static SysData getInstance()
@@ -39,9 +39,8 @@ public class SysData {
     public void setGames(ArrayList<Game> games) {
         this.games = games;
     }
-    public ArrayList<Question> getQuestions() {
-        return this.questions;
-    }
+    public ArrayList<Question> getQuestions() { return this.questions;}
+
     public void setQuestions(ArrayList<Question> questions) {this.questions = questions;}
 
     /**
@@ -60,6 +59,18 @@ public class SysData {
 
         }
     }
+    /**
+     * return question by quesId, return null if there is no questions with this qusId
+     */
+    public Question getQuestionByName(String quesId)
+    {
+        for(Question question:this.questions)
+        {
+            if(question.getQuesId().compareTo(quesId)==0)
+                return question;
+        }
+        return null;
+    }
 
     /**loads the questions data from the json file,deserlizable
      *
@@ -73,18 +84,19 @@ public class SysData {
             return false;
         }
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader(".\\lib\\QuestionsFormat.json")) {
+        try (FileReader reader = new FileReader(file)) {
             //read json file
             Object obj = jsonParser.parse(reader);
             //getting questions array from JSON object
             JSONArray quesArray= (JSONArray) ((JSONObject)obj).get("questions");
-            for (Object object :quesArray ) {
-                Question question=new Question();
-                if(this.questions==null)
-                {
-                    this.questions=new ArrayList<>();
+            if(quesArray!=null) {
+                for (Object object : quesArray) {
+                    Question question = new Question();
+                    if (this.questions == null) {
+                        this.questions = new ArrayList<>();
+                    }
+                    this.questions.add(question.fromJsonQuestion((JSONObject) object));
                 }
-                this.questions.add(question.fromJsonQuestion((JSONObject)object));
             }
             return true;
         }
