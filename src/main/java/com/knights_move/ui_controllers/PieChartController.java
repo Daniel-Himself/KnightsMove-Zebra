@@ -33,7 +33,7 @@ public class PieChartController extends Application {
 
     public void initialize (URL url, ResourceBundle rbl) {
         assert piePanel != null : "fx:id=\"piePanel\" was not injected: check your FXML file 'PieChart.fxml'.";
-
+    //
         try{
             pnlChoosedPage.getChildren().clear();
             Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/HomePanel.fxml")));
