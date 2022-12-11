@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.controller.QuestionAnswerController">
+<AnchorPane  styleClass="body" stylesheets="@design.scss" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.controller.QuestionAnswerController">
    <children>
       <TableView fx:id="TableView_Question" layoutX="24.0" layoutY="74.0" prefHeight="258.0" prefWidth="550.0">
          <columns>

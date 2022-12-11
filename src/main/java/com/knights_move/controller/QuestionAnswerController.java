@@ -6,7 +6,9 @@ import com.knights_move.view.HelloApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -21,7 +23,7 @@ import java.util.ResourceBundle;
 
 public class QuestionAnswerController  implements Initializable {
 
-    public class NewQuestion
+    public static class NewQuestion
     {
         private String quesID;
         ArrayList<Answer> answers;
@@ -76,6 +78,17 @@ public class QuestionAnswerController  implements Initializable {
 
         public void setTeamNick(String teamNick) {
             this.teamNick = teamNick;
+        }
+
+        @Override
+        public String toString() {
+            return "NewQuestion{" +
+                    "quesID='" + quesID + '\'' +
+                    ", answers=" + answers +
+                    ", correct_answerID=" + correct_answerID +
+                    ", level=" + level +
+                    ", teamNick='" + teamNick + '\'' +
+                    '}';
         }
     }
 
@@ -140,8 +153,14 @@ public class QuestionAnswerController  implements Initializable {
             try{
                 AddQuestionController.setEditMode(true);
                 if(!TableView_Question.getSelectionModel().isEmpty()) {
-                    NewQuestion selected = TableView_Question.getSelectionModel().getSelectedItem();
-                    HelloApplication.loadPage("AddQuestion.fxml?quesId="+selected.quesID);
+                    NewQuestion newQuestion=TableView_Question.getSelectionModel().getSelectedItem();
+                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("AddQuestion.fxml"));
+                    HelloApplication.parent = loader.load();
+                    loader.getController();
+                    Scene scene = new Scene(HelloApplication.parent);
+                    HelloApplication.stage.setScene(scene);
+                    HelloApplication.stage.setUserData(newQuestion);
+                    HelloApplication.stage.show();
                 }
                 else {
                     HelloApplication.alertWarning("Warning","please click on a row");

@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -16,6 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -75,10 +77,11 @@ public class AnswersController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         getAllAnswer();
         initTable();
         button_save.setOnAction(e->{
-           save();
+          save();
         });
     }
     //method return all the answer in system

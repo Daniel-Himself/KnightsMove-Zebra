@@ -3,16 +3,20 @@ import com.knights_move.model.Answer;
 import com.knights_move.model.Question;
 import com.knights_move.model.SysData;
 import com.knights_move.view.HelloApplication;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,6 +25,8 @@ import java.util.ResourceBundle;
 
 public class AddQuestionController implements Initializable {
 
+    @FXML
+    private AnchorPane ap;
     @FXML
     private Button addTeam;
 
@@ -77,14 +83,45 @@ public class AddQuestionController implements Initializable {
         EditMode = editMode;
     }
 
+    QuestionAnswerController.NewQuestion newQuestion;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+//        ArrayList<Answer> arrayAnswer= new ArrayList<>();
+//        Answer a= new Answer("a");
+//        Answer b= new Answer("b");
+//        Answer c= new Answer("c");
+//        Answer d= new Answer("d");
+//        arrayAnswer.add(a);
+//        arrayAnswer.add(b);
+//        arrayAnswer.add(c);
+//        arrayAnswer.add(d);
+//
+//        QuestionAnswerController.NewQuestion newQuestion= new QuestionAnswerController.NewQuestion("qu1",arrayAnswer,3,3,"noa");
+        ap.addEventHandler(MouseEvent.MOUSE_PRESSED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        receiveData(mouseEvent);
+
+                    }
+        });
         initTeam();
         initCorrectAnswer();
         initlevel();
 
+       if(EditMode)
+       {
+           text_question.setText(newQuestion.getQuesID());
+           combo_answer1.getSelectionModel().select(newQuestion.getAnswers().get(0).getContent());
+           combo_answer2.getSelectionModel().select(newQuestion.getAnswers().get(1).getContent());
+           combo_answer3.getSelectionModel().select(newQuestion.getAnswers().get(2).getContent());
+           combo_answer4.getSelectionModel().select(newQuestion.getAnswers().get(3).getContent());
+           combo_correctAns.getSelectionModel().select(newQuestion.getCorrect_answerID());
+           combo_level.getSelectionModel().select(String.valueOf(newQuestion.getLevel()));
+           combo_Team.getSelectionModel().select(String.valueOf(newQuestion.getTeamNick()));
+       }
         button_save.setOnAction(e->{
-            //insertNewRow();
+            insertNewRow();
         });
 
         button_new_answer1.setOnAction(e->{
@@ -112,8 +149,13 @@ public class AddQuestionController implements Initializable {
         combo_answer4.setOnMouseClicked(e->{
             initAnswer();
         });
+}
+    private  void receiveData(MouseEvent e) {
+        Node node = (Node) e.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+       this.newQuestion = (QuestionAnswerController.NewQuestion) stage.getUserData();
+       System.out.println(newQuestion);
     }
-
     public void initlevel() {
         combo_level.getSelectionModel().clearSelection();
         List<String> levelList = new ArrayList<String>();
@@ -156,10 +198,6 @@ public class AddQuestionController implements Initializable {
     }
     private void initAnswer()
     {
-        combo_answer1.getSelectionModel().clearSelection();
-        combo_answer2.getSelectionModel().clearSelection();
-        combo_answer3.getSelectionModel().clearSelection();
-        combo_answer4.getSelectionModel().clearSelection();
 
         if(AnswersController.getAllAnswer()!=null){
             if(!(AnswersController.getAllAnswer().isEmpty())) {
@@ -189,56 +227,41 @@ public class AddQuestionController implements Initializable {
         }
 
     }
-//    public void insertNewRow()
-//    {
-//
-//        if(getEditMode())
-//        {
-//            String quesId=" "
-//            Question question =SysData.getInstance().getQuestionByName(quesId);
-//            text_question.setText(question.getQuesId());
-//            combo_answer1.setValue((question.getAnswers().get(1).getContent()));
-//            combo_answer2.setValue(question.getAnswers().get(2).getContent());
-//            combo_answer3.setValue(question.getAnswers().get(3).getContent());
-//            combo_answer4.setValue(question.getAnswers().get(4).getContent());
-//            combo_correctAns.setValue(String.valueOf(question.getCorrect_answerID()));
-//            combo_level.setValue(String.valueOf(question.getLevel()));
-//            combo_Team.setValue(question.getTeamNick());
-//        }
-//            String questionId = this.text_question.getText();
-//            ArrayList<Answer> answer = new ArrayList<>();
-//            Answer a1 = new Answer(combo_answer1.getSelectionModel().getSelectedItem());
-//            Answer a2 = new Answer(combo_answer1.getSelectionModel().getSelectedItem());
-//            Answer a3 = new Answer(combo_answer1.getSelectionModel().getSelectedItem());
-//            Answer a4 = new Answer(combo_answer1.getSelectionModel().getSelectedItem());
-//            answer.add(a1);
-//            answer.add(a2);
-//            answer.add(a3);
-//            answer.add(a4);
-//            int correct_ans = Integer.valueOf(this.combo_correctAns.getSelectionModel().getSelectedItem());
-//            int level = Integer.valueOf((this.combo_level.getSelectionModel().getSelectedItem()));
-//            String team = this.combo_Team.getSelectionModel().getSelectedItem();
-//            //check if the questions exist
-//            if(EditMode==false) {
-//                if (SysData.getInstance().getQuestions() != null && !(SysData.getInstance().getQuestions().isEmpty())) {
-//                    if (SysData.getInstance().getQuestionByName(questionId) != null) {
-//                        HelloApplication.alertError("Error", "This questions content exist");
-//                    } else {
-//                        Question newQuestion = new Question(questionId, answer, correct_ans, level, team);
-//                        SysData.getInstance().getQuestions().add(newQuestion);
-//                    }
-//                }
-//            }
-//            else if(EditMode){
-//                Question q= SysData.getInstance().getQuestionByName(quesId);
-//                q.setQuesId(questionId);
-//                q.setAnswers(answer);
-//                q.setCorrect_answerID(correct_ans);
-//                q.setLevel(level);
-//                q.setTeamNick(team);
-//            }
-//        }
-//
-
+    public void insertNewRow()
+    {
+            String questionId = this.text_question.getText();
+            ArrayList<Answer> answer = new ArrayList<>();
+            Answer a1 = new Answer(combo_answer1.getSelectionModel().getSelectedItem());
+            Answer a2 = new Answer(combo_answer2.getSelectionModel().getSelectedItem());
+            Answer a3 = new Answer(combo_answer3.getSelectionModel().getSelectedItem());
+            Answer a4 = new Answer(combo_answer4.getSelectionModel().getSelectedItem());
+            answer.add(a1);
+            answer.add(a2);
+            answer.add(a3);
+            answer.add(a4);
+            int correct_ans = Integer.valueOf(this.combo_correctAns.getSelectionModel().getSelectedItem());
+            int level = Integer.valueOf((this.combo_level.getSelectionModel().getSelectedItem()));
+            String team = this.combo_Team.getSelectionModel().getSelectedItem();
+            //check if the questions exist
+            if(EditMode==false) {
+                if (SysData.getInstance().getQuestions() != null && !(SysData.getInstance().getQuestions().isEmpty())) {
+                    if (SysData.getInstance().getQuestionByName(questionId) != null) {
+                        HelloApplication.alertError("Error", "This questions content exist");
+                    } else {
+                        Question newQuestion = new Question(questionId, answer, correct_ans, level, team);
+                        SysData.getInstance().getQuestions().add(newQuestion);
+                        System.out.println(SysData.getInstance().getQuestions());
+                    }
+                }
+            }
+            else if(EditMode==true){
+                Question q= SysData.getInstance().getQuestionByName(newQuestion.getQuesID());
+                q.setQuesId(questionId);
+                q.setAnswers(answer);
+                q.setCorrect_answerID(correct_ans);
+                q.setLevel(level);
+                q.setTeamNick(team);
+            }
+        }
 }
 
