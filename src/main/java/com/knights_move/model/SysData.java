@@ -7,14 +7,13 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 
 
 public class SysData {
     private static SysData instance=null;
     ArrayList<Game> games;
     ArrayList<Question> questions;
+    private String username; // a string that holds the username of the current user
 
     //singleton constructor
     public static SysData getInstance()
@@ -33,6 +32,13 @@ public class SysData {
             }
         }
         return instance;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public ArrayList<Game> getGames() {
@@ -256,7 +262,3 @@ public class SysData {
         else
             return questionByLevel;
     }
-}
-
-
-
