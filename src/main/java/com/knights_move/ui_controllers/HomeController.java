@@ -64,6 +64,20 @@ public class HomeController {
         assert tosignInBtn != null : "fx:id=\"tosignInBtn\" was not injected: check your FXML file 'HomePanel.fxml'.";
         usernameLabel.setText("Hello " + SysData.getInstance().getUsername());
 
+        exitBtn.setOnAction(event -> {
+            Stage stage = (Stage) exitBtn.getScene().getWindow();
+            stage.close();
+        });
+        signOutBtn.setOnAction(event ->{
+            try {
+                Parent root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("LoginPage.fxml")));
+                Stage stage = (Stage) signOutBtn.getScene().getWindow();
+                stage.setScene(new Scene(root));
+            } catch (IOException err) {
+                err.printStackTrace();
+            }
+        });
+
         try{
             pnlChoosedPage.getChildren().clear();
             Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/HomePanel.fxml")));
@@ -90,19 +104,7 @@ public class HomeController {
         if(e.getSource() == homeBtn){
             initialize();
         }
-        exitBtn.setOnAction(event -> {
-            Stage stage = (Stage) exitBtn.getScene().getWindow();
-            stage.close();
-        });
-        signOutBtn.setOnAction(event ->{
-            try {
-                Parent root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("LoginPage.fxml")));
-                Stage stage = (Stage) signOutBtn.getScene().getWindow();
-                stage.setScene(new Scene(root));
-            } catch (IOException err) {
-                err.printStackTrace();
-            }
-        });
+
     }
 
     @FXML
