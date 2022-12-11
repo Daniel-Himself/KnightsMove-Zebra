@@ -194,6 +194,38 @@ public class SysData {
     }
 
     //return questions by level for pie chart
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public  HashMap<Integer, Question> getQuestionByLevel(int level) {
         if(questions.isEmpty())
             return null;
