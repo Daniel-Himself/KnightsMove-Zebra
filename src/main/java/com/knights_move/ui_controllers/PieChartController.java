@@ -45,7 +45,7 @@ public class PieChartController extends Application {
     }
     @Override public void start(Stage stage) {
         Scene scene = new Scene(new Group());
-        stage.setTitle("Imported Fruits");
+        stage.setTitle("Questions By Level");
         stage.setWidth(500);
         stage.setHeight(500);
 
