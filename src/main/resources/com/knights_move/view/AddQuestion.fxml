@@ -55,42 +55,42 @@
             <ComboBox fx:id="combo_answer3" layoutX="210.0" layoutY="163.0" prefWidth="150.0" />
             <ComboBox fx:id="combo_answer4" layoutX="210.0" layoutY="201.0" prefWidth="150.0" />
             <ComboBox fx:id="combo_correctAns" layoutX="210.0" layoutY="239.0" prefHeight="26.0" prefWidth="150.0" promptText="Correct Ans" />
-            <Label layoutX="22.0" layoutY="87.0" prefHeight="26.0" prefWidth="126.0" text="first Question">
+            <Label layoutX="82.0" layoutY="74.0" prefHeight="26.0" prefWidth="126.0" text="First answer">
                <font>
                   <Font name="Lucida Calligraphy Italic" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="22.0" layoutY="162.0" prefHeight="26.0" prefWidth="126.0" text="third question">
+            <Label layoutX="85.0" layoutY="162.0" prefHeight="26.0" prefWidth="126.0" text="Third answer">
                <font>
                   <Font name="Lucida Calligraphy Italic" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="22.0" layoutY="118.0" prefHeight="26.0" prefWidth="126.0" text="second question">
+            <Label layoutX="82.0" layoutY="119.0" prefHeight="26.0" prefWidth="126.0" text="Second answer">
                <font>
                   <Font name="Lucida Calligraphy Italic" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="22.0" layoutY="200.0" prefHeight="26.0" prefWidth="126.0" text="Fourth question">
+            <Label layoutX="82.0" layoutY="201.0" prefHeight="26.0" prefWidth="126.0" text="Fourth answer">
                <font>
                   <Font name="Lucida Calligraphy Italic" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="22.0" layoutY="239.0" prefHeight="26.0" prefWidth="126.0" text="correct Answer">
+            <Label layoutX="85.0" layoutY="239.0" prefHeight="26.0" prefWidth="126.0" text="Correct answer">
                <font>
                   <Font name="Lucida Calligraphy Italic" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="22.0" layoutY="282.0" prefHeight="26.0" prefWidth="126.0" text="Level of Question">
+            <Label layoutX="82.0" layoutY="282.0" prefHeight="26.0" prefWidth="126.0" text="Level of question">
                <font>
                   <Font name="Lucida Calligraphy Italic" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="22.0" layoutY="314.0" prefHeight="26.0" prefWidth="126.0" text="team">
+            <Label layoutX="85.0" layoutY="314.0" prefHeight="26.0" prefWidth="126.0" text="Team name">
                <font>
                   <Font name="Lucida Calligraphy Italic" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="22.0" layoutY="51.0" prefHeight="26.0" prefWidth="126.0" text="Question content">
+            <Label layoutX="82.0" layoutY="39.0" prefHeight="26.0" prefWidth="126.0" text="Question content">
                <font>
                   <Font name="Lucida Calligraphy Italic" size="12.0" />
                </font>

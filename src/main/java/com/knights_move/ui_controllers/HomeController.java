@@ -26,6 +26,9 @@ public class HomeController {
     private Button historyBtn;
 
     @FXML
+    private Button pieChartBtn;
+
+    @FXML
     private Label usernameLabel;
     @FXML
     private Button onboardingBtn;
@@ -101,6 +104,9 @@ public class HomeController {
         if(e.getSource() == rulesBtn){
             initMenuItems(e);
         }
+        if(e.getSource() == pieChartBtn){
+            initMenuItems(e);
+        }
         if(e.getSource() == homeBtn){
             initialize();
         }
@@ -148,6 +154,15 @@ public class HomeController {
             try{
                 pnlChoosedPage.getChildren().clear();
                 Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/Rules.fxml")));
+                pnlChoosedPage.getChildren().add(node);
+            } catch(IOException | NullPointerException ex){
+                System.out.println(ex.getMessage());
+            }
+        }
+        if(e.getSource() == pieChartBtn){
+            try{
+                pnlChoosedPage.getChildren().clear();
+                Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/PieChart.fxml")));
                 pnlChoosedPage.getChildren().add(node);
             } catch(IOException | NullPointerException ex){
                 System.out.println(ex.getMessage());

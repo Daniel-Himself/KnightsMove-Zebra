@@ -1,8 +1,8 @@
 package com.knights_move.controller;
+
 import com.knights_move.model.Answer;
 import com.knights_move.model.Question;
 import com.knights_move.model.SysData;
-import com.knights_move.ui_controllers.HomeController;
 import com.knights_move.view.HelloApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -143,7 +144,7 @@ public class AddQuestionController implements Initializable {
             initAnswer();
         });
         button_back.setOnAction(e->{
-            HelloApplication.loadPage("QA.fxml");
+            HelloApplication.loadPage("MainFrame.fxml");
         });
 }
     private  void receiveData(MouseEvent e) {
@@ -262,4 +263,3 @@ public class AddQuestionController implements Initializable {
             }
         }
 }
-

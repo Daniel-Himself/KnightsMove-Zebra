@@ -1,4 +1,5 @@
 package com.knights_move.model;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -6,7 +7,6 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 
@@ -216,28 +216,40 @@ public class SysData {
         throw new RuntimeException(e);
     }
 }
-    public HashMap<Integer, Question> getQuestionByLevel(int level) {
-        if(questions.isEmpty())
-            return null;
-        else {
-            Collections.sort(questions, (q1, q2) -> (q1.getLevel() > q2.getLevel()) ? 1 : 0);
-        }
-        HashMap<Integer, Question> questionByLevel = new HashMap<>();
+    public HashMap<Integer, ArrayList<Question>> getQuestionByLevel(int level) {
+        System.out.println(questions);
+//        if(questions.isEmpty())
+//            return null;
+//        else {
+//            Collections.sort(questions, (q1, q2) -> (q1.getLevel() > q2.getLevel()) ? 1 : 0);
+//        }
+        HashMap<Integer, ArrayList<Question>> questionByLevel = new HashMap<>();
         if (level == 1) {
             for (Question q : questions) {
-                if (q.getLevel() == 1)
-                    questionByLevel.put(q.getLevel(), q);
+                ArrayList<Question> questionList = new ArrayList<>();
+                if (q.getLevel() == 1) {
+                    questionList.add(q);
+                    questionByLevel.put(q.getLevel(), questionList);
+                }
+                
             }
+//            System.out.println(questionByLevel.get(1).size());
         }
         if (level == 2) {
             for (Question q : questions) {
-                if (q.getLevel() == 2)
-                    questionByLevel.put(q.getLevel(), q);
+                ArrayList<Question> questionList = new ArrayList<>();
+                if (q.getLevel() == 2) {
+                    questionList.add(q);
+                    questionByLevel.put(q.getLevel(), questionList);
+                }
             }
         } else {
             for (Question q : questions) {
-                if (q.getLevel() == 3)
-                    questionByLevel.put(q.getLevel(), q);
+                ArrayList<Question> questionList = new ArrayList<>();
+                if (q.getLevel() == 3) {
+                    questionList.add(q);
+                    questionByLevel.put(q.getLevel(), questionList);
+                }
             }
         }
         if(questionByLevel.isEmpty())
