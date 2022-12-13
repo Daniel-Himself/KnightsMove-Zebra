@@ -1,12 +1,12 @@
 package com.knights_move.model;
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -140,5 +140,16 @@ public class Question {
                 ", level=" + level +
                 ", teamNick='" + teamNick + '\'' +
                 '}';
+    }
+
+    public ArrayList<String> returnContent()
+    {
+        ArrayList<String> content= new ArrayList<>();
+        for (int i=0;i<answers.size();i++)
+        {
+            content.add(answers.get(i).getContent());
+        }
+        return content;
+
     }
 }

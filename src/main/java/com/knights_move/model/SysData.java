@@ -15,6 +15,8 @@ public class SysData {
     private static SysData instance=null;
     private  ArrayList<Game> games;
     private  ArrayList<Question> questions;
+    private String username; // a string that holds the username of the current user
+
 
     //singleton constructor
     public static SysData getInstance()
@@ -27,12 +29,20 @@ public class SysData {
             if(instance.DesJsonGame()&&instance.DesJsonQuestions())
             {
                 System.out.println("the objects loaded successfully from file!");
-           }
+            }
             else{
                 System.out.println("there is an Error");
             }
         }
         return instance;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public ArrayList<Game> getGames() {
@@ -197,7 +207,7 @@ public class SysData {
 
                 questionList.add(questionObj);
                 System.out.println("json"+question);
-          }
+            }
             listJson.put("questions",questionList);
             file.write(listJson.toJSONString());
             file.flush();
@@ -238,4 +248,4 @@ public class SysData {
     }
 
 
- }
+}
