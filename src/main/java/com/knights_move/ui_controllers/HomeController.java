@@ -138,7 +138,7 @@ public class HomeController {
         if(e.getSource() == qaBtn){
             try{
                 pnlChoosedPage.getChildren().clear();
-                Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/QuestionsAnswers.fxml")));
+                Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/QA.fxml")));
                 pnlChoosedPage.getChildren().add(node);
             } catch(IOException | NullPointerException ex){
                 System.out.println(ex.getMessage());

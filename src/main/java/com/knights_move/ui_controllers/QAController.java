@@ -62,14 +62,14 @@ public class QAController {
 
     @FXML
     void initialize() {
-        assert answACol != null : "fx:id=\"answACol\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
-        assert answBCol != null : "fx:id=\"answBCol\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
-        assert answCCol != null : "fx:id=\"answCCol\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
-        assert answDCol != null : "fx:id=\"answDCol\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
-        assert manageQuestTab != null : "fx:id=\"manageQuestTab\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
-        assert pnlQuestions != null : "fx:id=\"pnlQuestions\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
-        assert qATab != null : "fx:id=\"qATab\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
-        assert questionCol != null : "fx:id=\"questionCol\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
-        assert questionsTab != null : "fx:id=\"questionsTab\" was not injected: check your FXML file 'QuestionsAnswers.fxml'.";
+        assert answACol != null : "fx:id=\"answACol\" was not injected: check your FXML file 'QA.fxml'.";
+        assert answBCol != null : "fx:id=\"answBCol\" was not injected: check your FXML file 'QA.fxml'.";
+        assert answCCol != null : "fx:id=\"answCCol\" was not injected: check your FXML file 'QA.fxml'.";
+        assert answDCol != null : "fx:id=\"answDCol\" was not injected: check your FXML file 'QA.fxml'.";
+        assert manageQuestTab != null : "fx:id=\"manageQuestTab\" was not injected: check your FXML file 'QA.fxml'.";
+        assert pnlQuestions != null : "fx:id=\"pnlQuestions\" was not injected: check your FXML file 'QA.fxml'.";
+        assert qATab != null : "fx:id=\"qATab\" was not injected: check your FXML file 'QA.fxml'.";
+        assert questionCol != null : "fx:id=\"questionCol\" was not injected: check your FXML file 'QA.fxml'.";
+        assert questionsTab != null : "fx:id=\"questionsTab\" was not injected: check your FXML file 'QA.fxml'.";
     }
 }
