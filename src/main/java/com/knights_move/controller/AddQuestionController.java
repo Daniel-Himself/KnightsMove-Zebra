@@ -2,6 +2,7 @@ package com.knights_move.controller;
 import com.knights_move.model.Answer;
 import com.knights_move.model.Question;
 import com.knights_move.model.SysData;
+import com.knights_move.ui_controllers.HomeController;
 import com.knights_move.view.HelloApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -73,6 +74,9 @@ public class AddQuestionController implements Initializable {
 
     @FXML
     private TextField text_question;
+    @FXML
+    private Button button_back;
+
 
     private static boolean EditMode=false;
     public static boolean getEditMode() {
@@ -137,6 +141,9 @@ public class AddQuestionController implements Initializable {
         });
         combo_answer4.setOnMouseClicked(e->{
             initAnswer();
+        });
+        button_back.setOnAction(e->{
+            HelloApplication.loadPage("QA.fxml");
         });
 }
     private  void receiveData(MouseEvent e) {
