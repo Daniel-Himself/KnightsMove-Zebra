@@ -1,6 +1,14 @@
 package com.knights_move.ui_controllers;
 
 import javafx.fxml.FXML;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import com.knights_move.view.HelloApplication;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -8,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.stage.Stage;
 
 public class HistoryController {
 

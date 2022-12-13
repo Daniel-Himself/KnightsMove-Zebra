@@ -207,6 +207,9 @@ public class SysData {
 
                 questionList.add(questionObj);
                 System.out.println("json"+question);
+          }
+            listJson.put("questions",questionList);
+                System.out.println("json"+question);
             }
             listJson.put("questions",questionList);
             file.write(listJson.toJSONString());
