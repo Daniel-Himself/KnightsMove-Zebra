@@ -136,6 +136,7 @@ public class QuestionAnswerController  implements Initializable {
 
     @FXML
     private Label label_title;
+    private static boolean deleteMode=false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -181,7 +182,10 @@ public class QuestionAnswerController  implements Initializable {
     }
     private void initTable()
     {
-        SysData.getInstance().DesJsonQuestions();
+        TableView_Question.getItems().clear();
+        if(deleteMode==false) {
+            SysData.getInstance().DesJsonQuestions();
+        }
         column_question.setCellValueFactory(new PropertyValueFactory<>("quesID"));
         column_answer1.setCellValueFactory(new PropertyValueFactory<>("answers"));
         column_correctAns.setCellValueFactory(new PropertyValueFactory<>("correct_answerID"));
@@ -200,6 +204,7 @@ public class QuestionAnswerController  implements Initializable {
     }
     public void deleteQuestion()
     {
+        deleteMode=true;
         NewQuestion selected=TableView_Question.getSelectionModel().getSelectedItem();
         String quesId=selected.getQuesID();
         ArrayList<Question> questions=SysData.getInstance().getQuestions();
@@ -207,6 +212,7 @@ public class QuestionAnswerController  implements Initializable {
         SysData.getInstance().setQuestions(questions);
         SysData.getInstance().serJsonQuestion();
         initTable();
+
     }
 
 }

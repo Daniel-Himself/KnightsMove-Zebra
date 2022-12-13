@@ -219,11 +219,14 @@ public class QAController implements Initializable {
             insertNewRow();
         });
         button_delete.setOnAction(e->{
+            System.out.println("heyyy");
             deleteQuestion();
         });
     }
     private void initTable()
     {
+        System.out.println("heyyykkkkkkkkkk");
+
         column_question.setCellValueFactory(new PropertyValueFactory<>("Question"));
         column_answer1.setCellValueFactory(new PropertyValueFactory<>("Answer1"));
         column_answer2.setCellValueFactory(new PropertyValueFactory<>("Answer2"));
@@ -249,8 +252,8 @@ public class QAController implements Initializable {
         ArrayList<Question> questions=SysData.getInstance().getQuestions();
         questions.remove(SysData.getInstance().getQuestionByName(quesId));
         SysData.getInstance().setQuestions(questions);
-        initTable();
-
+        System.out.println("heiii");
+        System.out.println(SysData.getInstance().getQuestions());
     }
     public String editQuestion()
     {
