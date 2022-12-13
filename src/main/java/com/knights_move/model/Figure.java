@@ -6,12 +6,18 @@ public class Figure {
     private String typeOfFigure;
     private int speedRate;
 
-    public Figure(int figureId, Position position, String typeOfFigure, int speedRate) {
+    /*public Figure(int figureId, Position position, String typeOfFigure, int speedRate) {
         this.figureId = figureId;
         this.position = position;
         this.typeOfFigure = typeOfFigure;
         this.speedRate = speedRate;
+    }*/
+    public Figure(int figureId, Position position, int speedRate) {
+        this.figureId = figureId;
+        this.position = position;
+        this.speedRate = speedRate;
     }
+
 
     public int getFigureId() {
         return figureId;
@@ -29,13 +35,13 @@ public class Figure {
         this.position = position;
     }
 
-    public String getTypeOfFigure() {
+    /*public String getTypeOfFigure() {
         return typeOfFigure;
     }
 
     public void setTypeOfFigure(String typeOfFigure) {
         this.typeOfFigure = typeOfFigure;
-    }
+    }*/
 
     public int getSpeedRate() {
         return speedRate;

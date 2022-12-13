@@ -1,16 +1,18 @@
 package com.knights_move.model;
-import javafx.geometry.Pos;
-import org.codehaus.jackson.JsonParseException;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+
 import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
-import java.util.*;
 
 public class Game {
     private int gameID;
@@ -66,23 +68,28 @@ public class Game {
                 ", question=" + question +
                 '}';
     }
-
+    //using Factory Design Pattern
     public List<Figure> initFigureInStage(int stageNumber){
         try {
             //init the position of figures At the beginning of the stage
-            Position p = new Position(0,0);
-            Figure horse = new Figure(1, p,"horse", 0);
+            /*Position p = new Position(0,0);
+            Figure horse = new Figure(1, p,"horse", 0);*/
+            FigureFactory figureFactory = new FigureFactory();
+            Figure horse = (Figure) figureFactory.getFigure("horse");
+            //System.out.println(horse);
             List<Figure> listOfFigures = new ArrayList<>();
             listOfFigures.add(horse);
 
             if(stageNumber >= 1 && stageNumber <=2){
-                Position p2 = new Position(63,63);
-                Figure queen = new Figure(3, p2,"queen", 0);
+                /*Position p2 = new Position(63,63);
+                Figure queen = new Figure(3, p2,"queen", 0);*/
+                Figure queen = (Figure) figureFactory.getFigure("queen");
                 listOfFigures.add(queen);
             }
             else {
-                Position p1 = new Position(63,63);
-                Figure king = new Figure(2, p1,"king", 0);
+                /*Position p1 = new Position(63,63);
+                Figure king = new Figure(2, p1,"king", 0);*/
+                Figure king = (Figure) figureFactory.getFigure("king");
                 listOfFigures.add(king);
             }
             return listOfFigures;
@@ -223,5 +230,6 @@ public class Game {
             throw new RuntimeException(e);
         }
     }
+
 
 }
