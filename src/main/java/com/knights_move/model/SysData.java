@@ -1,5 +1,4 @@
 package com.knights_move.model;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -9,6 +8,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+
 
 
 public class SysData {
@@ -209,17 +209,14 @@ public class SysData {
                 System.out.println("json"+question);
           }
             listJson.put("questions",questionList);
-                System.out.println("json"+question);
-            }
-            listJson.put("questions",questionList);
             file.write(listJson.toJSONString());
             file.flush();
 
-            return true;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return true;
+    } catch (IOException e) {
+        throw new RuntimeException(e);
     }
+}
     public HashMap<Integer, Question> getQuestionByLevel(int level) {
         if(questions.isEmpty())
             return null;

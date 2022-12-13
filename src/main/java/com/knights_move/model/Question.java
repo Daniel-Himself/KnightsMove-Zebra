@@ -152,15 +152,4 @@ public class Question {
                 ", teamNick='" + teamNick + '\'' +
                 '}';
     }
-
-    public ArrayList<String> returnContent()
-    {
-        ArrayList<String> content= new ArrayList<>();
-        for (int i=0;i<answers.size();i++)
-        {
-            content.add(answers.get(i).getContent());
-        }
-        return content;
-
-    }
 }
