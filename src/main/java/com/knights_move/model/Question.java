@@ -36,7 +36,16 @@ public class Question {
 
     }
 
+    public ArrayList<String> returnContent()
+    {
+        ArrayList<String> content= new ArrayList<>();
+        for (int i=0;i<answers.size();i++)
+        {
+                content.add(answers.get(i).getContent());
+        }
+        return content;
 
+    }
     public String getQuesId() {
         return this.quesID;
     }
@@ -79,6 +88,7 @@ public class Question {
 
     public Question fromJsonQuestion(JSONObject questionJson)
     {
+
         JSONArray arrayAnswerJson=(JSONArray)questionJson.get("answers");
         ArrayList<Answer> answerArray=new ArrayList<Answer>();
         for(Object obj:arrayAnswerJson)

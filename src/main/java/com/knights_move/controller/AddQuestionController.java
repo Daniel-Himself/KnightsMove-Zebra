@@ -17,7 +17,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,22 +85,23 @@ public class AddQuestionController implements Initializable {
     QuestionAnswerController.NewQuestion newQuestion;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        ArrayList<Answer> arrayAnswer= new ArrayList<>();
-//        Answer a= new Answer("a");
-//        Answer b= new Answer("b");
-//        Answer c= new Answer("c");
-//        Answer d= new Answer("d");
-//        arrayAnswer.add(a);
-//        arrayAnswer.add(b);
-//        arrayAnswer.add(c);
-//        arrayAnswer.add(d);
-//
-//        QuestionAnswerController.NewQuestion newQuestion= new QuestionAnswerController.NewQuestion("qu1",arrayAnswer,3,3,"noa");
+
         ap.addEventHandler(MouseEvent.MOUSE_PRESSED,
                 new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
                         receiveData(mouseEvent);
+                        if(EditMode)
+                        {
+                            text_question.setText(newQuestion.getQuesID());
+                            combo_answer1.getSelectionModel().select(newQuestion.getAnswers().get(0).getContent());
+                            combo_answer2.getSelectionModel().select(newQuestion.getAnswers().get(1).getContent());
+                            combo_answer3.getSelectionModel().select(newQuestion.getAnswers().get(2).getContent());
+                            combo_answer4.getSelectionModel().select(newQuestion.getAnswers().get(3).getContent());
+                            combo_correctAns.getSelectionModel().select(newQuestion.getCorrect_answerID());
+                            combo_level.getSelectionModel().select(String.valueOf(newQuestion.getLevel()));
+                            combo_Team.getSelectionModel().select(String.valueOf(newQuestion.getTeamNick()));
+                        }
 
                     }
         });
@@ -109,17 +109,6 @@ public class AddQuestionController implements Initializable {
         initCorrectAnswer();
         initlevel();
 
-       if(EditMode)
-       {
-           text_question.setText(newQuestion.getQuesID());
-           combo_answer1.getSelectionModel().select(newQuestion.getAnswers().get(0).getContent());
-           combo_answer2.getSelectionModel().select(newQuestion.getAnswers().get(1).getContent());
-           combo_answer3.getSelectionModel().select(newQuestion.getAnswers().get(2).getContent());
-           combo_answer4.getSelectionModel().select(newQuestion.getAnswers().get(3).getContent());
-           combo_correctAns.getSelectionModel().select(newQuestion.getCorrect_answerID());
-           combo_level.getSelectionModel().select(String.valueOf(newQuestion.getLevel()));
-           combo_Team.getSelectionModel().select(String.valueOf(newQuestion.getTeamNick()));
-       }
         button_save.setOnAction(e->{
             insertNewRow();
         });
@@ -154,7 +143,7 @@ public class AddQuestionController implements Initializable {
         Node node = (Node) e.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
        this.newQuestion = (QuestionAnswerController.NewQuestion) stage.getUserData();
-       System.out.println(newQuestion);
+
     }
     public void initlevel() {
         combo_level.getSelectionModel().clearSelection();
@@ -250,6 +239,7 @@ public class AddQuestionController implements Initializable {
                     } else {
                         Question newQuestion = new Question(questionId, answer, correct_ans, level, team);
                         SysData.getInstance().getQuestions().add(newQuestion);
+                        SysData.getInstance().serJsonQuestion();
                         System.out.println(SysData.getInstance().getQuestions());
                     }
                 }
@@ -261,6 +251,7 @@ public class AddQuestionController implements Initializable {
                 q.setCorrect_answerID(correct_ans);
                 q.setLevel(level);
                 q.setTeamNick(team);
+                HelloApplication.alertSuccesful("Successful","the question is up to date");
             }
         }
 }

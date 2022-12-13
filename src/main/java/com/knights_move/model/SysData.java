@@ -180,20 +180,23 @@ public class SysData {
     {
         try(FileWriter file=new FileWriter(".\\lib\\QuestionsFormat.json")){
             //we can write any JSONArray or JSONobject instance to the file
-            JSONObject questionObj=new JSONObject();
+            //JSONObject questionObj=new JSONObject();
             JSONArray questionList=new JSONArray();
             JSONObject listJson=new JSONObject();
 
-            for (Question question:questions) {
+            for (Question question:this.getQuestions()) {
+                JSONObject questionObj=new JSONObject();
+
                 questionObj.put("question", question.getQuesId());
-                questionObj.put("answers", question.getAnswers().toString());
+                questionObj.put("answers", question.returnContent());
                 questionObj.put("correct_ans", question.getCorrect_answerID());
                 questionObj.put("level", question.getLevel());
                 questionObj.put("team", question.getTeamNick());
 
                 questionList.add(questionObj);
+                System.out.println("json"+question);
           }
-            listJson.put("question",questionList);
+            listJson.put("questions",questionList);
             file.write(listJson.toJSONString());
             file.flush();
 
