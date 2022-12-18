@@ -1,7 +1,7 @@
 package com.knights_move.model;
 
-public class king extends Figure implements FigureInterface{
-    public king(int figureId, Position position, int speedRate) {
+public class King extends Figure implements FigureInterface{
+    public King(int figureId, Position position, int speedRate) {
         super(figureId, position, speedRate);
     }
     //need to complete

@@ -12,7 +12,24 @@ AnchorPane{
 {
     -fx-background-image: url(horse.png)
 }
+.whiteTile
+{
+    -fx-background-color: #f7f7f7
+}
+.whiteTile:hover
+{
+    -fx-border-color: #e81e64
+}
 
+
+.greenTile
+{
+    -fx-background-color: #5ccec3
+}
+.greenTile:hover
+{
+    -fx-border-color: #e81e64
+}
 .button
 {
     -fx-background-color: #424242

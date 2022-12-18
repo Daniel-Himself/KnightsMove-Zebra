@@ -61,7 +61,9 @@ public class Board {
         return Collections.unmodifiableList(visitedTile);
     }
 
-
+    public List<Tile> getEmptyTilesList() {
+        return emptyTile;
+    }
 
     public List<Tile> getEmptyTile() {
         return Collections.unmodifiableList(emptyTile);

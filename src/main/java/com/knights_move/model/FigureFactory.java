@@ -12,12 +12,12 @@ public class FigureFactory {
         }
 
         else if(figureType.equalsIgnoreCase("KING")){
-            Position p1 = new Position(63,63);
-            return new king(2 ,p1 ,0);
+            Position p1 = new Position(7,7);
+            return new King(3 ,p1 ,0);
         }
         else if(figureType.equalsIgnoreCase("QUEEN")) {
-            Position p3 = new Position(63,63);
-            return new Queen(3, p3, 0);
+            Position p3 = new Position(7,7);
+            return new Queen(2, p3, 0);
         }
 
         return null;
