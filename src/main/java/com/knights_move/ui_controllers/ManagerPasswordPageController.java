@@ -14,17 +14,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 public class ManagerPasswordPageController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Text message;
@@ -68,9 +60,7 @@ public class ManagerPasswordPageController {
             }
         } );
 
-        managerLoginBtn.setOnAction(event -> {
-            managerLoginLogic();
-        });
+        managerLoginBtn.setOnAction(event -> managerLoginLogic());
 
         backBtn.setOnAction(event -> {
             try {
@@ -96,7 +86,7 @@ public class ManagerPasswordPageController {
             }
         }// if pass is incorrect, show error message
         else {
-            message.setText("Incorrect password!");
+            message.setText("Incorrect password! (Correct password is '1234')");
             message.setStyle("-fx-fill: red");
             System.out.println("Wrong password");
         }
