@@ -116,6 +116,8 @@ public class PlayController {
     }
 
     private void initGrid(){
+        FigureFactory figureFactory = new FigureFactory();
+        Figure horse = (Figure) figureFactory.getFigure("horse");
         board = new Board(1, 0, 0, null, new ArrayList<Tile>(), null, null);
         stage = new Stage(1, 0, 0, null);
         game = new Game(1, board, stage, null);
@@ -146,9 +148,8 @@ public class PlayController {
                     button.setGraphic(queenImg);
                     button.getStyleClass().add("vbox");
                 }
-                button.setId(String.valueOf(i)+","+String.valueOf(j));
+                button.setId(i +","+ j);
                 boardGrid.add(button, j, i);
-  //              System.out.println(button.idProperty());
                 count++;
             }
 
@@ -173,7 +174,6 @@ public class PlayController {
             turn--;
         }
         button.getStyleClass().add("vbox");
-        //boardGrid.getChildren().add(horseImg,button.)
         System.out.println("button "+button.getId());
     }
 
