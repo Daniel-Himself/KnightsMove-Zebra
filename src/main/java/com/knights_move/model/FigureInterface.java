@@ -1,7 +1,7 @@
 package com.knights_move.model;
 
 public interface FigureInterface {
-    public void move();
+    public Position move(Position a, Position b);
 
 
 }

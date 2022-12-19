@@ -6,7 +6,9 @@ public class King extends Figure implements FigureInterface{
     }
     //need to complete
     @Override
-    public void move() {
+    public Position move(Position a, Position b) {
         System.out.println("king");
+        Position position = null; //TODO need to complete
+        return position;
     }
 }

@@ -12,8 +12,8 @@ public class FigureFactory {
         }
 
         else if(figureType.equalsIgnoreCase("KING")){
-            Position p1 = new Position(7,7);
-            return new King(3 ,p1 ,0);
+            Position p1 = new Position(63,63);
+            return new King(2 ,p1 ,0);
         }
         else if(figureType.equalsIgnoreCase("QUEEN")) {
             Position p3 = new Position(7,7);
