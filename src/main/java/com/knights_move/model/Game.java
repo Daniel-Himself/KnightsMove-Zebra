@@ -9,26 +9,86 @@ import org.json.simple.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class Game {
     private int gameID;
     private Board gameBoard;
-    private Stage stageGame;
     private List<Question> question;
+    private HashMap<Game, Integer> scoreInGame;
+    private String userName;
+    private LocalDateTime startTime;
+    private LocalDateTime finishTime;
+    private int currentLevelScore;
+    private int totalScoreInGame;
+    private Boolean award;
 
-    public Game(int gameID, Board gameBoard, Stage stageGame, List<Question> question) {
+
+    public Game(int gameID, Board gameBoard, List<Question> question) {
         this.gameID = gameID;
         this.gameBoard = gameBoard;
-        this.stageGame = stageGame;
         this.question = new ArrayList<>();
     }
 
     public Game() {
 
+    }
+
+    public void setQuestion(List<Question> question) {
+        this.question = question;
+    }
+
+    public void setScoreInGame(HashMap<Game, Integer> scoreInGame) {
+        this.scoreInGame = scoreInGame;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setFinishTime(LocalDateTime finishTime) {
+        this.finishTime = finishTime;
+    }
+
+    public void setCurrentLevelScore(int currentLevelScore) {
+        this.currentLevelScore = currentLevelScore;
+    }
+
+    public void setTotalScoreInGame(int totalScoreInGame) {
+        this.totalScoreInGame = totalScoreInGame;
+    }
+
+    public void setAward(Boolean award) {
+        this.award = award;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalDateTime getFinishTime() {
+        return finishTime;
+    }
+
+    public int getCurrentLevelScore() {
+        return currentLevelScore;
+    }
+
+    public int getTotalScoreInGame() {
+        return totalScoreInGame;
+    }
+
+    public Boolean getAward() {
+        return award;
     }
 
     public int getGameID() {
@@ -47,14 +107,6 @@ public class Game {
         this.gameBoard = gameBoard;
     }
 
-    public Stage getStageGame() {
-        return stageGame;
-    }
-
-    public void setStageGame(Stage stageGame) {
-        this.stageGame = stageGame;
-    }
-
     public List<Question> getQuestion() {
         return Collections.unmodifiableList(question);
     }
@@ -64,7 +116,6 @@ public class Game {
         return "Game{" +
                 "gameID=" + gameID +
                 ", gameBoard=" + gameBoard +
-                ", stageGame=" + stageGame +
                 ", question=" + question +
                 '}';
     }
@@ -180,6 +231,98 @@ public class Game {
         }
 
     }
+
+    public HashMap<Game, Integer> getScoreInGame() {
+        return scoreInGame;
+    }
+
+    //save user scores by game
+    public boolean addScoreOfPlayer (Game game, int totalGrade){
+        try {
+            if(game != null && totalGrade != -1 && !scoreInGame.containsKey(game)){
+                scoreInGame.put(game,totalGrade);
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
+    public boolean addTotalScore() {
+        try {
+            if (currentLevelScore != -1) {
+                totalScoreInGame += currentLevelScore;
+                boolean result = this.addScoreOfPlayer(this, totalScoreInGame);
+                if (result)
+                    return true;
+                else
+                    return false;
+            } else
+                return false;
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //init game -> stage one
+    public void initGame(){
+        try {
+            setStartTime(java.time.LocalDateTime.now());
+            HashMap<Integer, HashMap<Position, Tile>> tilesPositionInBoard = new HashMap<>();
+            //Board b = new Board(game.getGameID(),tilesPositionInBoard);
+            //the func returns list of init positions.
+            Position[] positionList = this.getGameBoard().initPosition();
+            int sizeOfBoard = 64;
+            Tile[] tileList = new Tile[sizeOfBoard];
+            // init empty tile
+            for(int i = 0; i < sizeOfBoard ; i++){
+                for (Position p: positionList) {
+                    tileList[i] = new Tile(p, TypeTile.EMPTY, Color.WHITE, false);
+                    this.getGameBoard().addEmptyTile(tileList[i]);
+                }
+
+            }
+            System.out.print("position list" + positionList);
+            System.out.print("tile List" + tileList);
+            //init with first stage
+            Board boardOfGame = this.setSpecialTilesInLevel(1, this.getGameBoard());
+
+            List<Figure> figurePosition = this.initFigureInStage(1);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    public boolean finishStageInGame() {
+        try {
+            if(startTime != null && finishTime != null) {
+                if(finishTime.getMinute() - startTime.getMinute() >= 1 || currentLevelScore >= 15) {
+                    currentLevelScore = 0;
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    //public boolean addPlayer()
+    //public removePlayer
+
+    //public int changeSpeed(){}
+
+
+
+
     public Game fromJson(JSONObject obj){
         JSONArray jsonArray=(JSONArray)((JSONObject)obj).get("questions");
         ArrayList<Question> quesArray= new ArrayList<>();
@@ -188,8 +331,7 @@ public class Game {
         }
         int gameID= (int) obj.get("gameID");
         Board Boardgame= (Board) obj.get("gameBoard");
-        Stage stageGame= (Stage) obj.get("stage");
-        Game game= new Game(gameID,Boardgame,stageGame,quesArray);
+        Game game= new Game(gameID,Boardgame,quesArray);
         return game;
     }
     /**

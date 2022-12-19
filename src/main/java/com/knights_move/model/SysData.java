@@ -172,7 +172,6 @@ public class SysData {
             for (Game game : games) {
                 gameobj.put("gameID", game.getGameID());
                 gameobj.put("gameBoard", game.getGameBoard());
-                gameobj.put("stage", game.getStageGame());
                 gameobj.put("question", game.getQuestion());
                 gamelist.add(gameobj);
             }

@@ -3,17 +3,15 @@ import java.util.*;
 
 public class Board {
     private int boardId;
-    private int height;
-    private int width;
+    private int numOfForgottenTiles;
     private List<Tile> visitedTile;
     private List<Tile> emptyTile;
     private HashMap<Integer,HashMap<Position,Tile>> tilesPositionInBoard;
     private HashMap<Position,Tile> tilePositions;
 
-    public Board(int boardId, int height, int width, List<Tile> visitedTile, List<Tile> emptyTile , HashMap<Integer,HashMap<Position,Tile>> tilesPositionInBoard, HashMap<Position, Tile> tilePositions) {
+    public Board(int boardId, int numOfForgottenTiles, List<Tile> visitedTile, List<Tile> emptyTile , HashMap<Integer,HashMap<Position,Tile>> tilesPositionInBoard, HashMap<Position, Tile> tilePositions) {
         this.boardId = boardId;
-        this.height = height;
-        this.width = width;
+        this.numOfForgottenTiles = numOfForgottenTiles;
         this.visitedTile = new ArrayList<>();
         this.emptyTile = new ArrayList<>();
         this.tilesPositionInBoard = new HashMap<>();
@@ -40,23 +38,6 @@ public class Board {
         return tilesPositionInBoard;
     }
 
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
     public List<Tile> getVisitedTile() {
         return Collections.unmodifiableList(visitedTile);
     }
@@ -73,8 +54,6 @@ public class Board {
     public String toString() {
         return "Board{" +
                 "boardId=" + boardId +
-                ", height=" + height +
-                ", width=" + width +
                 ", visitedTile=" + visitedTile +
                 ", emptyTile=" + emptyTile +
                 ", tilesPositionInBoard=" + tilesPositionInBoard +
