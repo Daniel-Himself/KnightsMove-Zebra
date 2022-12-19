@@ -59,14 +59,13 @@ public class PlayController {
     private int turn = 1;
 
     private int sec = 60;
-    Timeline timeline;
-    Game game;
-    Board board;
-    Tile tile;
-    Stage stage;
-    Horse horse;    /* fix with @Daniela how to build figures from factory */
-    Queen queen;    /* fix with @Daniela how to build figures from factory */
-    King king;      /* fix with @Daniela how to build figures from factory */
+    private Timeline timeline;
+    private Game game;
+    private Board board;
+    private Tile tile;
+    private Horse horse;    /* fix with @Daniela how to build figures from factory */
+    private Queen queen;    /* fix with @Daniela how to build figures from factory */
+    private King king;      /* fix with @Daniela how to build figures from factory */
     @FXML
     void initialize() {
         visible(true, true,true, true, true, true, false);
@@ -118,9 +117,8 @@ public class PlayController {
     private void initGrid(){
         FigureFactory figureFactory = new FigureFactory();
         Figure horse = (Figure) figureFactory.getFigure("horse");
-        board = new Board(1, 0, 0, null, new ArrayList<Tile>(), null, null);
-        stage = new Stage(1, 0, 0, null);
-        game = new Game(1, board, stage, null);
+        board = new Board(1, 0, null, new ArrayList<Tile>(), null, null);
+        game = new Game(1, board, null);
         int count = 0;
         double s = 38; // side of rectangle
         for (int i = 0; i < 8; i++) {
