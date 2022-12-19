@@ -39,6 +39,7 @@ public class Tile {
         this.isVisited = isVisited;
     }
 
+
     public Tile(Position tilePosition, TypeTile type, Color tileColor, boolean isVisited) {
         this.tilePosition = tilePosition;
 
