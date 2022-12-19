@@ -7,7 +7,6 @@ public class Queen extends Figure implements FigureInterface{
     //need to complete
 
     // Method to check if the queen can attack another piece at a given row and column on the board
-    // TODO unit test queen's canAttack method
     public boolean canAttack(Position queenPosition, Position opponentPosition) {
 
         int row = queenPosition.getY();
