@@ -16,7 +16,7 @@ import java.util.Map;
 public class SysData {
     private static SysData instance = null;
 
-    private HashMap<Player, ArrayList<Game>> playerAndgames;
+    private HashMap<Figure, ArrayList<Game>> playerAndgames;
     private ArrayList<Question> questions;
     private String username; // a string that holds the username of the current user
 
@@ -48,11 +48,11 @@ public class SysData {
         this.questions = questions;
     }
 
-    public HashMap<Player, ArrayList<Game>> getPlayerAndgames() {
+    public HashMap<Figure, ArrayList<Game>> getPlayerAndgames() {
         return playerAndgames;
     }
 
-    public void setPlayerAndgames(HashMap<Player, ArrayList<Game>> playerAndgames) {
+    public void setPlayerAndgames(HashMap<Figure, ArrayList<Game>> playerAndgames) {
         this.playerAndgames = playerAndgames;
     }
 
@@ -136,11 +136,12 @@ public class SysData {
             //read json file
             Object obj = jsonParser.parse(reader);
             //getting questions array from JSON object
-            JSONArray PlayersArray = ((JSONArray) (((JSONObject) obj).get("Players")));
-            for (Object object : PlayersArray) {
+            JSONArray playersArray = ((JSONArray) (((JSONObject) obj).get("Players")));
+            for (Object object : playersArray) {
                 //now we iterate through player and games
                 //get the player
-                Player player = new Player(((JSONObject) object).get("player").toString());
+                FigureFactory figureFactory = new FigureFactory();
+                Figure player = (Figure) figureFactory.getFigure("horse");
                 //get the games the player took part
                 JSONArray arrayGamesJson = (JSONArray) ((JSONObject) object).get("Games");
                 ArrayList<Game> gameOfCurrentPlayer = new ArrayList<Game>();
@@ -181,8 +182,8 @@ public class SysData {
             JSONArray playerlist = new JSONArray();
             JSONObject listPlayerJson = new JSONObject();
 
-            for (Map.Entry<Player, ArrayList<Game>> entry : playerAndgames.entrySet()) {
-                Player playerKey = entry.getKey();
+            for (Map.Entry<Figure, ArrayList<Game>> entry : playerAndgames.entrySet()) {
+                Figure playerKey = entry.getKey();
                 ArrayList<Game> gameValue = entry.getValue();
                 if (gameValue != null && !(gameValue.isEmpty())) {
                     JSONArray gamelist = new JSONArray();
