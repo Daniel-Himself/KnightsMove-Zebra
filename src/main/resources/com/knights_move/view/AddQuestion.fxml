@@ -8,7 +8,7 @@
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.controller.AddQuestionController">
    <Pane id="pane_top" fx:id="pane_top" prefHeight="42.0" prefWidth="600.0" style="-fx-background-color: #424242;">
       <Label fx:id="label_title" layoutX="8.0" layoutY="6.0" prefHeight="26.0" prefWidth="462.0"
-             text="Questions and Answers mangment page" textFill="#fffefe">
+             text="Questions and Answers management page" textFill="#fffefe">
          <font>
             <Font size="20.0"/>
          </font>
