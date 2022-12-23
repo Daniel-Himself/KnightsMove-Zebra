@@ -1,4 +1,4 @@
-package com.knights_move.ui_controllers;
+package com.knights_move.controller;
 
 import com.knights_move.model.SysData;
 import com.knights_move.view.HelloApplication;
@@ -50,9 +50,7 @@ public class LoginPageController {
             stage.close();
         });
 
-        LoginBtn.setOnAction(event -> {
-            loginLogic();
-        });
+        LoginBtn.setOnAction(event -> loginLogic());
 
         // Make the enter key act as a login button
         UsernameField.setOnKeyPressed( event -> {

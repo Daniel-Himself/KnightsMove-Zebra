@@ -1,4 +1,4 @@
-package com.knights_move.ui_controllers;
+package com.knights_move.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
