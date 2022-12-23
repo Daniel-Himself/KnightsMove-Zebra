@@ -1,10 +1,13 @@
 package com.knights_move.model;
 
-public class Figure {
+public abstract class Figure {
     private int figureId;
     private Position position;
     private String typeOfFigure;
     private int speedRate;
+    //todo - fix it cause no access to queens method move
+    public abstract Position move(Position a, Position b);
+
 
     /*public Figure(int figureId, Position position, String typeOfFigure, int speedRate) {
         this.figureId = figureId;

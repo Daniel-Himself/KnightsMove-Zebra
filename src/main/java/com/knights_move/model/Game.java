@@ -44,9 +44,6 @@ public class Game {
 
     }
 
-    public void setQuestion(List<Question> question) {
-        this.question = question;
-    }
 
     public void setScoreInGame(HashMap<Game, Integer> scoreInGame) {
         this.scoreInGame = scoreInGame;
@@ -122,13 +119,7 @@ public class Game {
         this.gameBoard = gameBoard;
     }
 
-    public Stage getStageGame() {
-        return stageGame;
-    }
 
-    public void setStageGame(Stage stageGame) {
-        this.stageGame = stageGame;
-    }
     public void setQuestion(List<Question> question) {
         this.question = question;
     }
@@ -142,8 +133,8 @@ public class Game {
         return "Game{" +
                 "gameID=" + gameID +
                 ", gameBoard=" + gameBoard +
-                ", question=" + question +
-                '}';
+                ", question=" + question;
+                }
     public LocalDate getDateOfGame() {
         return dateOfGame;
     }
@@ -265,16 +256,16 @@ public class Game {
 
     }
 
-        } catch (JsonMappingException e) {
-            throw new RuntimeException(e);
-        } catch (JsonParseException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return game;
-    }
-
+//        } catch (JsonMappingException e) {
+//            throw new RuntimeException(e);
+//        } catch (JsonParseException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return game;
+//    }
+//
 
 
 
