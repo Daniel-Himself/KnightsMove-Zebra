@@ -5,20 +5,20 @@ import com.knights_move.model.SysData;
 import com.knights_move.view.HelloApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class QuestionAnswerController  implements Initializable {
@@ -133,6 +133,8 @@ public class QuestionAnswerController  implements Initializable {
 
     @FXML
     private TableColumn<NewQuestion,String> column_team;
+    @FXML
+    private TextField keyWordsTextFiled;
 
     @FXML
     private Label label_title;
@@ -179,6 +181,41 @@ public class QuestionAnswerController  implements Initializable {
                 HelloApplication.alertWarning("Warning","please click on a row");
             }
         });
+
+        //create filter list where someone type in search
+        ObservableList<NewQuestion> observableListFilter=FXCollections.observableArrayList(getNewQuestionList());
+        FilteredList<NewQuestion> filteredDate= new FilteredList<>(observableListFilter, b->true);
+        keyWordsTextFiled.textProperty().addListener((observable, oldValue, newValue)->{
+            filteredDate.setPredicate(newQuestion->{
+                if(newValue==null||newValue.isEmpty()|| newValue.isBlank()){
+                    return true;
+                }
+                String searchKeyWord=newValue.toLowerCase();
+                if(newQuestion.getQuesID().toLowerCase().indexOf(searchKeyWord)>-1)
+                {
+                    return true;
+                }
+                else if(newQuestion.getTeamNick().toLowerCase().indexOf(searchKeyWord)>-1)
+                {
+                    return true;
+                }
+                else
+                    return false;
+
+            });
+        } );
+        SortedList<NewQuestion> sortedList= new SortedList<>(filteredDate);
+        sortedList.comparatorProperty().bind(TableView_Question.comparatorProperty());
+        TableView_Question.setItems(sortedList);
+    }
+    public ArrayList<NewQuestion> getNewQuestionList() {
+        ArrayList<NewQuestion> newQuestionsList = new ArrayList<>();
+        if (SysData.getInstance().getQuestions() != null && !(SysData.getInstance().getQuestions().isEmpty())) {
+            for (Question q : SysData.getInstance().getQuestions()) {
+                newQuestionsList.add(new NewQuestion(q.getQuesId(), q.getAnswers(), q.getCorrect_answerID(), q.getLevel(), q.getTeamNick()));
+            }
+        }
+        return newQuestionsList;
     }
     private void initTable()
     {
@@ -192,15 +229,10 @@ public class QuestionAnswerController  implements Initializable {
         column_level.setCellValueFactory(new PropertyValueFactory<>("level"));
         column_team.setCellValueFactory(new PropertyValueFactory<>("teamNick"));
 
-        List<NewQuestion> newQuestionsList= new ArrayList<>();
-        if( SysData.getInstance().getQuestions()!=null&& !(SysData.getInstance().getQuestions().isEmpty())) {
-            for (Question q : SysData.getInstance().getQuestions()) {
-                newQuestionsList.add(new NewQuestion(q.getQuesId(), q.getAnswers(), q.getCorrect_answerID(), q.getLevel(), q.getTeamNick()));
-            }
-            ObservableList<NewQuestion> observableList = FXCollections.observableArrayList(newQuestionsList);
-            TableView_Question.setItems(observableList);
+        ObservableList<NewQuestion> observableList = FXCollections.observableArrayList(getNewQuestionList());
+        TableView_Question.setItems(observableList);
 
-        }
+
     }
     public void deleteQuestion()
     {

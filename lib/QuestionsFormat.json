@@ -1,1 +1,28 @@
-{"questions":[{"question":"q1","level":1,"answers":["answer1","answer2","answer3","answer4"],"team":"animal","correct_ans":2},{"question":"q2","level":2,"answers":["answer1","answer2","answer3","answer4"],"team":"animal","correct_ans":1},{"question":"q1","level":1,"answers":["answer1","answer2","answer3","answer4"],"team":"animal","correct_ans":2},{"question":"q2","level":2,"answers":["answer1","answer2","answer3","answer4"],"team":"animal","correct_ans":1},{"question":"bla bla","level":3,"answers":["answer2","answer4","answer2","answer4"],"team":"animal","correct_ans":4},{"question":"q1","level":1,"answers":["answer1","answer2","answer3","answer4"],"team":"animal","correct_ans":2},{"question":"q2","level":2,"answers":["answer1","answer2","answer3","answer4"],"team":"animal","correct_ans":1},{"question":"q1","level":1,"answers":["answer1","answer2","answer3","answer4"],"team":"animal","correct_ans":2},{"question":"q2","level":2,"answers":["answer1","answer2","answer3","answer4"],"team":"animal","correct_ans":1},{"question":"bla bla","level":3,"answers":["answer2","answer4","answer2","answer4"],"team":"animal","correct_ans":4},{"question":"19.12.22","level":3,"answers":["answer2","answer3","answer4","answer4"],"team":"animal","correct_ans":2}]}
+{
+  "questions":[
+    {
+      "question": "q1",
+      "answers": [
+        "answer1",
+        "answer2",
+        "answer3",
+        "answer4"
+      ],
+      "correct_ans": "2",
+      "level": "1",
+      "team": "animal"
+    },
+    {
+      "question": "q2",
+      "answers": [
+        "answer1",
+        "answer2",
+        "answer3",
+        "answer4"
+      ],
+      "correct_ans": "1",
+      "level": "2",
+      "team": "animal"
+    }
+  ]
+}

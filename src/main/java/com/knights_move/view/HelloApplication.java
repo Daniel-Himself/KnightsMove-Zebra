@@ -20,7 +20,6 @@ public class HelloApplication extends Application {
 
         try {
             SysData sysData = SysData.getInstance();
-            sysData.DesJsonQuestions();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginPage.fxml"));
             parent = loader.load();
             scene = new Scene(parent, 800,600);
