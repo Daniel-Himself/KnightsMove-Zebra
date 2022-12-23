@@ -6,33 +6,28 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.util.Map;
 
 
 public class SysData {
-    private static SysData instance=null;
-    private  ArrayList<Game> games;
-    private  ArrayList<Question> questions;
+    private static SysData instance = null;
+
+    private HashMap<Player, ArrayList<Game>> playerAndgames;
+    private ArrayList<Question> questions;
     private String username; // a string that holds the username of the current user
 
 
     //singleton constructor
-    public static SysData getInstance()
-    {
-        if(instance==null)
-        {
+    public static SysData getInstance() {
+        if (instance == null) {
             // crate a singleton instance
-            instance=new SysData();
-
-            if(instance.DesJsonGame()&&instance.DesJsonQuestions())
-            {
-                System.out.println("the objects loaded successfully from file!");
-            }
-            else{
-                System.out.println("there is an Error");
-            }
+            instance = new SysData();
+            instance.DesJsonQuestions();
+            instance.DesJsonGame();
         }
         return instance;
     }
@@ -45,63 +40,68 @@ public class SysData {
         this.username = username;
     }
 
-    public ArrayList<Game> getGames() {
-        return this.games;
+    public ArrayList<Question> getQuestions() {
+        return this.questions;
     }
-    public void setGames(ArrayList<Game> games) {
-        this.games = games;
-    }
-    public ArrayList<Question> getQuestions() { return this.questions;}
 
-    public void setQuestions(ArrayList<Question> questions) {this.questions = questions;}
+    public void setQuestions(ArrayList<Question> questions) {
+        this.questions = questions;
+    }
+
+    public HashMap<Player, ArrayList<Game>> getPlayerAndgames() {
+        return playerAndgames;
+    }
+
+    public void setPlayerAndgames(HashMap<Player, ArrayList<Game>> playerAndgames) {
+        this.playerAndgames = playerAndgames;
+    }
 
     /**
      * save the system data
+     *
      * @return true if system data was saves successfully and false other
      */
-    public boolean save()
-    {
-        try{
+    public boolean save() {
+        try {
             serJsonQuestion();
             serJsonGames();
             return true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
 
         }
     }
+
     /**
      * return question by quesId, return null if there is no questions with this qusId
      */
-    public Question getQuestionByName(String quesId)
-    {
-        for(Question question:this.questions)
-        {
-            if(question.getQuesId().compareTo(quesId)==0)
+    public Question getQuestionByName(String quesId) {
+        for (Question question : this.questions) {
+            if (question.getQuesId().compareTo(quesId) == 0)
                 return question;
         }
         return null;
     }
 
-    /**loads the questions data from the json file,deserlizable
+    /**
+     * loads the questions data from the json file,deserlizable
      *
      * @return true if the json question file  loaded to arraylist
      */
 
-    public boolean DesJsonQuestions() {
-        File file=new File(".\\lib\\QuestionsFormat.json");
-        if(file.length()==0) {
+    public void DesJsonQuestions() {
+        File file = new File(".\\lib\\QuestionsFormat.json");
+        if (file.length() == 0) {
             System.out.println("the file is empty");
-            return false;
+            return;
         }
         JSONParser jsonParser = new JSONParser();
         try (FileReader reader = new FileReader(file)) {
             //read json file
             Object obj = jsonParser.parse(reader);
             //getting questions array from JSON object
-            JSONArray quesArray= (JSONArray) ((JSONObject)obj).get("questions");
-            if(quesArray!=null) {
+            JSONArray quesArray = (JSONArray) ((JSONObject) obj).get("questions");
+            if (quesArray != null) {
                 for (Object object : quesArray) {
                     Question question = new Question();
                     if (this.questions == null) {
@@ -110,9 +110,7 @@ public class SysData {
                     this.questions.add(question.fromJsonQuestion((JSONObject) object));
                 }
             }
-            return true;
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -120,34 +118,48 @@ public class SysData {
             throw new RuntimeException(e);
         }
     }
-    /**loads the Game data from the json file,deserlizable
+
+    /**
+     * loads the Game data from the json file,deserlizable
      *
      * @return true if the json question file  loaded to arraylist
      */
 
-    public boolean DesJsonGame() {
-        File file=new File(".\\lib\\Games.json");
-        if(file.length()==0)
-        {
+    public void DesJsonGame() {
+        File file = new File(".\\lib\\Games.json");
+        if (file.length() == 0) {
             System.out.println("the file is empty");
-            return false;
+            return;
         }
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("Games.json")) {
+        try (FileReader reader = new FileReader(file)) {
             //read json file
             Object obj = jsonParser.parse(reader);
             //getting questions array from JSON object
-            JSONArray questionsArray = ((JSONArray) (((JSONObject) obj).get("Games")));
-            for (Object object : questionsArray) {
-                Game game= new Game();
-                if(this.games==null)
-                {
-                    this.games=new ArrayList<>();
+            JSONArray PlayersArray = ((JSONArray) (((JSONObject) obj).get("Players")));
+            for (Object object : PlayersArray) {
+                //now we iterate through player and games
+                //get the player
+                Player player = new Player(((JSONObject) object).get("player").toString());
+                //get the games the player took part
+                JSONArray arrayGamesJson = (JSONArray) ((JSONObject) object).get("Games");
+                ArrayList<Game> gameOfCurrentPlayer = new ArrayList<Game>();
+                //we iterate through json object
+                for (Object games : arrayGamesJson) {
+                    int gameID = Integer.valueOf (((JSONObject) games).get("gameId").toString());
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+                    LocalDate dateOfGame = LocalDate.parse((((JSONObject) games).get("DateOfGame").toString()),formatter);
+                    int position = Integer.valueOf(((JSONObject) games).get("position").toString());
+                    Game newGame = new Game(gameID, dateOfGame,position);
+                    gameOfCurrentPlayer.add(newGame);
                 }
-                this.games.add(game.fromJson((JSONObject) object));
-
+                if(this.playerAndgames==null)
+                {
+                    playerAndgames=new HashMap<>();
+                }
+                playerAndgames.put(player, gameOfCurrentPlayer);
+                System.out.println(playerAndgames.toString());
             }
-            return true;
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -159,32 +171,44 @@ public class SysData {
 
     /**
      * write arraylist to json games file, return true if its succeded
+     *
      * @return
      */
-    public boolean serJsonGames()
-    {
-        try(FileWriter file=new FileWriter("Games.json")){
+    public boolean serJsonGames() {
+        try (FileWriter file = new FileWriter(".\\lib\\Games.json")) {
             //we can write any JSONArray or JSONobject instance to the file
-            JSONObject gameobj=new JSONObject();
-            JSONArray gamelist=new JSONArray();
-            JSONObject listJson=new JSONObject();
+            JSONObject playerObj = new JSONObject();
+            JSONArray playerlist = new JSONArray();
+            JSONObject listPlayerJson = new JSONObject();
 
-            for (Game game : games) {
-                gameobj.put("gameID", game.getGameID());
-                gameobj.put("gameBoard", game.getGameBoard());
-                gameobj.put("stage", game.getStageGame());
-                gameobj.put("question", game.getQuestion());
-                gamelist.add(gameobj);
+            for (Map.Entry<Player, ArrayList<Game>> entry : playerAndgames.entrySet()) {
+                Player playerKey = entry.getKey();
+                ArrayList<Game> gameValue = entry.getValue();
+                if (gameValue != null && !(gameValue.isEmpty())) {
+                    JSONArray gamelist = new JSONArray();
+                    for (Game game : gameValue) {
+                        JSONObject gameobj = new JSONObject();
+                        gameobj.put("gameId", game.getGameID());
+                        gameobj.put("DateOfGame", game.getDateOfGame());
+                        gameobj.put("position", game.getPosition());
+
+                        gamelist.add(gameobj);
+                    }
+                    playerObj.put("player", playerKey);
+                    playerObj.put("Games", gamelist);
+
+                    playerlist.add(playerObj);
+                }
             }
-            listJson.put("Game",gamelist);
-            file.write(listJson.toJSONString());
+            listPlayerJson.put("Players", playerlist);
+            file.write(listPlayerJson.toJSONString());
             file.flush();
             return true;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    /**
+        /**
      * write arraylist to json Question file, return true if its succeded
      * @return
      */

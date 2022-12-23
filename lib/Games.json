@@ -1,0 +1,35 @@
+{
+  "Players": [
+    {
+      "player": "noa",
+      "Games": [
+        {
+          "gameId": "1",
+          "DateOfGame": "16/08/2016",
+          "position": "2"
+        },
+        {
+          "gameId": "2",
+          "DateOfGame": "16/08/2016",
+          "position": "1"
+        }
+      ]
+    },
+    {
+      "player": "daniel",
+      "Games": [
+        {
+          "gameId": "1",
+          "DateOfGame": "16/08/2016",
+          "position": "1"
+        },
+        {
+          "gameId": "1",
+          "DateOfGame": "16/08/2016",
+          "position": "3"
+        }
+      ]
+    }
+  ]
+}
+
