@@ -1,5 +1,7 @@
 package com.knights_move.model;
 
+import java.util.List;
+
 public class King extends Figure implements FigureInterface{
     public King(int figureId, Position position, int speedRate) {
         super(figureId, position, speedRate);

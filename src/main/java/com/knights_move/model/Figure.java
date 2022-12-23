@@ -1,5 +1,8 @@
 package com.knights_move.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Figure {
     private int figureId;
     private Position position;
@@ -62,5 +65,28 @@ public abstract class Figure {
                 ", typeOfFigure='" + typeOfFigure + '\'' +
                 ", speedRate=" + speedRate +
                 '}';
+    }
+
+    public List<Position> horseOptions(Position position) {
+        List<Position> optionList = new ArrayList<>();
+        int x = position.getX();
+        int y = position.getY();
+        if(validPosition(new Position(x + 1, y + 2))) optionList.add(new Position(x + 1, y + 2));
+        if(validPosition(new Position(x + 1, y - 2))) optionList.add(new Position(x + 1, y - 2));
+        if(validPosition(new Position(x - 1, y + 2))) optionList.add(new Position(x - 1, y + 2));
+        if(validPosition(new Position(x - 1, y - 2))) optionList.add(new Position(x - 1, y - 2));
+        if(validPosition(new Position(x + 2, y - 1))) optionList.add(new Position(x + 2, y - 1));
+        if(validPosition(new Position(x + 2, y + 1))) optionList.add(new Position(x + 2, y + 1));
+        if(validPosition(new Position(x - 2, y - 1))) optionList.add(new Position(x - 2, y - 1));
+        if(validPosition(new Position(x - 2, y + 1))) optionList.add(new Position(x - 2, y + 1));
+        return optionList;
+    }
+    private boolean validPosition(Position p){
+        int x = p.getX();
+        int y = p.getY();
+        if(x <= 7 && x >= 0 && y <= 7 && y >= 0){
+            return  true;
+        }
+        return false;
     }
 }
