@@ -1,4 +1,5 @@
 package com.knights_move.controller;
+
 import com.knights_move.model.Answer;
 import com.knights_move.model.Question;
 import com.knights_move.model.SysData;
@@ -14,15 +15,66 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class QuestionAnswerController  implements Initializable {
+public class QuestionAnswerController implements Initializable {
 
-    public static class NewQuestion
-    {
+    @FXML
+    private ImageView image_add;
+
+    @FXML
+    private Text message;
+
+    @FXML
+    private ImageView image_delete;
+
+    @FXML
+    private ImageView image_edit;
+    @FXML
+    private Button button_delete;
+
+    @FXML
+    private Button button_edit;
+
+    @FXML
+    private Button button_save;
+    @FXML
+    private TableView<QuestionAnswerController.NewQuestion> TableView_Question;
+    @FXML
+    private TableColumn<NewQuestion,String> column_answer1;
+
+    @FXML
+    private TableColumn<Answer, String> column_answer2;
+
+    @FXML
+    private TableColumn<NewQuestion,String> column_answer3;
+
+    @FXML
+    private TableColumn<NewQuestion,String> column_answer4;
+
+    @FXML
+    private TableColumn<NewQuestion,String> column_correctAns;
+
+    @FXML
+    private TableColumn<NewQuestion,String> column_level;
+
+    @FXML
+    private TableColumn<NewQuestion,String> column_question;
+
+    @FXML
+    private TableColumn<NewQuestion,String> column_team;
+    @FXML
+    private TextField keyWordsTextFiled;
+
+    @FXML
+    private Label label_title;
+    private static boolean deleteMode=false;
+
+    public static class NewQuestion {
         private String quesID;
         ArrayList<Answer> answers;
         private int correct_answerID;
@@ -90,54 +142,6 @@ public class QuestionAnswerController  implements Initializable {
         }
     }
 
-    @FXML
-    private ImageView image_add;
-
-    @FXML
-    private ImageView image_delete;
-
-    @FXML
-    private ImageView image_edit;
-    @FXML
-    private Button button_delete;
-
-    @FXML
-    private Button button_edit;
-
-    @FXML
-    private Button button_save;
-    @FXML
-    private TableView<QuestionAnswerController.NewQuestion> TableView_Question;
-    @FXML
-    private TableColumn<NewQuestion,String> column_answer1;
-
-    @FXML
-    private TableColumn<Answer, String> column_answer2;
-
-    @FXML
-    private TableColumn<NewQuestion,String> column_answer3;
-
-    @FXML
-    private TableColumn<NewQuestion,String> column_answer4;
-
-    @FXML
-    private TableColumn<NewQuestion,String> column_correctAns;
-
-    @FXML
-    private TableColumn<NewQuestion,String> column_level;
-
-    @FXML
-    private TableColumn<NewQuestion,String> column_question;
-
-    @FXML
-    private TableColumn<NewQuestion,String> column_team;
-    @FXML
-    private TextField keyWordsTextFiled;
-
-    @FXML
-    private Label label_title;
-    private static boolean deleteMode=false;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initTable();
@@ -164,7 +168,9 @@ public class QuestionAnswerController  implements Initializable {
                     HelloApplication.stage.show();
                 }
                 else {
-                    HelloApplication.alertWarning("Warning","please click on a row");
+                    message.setText("Please click on a row");
+                    message.setStyle("-fx-fill: red");
+                    System.out.println("QuestionAnswerController error: Please click on a row");
                 }
             } catch (Exception exc) {
                 throw new RuntimeException(exc);
@@ -176,7 +182,9 @@ public class QuestionAnswerController  implements Initializable {
                 deleteQuestion();
             }
             else {
-                HelloApplication.alertWarning("Warning","please click on a row");
+                message.setText("Please click on a row");
+                message.setStyle("-fx-fill: red");
+                System.out.println("QuestionAnswerController error: Please click on a row");
             }
         });
 

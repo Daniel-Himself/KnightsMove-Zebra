@@ -4,6 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 <AnchorPane prefHeight="600.0" prefWidth="600.0" styleClass="body" stylesheets="@design.scss" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.controller.QuestionAnswerController">
    <children>
       <TableView fx:id="TableView_Question" layoutX="28.0" layoutY="129.0" prefHeight="258.0" prefWidth="550.0">
@@ -51,5 +52,10 @@
          </graphic></Button>
       <Label layoutX="47.0" layoutY="76.0" text="Search" />
       <TextField fx:id="keyWordsTextFiled" layoutX="102.0" layoutY="73.0" prefHeight="30.0" prefWidth="476.0" promptText="keyWords..." />
+      <Text fx:id="message" layoutX="47.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="336.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

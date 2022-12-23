@@ -3,7 +3,6 @@ package com.knights_move.controller;
 import com.knights_move.model.Answer;
 import com.knights_move.model.Question;
 import com.knights_move.model.SysData;
-import com.knights_move.view.HelloApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,23 +18,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class AnswersController implements Initializable {
-    public static class NewAnswer {
-        private String content;
-
-        public NewAnswer(String content) {
-            this.content = content;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-    }
     @FXML
     private Button button_save;
+
+    @FXML
+    private Text message;
 
     @FXML
     private TableView<NewAnswer> tableView_answers;
@@ -51,6 +39,22 @@ public class AnswersController implements Initializable {
     @FXML
     private TextField text_newAnswer;
     private static ArrayList<NewAnswer> allAnswer;
+
+    public static class NewAnswer {
+        private String content;
+
+        public NewAnswer(String content) {
+            this.content = content;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+    }
 
     public static ArrayList<NewAnswer> getAllAnswer() {
         if(allAnswer==null||allAnswer.isEmpty()) {
@@ -123,7 +127,9 @@ public class AnswersController implements Initializable {
         if(!text_newAnswer.getText().isEmpty()) {
             String contentAnswer = text_newAnswer.getText();
             if (isExist(contentAnswer)) {
-                HelloApplication.alertWarning("Warning", "this answer is exist, please choose it from table");
+                message.setText("Answer already exists, please select it from the table");
+                message.setStyle("-fx-fill: red");
+                System.out.println("AnswersController error: Answer already exists, please select it from the table");
             } else {
                 if( AnswersController.allAnswer==null)
                 {
@@ -131,15 +137,22 @@ public class AnswersController implements Initializable {
                 }
                 if(contentAnswer.length()>3) {
                     AnswersController.allAnswer.add(new NewAnswer(contentAnswer));
-                    HelloApplication.alertSuccesful("Succeful", "the answer is added");
+                    message.setText("Answer added successfully");
+                    message.setStyle("-fx-fill: green");
+                    System.out.println("AnswersController success message: Answer added successfully");
                 }
                 else{
-                    HelloApplication.alertWarning("Warning", "not valid");
+                    message.setText("Invalid answer");
+                    message.setStyle("-fx-fill: red");
+                    System.out.println("AnswersController error: Invalid answer");
+
                 }
             }
         }
         else {
-            HelloApplication.alertWarning("Warning","the filed is empty");
+            message.setText("Please fill in the empty field");
+            message.setStyle("-fx-fill: red");
+            System.out.println("AnswersController error: Please fill in the empty field");
         }
         initTable();
     }
