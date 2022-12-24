@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<AnchorPane fx:id="pnlHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" styleClass="body" stylesheets="@design.scss" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.controller.HomeController">
+
+<AnchorPane fx:id="pnlHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" styleClass="body" stylesheets="@design.scss" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.controller.HomePageController">
     <children>
           <BorderPane prefHeight="200.0" prefWidth="200.0">
               <top>
@@ -17,8 +22,10 @@
             <Image url="@chess.JPG" />
          </image>
       </ImageView>
-              <Label contentDisplay="CENTER" layoutX="229.0" layoutY="48.0" nodeOrientation="RIGHT_TO_LEFT" text="Welcome to Knight's Move" AnchorPane.leftAnchor="229.0" AnchorPane.rightAnchor="228.0" />
+              <Label contentDisplay="CENTER" layoutX="202.0" layoutY="51.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="193.0" text="Welcome to Knight's Move" AnchorPane.leftAnchor="202.0" AnchorPane.rightAnchor="205.0">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
       <Button fx:id="onboardingBtn" layoutX="258.0" layoutY="265.0" mnemonicParsing="false" text="Onboarding" textFill="#fff9f9" />
-      <Button fx:id="tosignInBtn" layoutX="272.0" layoutY="343.0" mnemonicParsing="false" stylesheets="@design.scss" text="Sign In" textFill="#fff9f9" />
     </children>
 </AnchorPane>
