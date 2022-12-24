@@ -144,35 +144,21 @@ public class Game {
     }
 
     //using Factory Design Pattern
-    public List<Figure> initFigureInStage(int stageNumber){
+    public List<Figure> initFigures(){
         try {
             //init the position of figures At the beginning of the stage
-            /*Position p = new Position(0,0);
-            Figure horse = new Figure(1, p,"horse", 0);*/
             FigureFactory figureFactory = new FigureFactory();
             Figure horse = (Figure) figureFactory.getFigure("horse");
-            //System.out.println(horse);
             List<Figure> listOfFigures = new ArrayList<>();
             listOfFigures.add(horse);
-
-            if(stageNumber >= 1 && stageNumber <=2){
-                /*Position p2 = new Position(63,63);
-                Figure queen = new Figure(3, p2,"queen", 0);*/
-                Figure queen = (Figure) figureFactory.getFigure("queen");
-                listOfFigures.add(queen);
-            }
-            else {
-                /*Position p1 = new Position(63,63);
-                Figure king = new Figure(2, p1,"king", 0);*/
-                Figure king = (Figure) figureFactory.getFigure("king");
-                listOfFigures.add(king);
-            }
+            Figure queen = (Figure) figureFactory.getFigure("queen");
+            listOfFigures.add(queen);
+            Figure king = (Figure) figureFactory.getFigure("king");
+            listOfFigures.add(king);
             return listOfFigures;
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
     }
     //waiting for Question class
         //public void addQuestion

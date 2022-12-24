@@ -1,5 +1,6 @@
 package com.knights_move.controller;
-
+import java.util.ArrayList;
+import java.util.List;
 import com.knights_move.model.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -72,10 +73,12 @@ public class PlayController {
     void initialize() {
         visible(true, true,true, true, true, true, false);
         figureGrid.setVisible(false);
-        boardGrid.setGridLinesVisible(true);
 
         startBtn.setOnAction(event -> {
-            if (!initialized) initGrid();
+            if(!initialized) {
+                initFigures();
+                initGrid(1);
+            }
             setFiguresOnBoard();
             visible(true,true,true,true,false,true,true);
             timeline = initTimer();
@@ -83,11 +86,13 @@ public class PlayController {
 
         endGameBtn.setOnAction(event -> {
             clearGrid();
+            initGrid(1);
+            boardGrid.setVisible(false);
         });
-
     }
 
     private void clearGrid() {
+        boardGrid.getChildren().removeIf(Node.class::isInstance);
         visible(true,true,true,true,true,true,false);
         msgTxt.setText("Game lasted "+(60-sec)+" seconds");
         if(timeline != null){
@@ -95,14 +100,15 @@ public class PlayController {
             timeArea.setText("Timer");
             sec = 60;
         }
-        figureGrid.add(horseImg,0,0);
-        figureGrid.add(queenImg,0,1);
+        horseImg.setVisible(false);
+        queenImg.setVisible(false);
         ObservableList<Node> children = boardGrid.getChildren();
         for (Node node : children) {
             Button btn = (Button)node;
             btn.getStyleClass().removeAll("vbox");
         }
-        Button btnHorseImg = (Button)getNodeByRowColumnIndex(horse.getPosition().getX(),horse.getPosition().getY(),boardGrid);
+        horse.setPosition(new Position(0,0));
+        queen.setPosition(new Position(0,7));
     }
 
     public void visible(boolean scoreLbl1, boolean timeArea1, boolean levelLbl1, boolean scoreTxt1, boolean startBtn1, boolean boardGrid1, boolean endGameBtn1) {
@@ -128,19 +134,18 @@ public class PlayController {
 
     public void setFiguresOnBoard() {
         msgTxt.setText("Game started");
-        Button btnHorse = (Button)getNodeByRowColumnIndex(0,0, boardGrid);
-        btnHorse.setGraphic(horseImg);
-        System.out.println("image in figure grid: "+figureGrid.getChildren()); //todo - fix here
+        Button btnHorse = (Button)getNodeByRowColumnIndex(horse.getPosition().getX(),horse.getPosition().getY(), boardGrid);
+        //initFigures();
         btnHorse.getStyleClass().add("vbox");
-        Button btnQueen = (Button)getNodeByRowColumnIndex(0,7, boardGrid);
+        btnHorse.setGraphic(horseImg);
+        Button btnQueen = (Button)getNodeByRowColumnIndex(queen.getPosition().getX(),queen.getPosition().getY(), boardGrid);
         btnQueen.setGraphic(queenImg);
         btnQueen.getStyleClass().add("vbox");
-
+        horseImg.setVisible(true);
+        queenImg.setVisible(true);
     }
 
-    private void initGrid(){
-        boardGrid.setGridLinesVisible(false);
-        initFigures();
+    private void initGrid(int stage){
         int count = 0;
         double s = 38; // side of rectangle
         for (int i = 0; i < 8; i++) {
@@ -154,75 +159,75 @@ public class PlayController {
                 board.getEmptyTilesList().add(tile);
                 button.setPrefSize(s, s);
                 button.getStyleClass().removeAll("button");
-                if (count % 2 == 0) {
-                    button.getStyleClass().add("whiteTile");
-                }
-                else {
-                    button.getStyleClass().add("greenTile");
-                }
-                button.setId(i +","+ j);
+                if (count % 2 == 0) { button.getStyleClass().add("whiteTile");}
+                else { button.getStyleClass().add("greenTile"); }
                 boardGrid.add(button, j, i);
                 count++;
+            } //todo in backend
+            if(stage == 1){
+                ArrayList<Position> randomPositions = board.generateRandomPositions(3);
+                for(Position p: randomPositions){
+                    Button b = (Button) getNodeByRowColumnIndex(p.getX(), p.getY(), boardGrid);
+                }
             }
-        }
-        ArrayList<Integer> jumps = getRandoms(3);
-        for (int num : jumps) {
-            int y = num % 10;
-            int x = (num - y) % 10;
-            board.getEmptyTilesList().get(num).setType(RANDOMPJUMP);
-            System.out.println(num);
-            System.out.println(board.getEmptyTilesList().get(num).getType());
+            else if(stage == 2){
+                ArrayList<Position> randomPositions = board.generateRandomPositions(3);
+                for(Position p: randomPositions){
+                    Button b = (Button) getNodeByRowColumnIndex(p.getX(), p.getY(), boardGrid);
+                }
+            }
+
         }
         initialized = true;
     }
 
     private void initFigures(){
-        FigureFactory figureFactory = new FigureFactory();
-        horse = (Figure) figureFactory.getFigure("horse");
-        queen = (Figure) figureFactory.getFigure("queen");
-        System.out.println("new horse: "+horse);
-        System.out.println("new queen: "+queen);
-        board = new Board(1, 0, null, new ArrayList<Tile>(), null, null);
+        board = new Board(1, 3, null, new ArrayList<Tile>(), null, null);
         game = new Game(1, board, null);
+        List<Figure> figures = game.initFigures();
+        horse = figures.get(0);
+        queen = figures.get(1);
+        king = figures.get(2);
+
     }
 
     private void moveFigure(Button button){
         if(turn == 1){
-            button.setGraphic(horseImg);
+            List<Position> horseOptions = horse.horseOptions(horse.getPosition());
+            System.out.println(horseOptions);
             Position horseNewPos = new Position(GridPane.getRowIndex(button), GridPane.getColumnIndex(button));
-            horse.setPosition(horseNewPos);
-            System.out.println("horse: "+horseNewPos);
-            button.getStyleClass().add("vbox");
-            turn++;
+            System.out.println("horse: "+horse.getPosition());
+            if(horseOptions.contains(horseNewPos)){
+                horse.setPosition(horseNewPos);
+                System.out.println("horse: "+horseNewPos);
+                button.getStyleClass().add("vbox");
+                button.setGraphic(horseImg);
+                turn++;
+            }
+            else {
+                msgTxt.setText("Horse can't move that way");
+            }
             if(turn == 2){
                 Position queenCurrPosition = queen.getPosition();
-                System.out.println("new queen: "+queen);
-
                 Position queenNextPosition = queen.move(horse.getPosition(), queenCurrPosition);
+                queen.setPosition(queenNextPosition);
                 Button nextNode = (Button)getNodeByRowColumnIndex(queenNextPosition.getX(),queenNextPosition.getY(), boardGrid);
-                msgTxt.setText("horse : " + horse.getPosition().getX()+" "+ horse.getPosition().getX()+"  queen : "+queenNextPosition.getX()+" "+queenNextPosition.getY());
+                msgTxt.setText("horse : " + horse.getPosition().getX()+" "+ horse.getPosition().getY()+
+                        "  queen : "+queen.getPosition().getX()+" "+ queen.getPosition().getY());
                 nextNode.setGraphic(queenImg);
                 nextNode.getStyleClass().add("vbox");
                 turn--;
             }
         }
-        System.out.println("image in figure grid: "+figureGrid.getChildren());
-
     }
 
     private Timeline initTimer(){
         timeArea.setText("Time: "+sec);
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e ->{
             sec--;
-            if(sec < 10){
-                timeArea.setText("Time: 0"+sec);
-            }
-            else {
-                timeArea.setText("Time: "+sec);
-            }
-            if(sec == 0){
-                timeArea.setText("Game over!");
-            }
+            if(sec < 10){ timeArea.setText("Time: 0"+sec); }
+            else { timeArea.setText("Time: "+sec); }
+            if(sec == 0){  timeArea.setText("Game over!");}
         }));
         timeline.setCycleCount(60);
         timeline.play();
@@ -232,7 +237,6 @@ public class PlayController {
     public Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
         Node result = null;
         ObservableList<Node> children = gridPane.getChildren();
-
         for (Node node : children) {
             if(gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
                 result = node;

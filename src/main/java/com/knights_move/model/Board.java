@@ -1,6 +1,8 @@
 package com.knights_move.model;
 import java.util.*;
 
+import static com.knights_move.model.TypeTile.RANDOMPJUMP;
+
 public class Board {
     private int boardId;
     private int numOfForgottenTiles;
@@ -59,6 +61,31 @@ public class Board {
                 ", tilesPositionInBoard=" + tilesPositionInBoard +
                 ", tilePositions=" + tilePositions +
                 '}';
+    }
+
+    private ArrayList<Integer> getRandoms(int num){
+        ArrayList list = new ArrayList();
+        Random rand = new Random();
+        int pick;
+        for (int j = 0; j < num; j++) {
+            pick = rand.nextInt(64);
+            list.add(pick);
+        }
+  //      System.out.println(list);
+        return list;
+    }
+
+    public ArrayList<Position> generateRandomPositions(int n){
+        ArrayList<Integer> tiles = getRandoms(n);
+        ArrayList<Position> positions = new ArrayList<>();
+        for (int num : tiles) {
+            int y = num % 10;
+            int x = (num - y) / 10;
+            //todo from 0-63 to 0,0-7,7
+            positions.add(new Position(x,y));
+            System.out.println(x + " "+y);
+        }
+        return positions;
     }
 
     public boolean addVisitedTile(Tile tile){
