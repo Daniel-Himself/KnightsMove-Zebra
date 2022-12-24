@@ -131,6 +131,7 @@ public class Tile {
      * empty tile or any other special tiles - white
      */
 
+
     public void changeColor(){
         try {
             //EMPTY, VISITED, RANDOMPJUMP, FORGOTTEN, BLOCKED, SPECIAL

@@ -67,24 +67,34 @@ public abstract class Figure {
                 '}';
     }
 
-    public List<Position> horseOptions(Position position) {
+    public List<Position> horseOptions(Position current, Board board) {
         List<Position> optionList = new ArrayList<>();
-        int x = position.getX();
-        int y = position.getY();
-        if(validPosition(new Position(x + 1, y + 2))) optionList.add(new Position(x + 1, y + 2));
-        if(validPosition(new Position(x + 1, y - 2))) optionList.add(new Position(x + 1, y - 2));
-        if(validPosition(new Position(x - 1, y + 2))) optionList.add(new Position(x - 1, y + 2));
-        if(validPosition(new Position(x - 1, y - 2))) optionList.add(new Position(x - 1, y - 2));
-        if(validPosition(new Position(x + 2, y - 1))) optionList.add(new Position(x + 2, y - 1));
-        if(validPosition(new Position(x + 2, y + 1))) optionList.add(new Position(x + 2, y + 1));
-        if(validPosition(new Position(x - 2, y - 1))) optionList.add(new Position(x - 2, y - 1));
-        if(validPosition(new Position(x - 2, y + 1))) optionList.add(new Position(x - 2, y + 1));
+        int x = current.getX();
+        int y = current.getY();
+        List<Position> possiblePos = new ArrayList<>();
+        possiblePos.add(new Position(x + 1, y + 2));
+        possiblePos.add(new Position(x + 1, y - 2));
+        possiblePos.add(new Position(x - 1, y + 2));
+        possiblePos.add(new Position(x - 1, y - 2));
+        possiblePos.add(new Position(x + 2, y - 1));
+        possiblePos.add(new Position(x + 2, y + 1));
+        possiblePos.add(new Position(x - 2, y - 1));
+        possiblePos.add(new Position(x - 2, y + 1));
+        for(Position pp: possiblePos){
+            if(validPosition(pp)){
+                Tile t = board.getTileByPosition(pp);
+                if(!t.isVisited()){
+                    optionList.add(pp);
+                }
+            }
+        }
         return optionList;
     }
     private boolean validPosition(Position p){
         int x = p.getX();
         int y = p.getY();
         if(x <= 7 && x >= 0 && y <= 7 && y >= 0){
+            System.out.println("valid pos: "+x+","+y);
             return  true;
         }
         return false;

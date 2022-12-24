@@ -172,7 +172,7 @@ public class Game {
                 //create new 3 jumpingTiles
                 Tile[] tiles = new Tile[3];
 
-                for(int i = 0; i < 3; i++){
+                for(int i = 0; i < 3; i++){ //todo random logic
                     int randomPositionX = rand.ints(1,63).findFirst().getAsInt();
                     int randomPositionY = rand.ints(1,63).findFirst().getAsInt();
                     Position p = new Position(randomPositionX, randomPositionY);

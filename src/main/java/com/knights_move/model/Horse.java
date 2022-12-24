@@ -15,4 +15,5 @@ public class Horse extends Figure implements FigureInterface{
         return null;
     }
 
+
 }

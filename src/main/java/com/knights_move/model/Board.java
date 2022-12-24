@@ -6,16 +6,22 @@ import static com.knights_move.model.TypeTile.RANDOMPJUMP;
 public class Board {
     private int boardId;
     private int numOfForgottenTiles;
+    private int numOfBlockedTiles;
+    private int numOfRandomJumpTiles;
     private List<Tile> visitedTile;
     private List<Tile> emptyTile;
+    private List<Tile> tileList;
     private HashMap<Integer,HashMap<Position,Tile>> tilesPositionInBoard;
     private HashMap<Position,Tile> tilePositions;
 
-    public Board(int boardId, int numOfForgottenTiles, List<Tile> visitedTile, List<Tile> emptyTile , HashMap<Integer,HashMap<Position,Tile>> tilesPositionInBoard, HashMap<Position, Tile> tilePositions) {
+    public Board(int boardId, int numOfForgottenTiles, int numOfBlockedTiles, int numOfRandomJumpTiles) {
         this.boardId = boardId;
+        this.numOfRandomJumpTiles = numOfRandomJumpTiles;
+        this.numOfBlockedTiles = numOfBlockedTiles;
         this.numOfForgottenTiles = numOfForgottenTiles;
-        this.visitedTile = new ArrayList<>();
         this.emptyTile = new ArrayList<>();
+        this.tileList = new ArrayList<>();
+        this.visitedTile = new ArrayList<>();
         this.tilesPositionInBoard = new HashMap<>();
         this.tilePositions = new HashMap<>();
 
@@ -40,16 +46,19 @@ public class Board {
         return tilesPositionInBoard;
     }
 
-    public List<Tile> getVisitedTile() {
-        return Collections.unmodifiableList(visitedTile);
-    }
+    public List<Tile> getVisitedTile() { return visitedTile;}
 
-    public List<Tile> getEmptyTilesList() {
-        return emptyTile;
+    public Tile getTileByPosition(Position p){
+        for(Tile t: getTileList()){
+            if(t.getTilePosition().equals(p)){
+                return t;
+            }
+        }
+        return null;
     }
 
     public List<Tile> getEmptyTile() {
-        return Collections.unmodifiableList(emptyTile);
+        return emptyTile;
     }
 
     @Override
@@ -83,7 +92,7 @@ public class Board {
             int x = (num - y) / 10;
             //todo from 0-63 to 0,0-7,7
             positions.add(new Position(x,y));
-            System.out.println(x + " "+y);
+      //      System.out.println(x + " "+y);
         }
         return positions;
     }
@@ -230,4 +239,11 @@ public class Board {
 
     }
 
+    public List<Tile> getTileList() {
+        return tileList;
+    }
+
+    public void setTileList(List<Tile> tileList) {
+        this.tileList = tileList;
+    }
 }
