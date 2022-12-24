@@ -2,6 +2,9 @@ package com.knights_move.controller;
 import com.knights_move.model.Answer;
 import com.knights_move.model.Question;
 import com.knights_move.model.SysData;
+import com.knights_move.ui_controllers.EditHistoryController;
+import com.knights_move.ui_controllers.HomeController;
+import com.knights_move.ui_controllers.STATUS;
 import com.knights_move.view.HelloApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -109,7 +113,7 @@ public class QuestionAnswerController  implements Initializable {
     @FXML
     private Button button_save;
     @FXML
-    private TableView<QuestionAnswerController.NewQuestion> TableView_Question;
+    private TableView<NewQuestion> TableView_Question;
     @FXML
     private TableColumn<NewQuestion,String> column_answer1;
 
@@ -142,6 +146,7 @@ public class QuestionAnswerController  implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        TableView_Question.getItems().clear();
         initTable();
         button_save.setOnAction(e->{
             try{
@@ -219,9 +224,12 @@ public class QuestionAnswerController  implements Initializable {
     }
     private void initTable()
     {
-        TableView_Question.getItems().clear();
-        if(deleteMode==false) {
+        if(!TableView_Question.getItems().isEmpty()) {
+            TableView_Question.getItems().clear();
+        }
+        if(deleteMode==true) {
             SysData.getInstance().DesJsonQuestions();
+            deleteMode=false;
         }
         column_question.setCellValueFactory(new PropertyValueFactory<>("quesID"));
         column_answer1.setCellValueFactory(new PropertyValueFactory<>("answers"));
@@ -231,20 +239,31 @@ public class QuestionAnswerController  implements Initializable {
 
         ObservableList<NewQuestion> observableList = FXCollections.observableArrayList(getNewQuestionList());
         TableView_Question.setItems(observableList);
-
-
     }
     public void deleteQuestion()
     {
-        deleteMode=true;
         NewQuestion selected=TableView_Question.getSelectionModel().getSelectedItem();
         String quesId=selected.getQuesID();
         ArrayList<Question> questions=SysData.getInstance().getQuestions();
         questions.remove(SysData.getInstance().getQuestionByName(quesId));
         SysData.getInstance().setQuestions(questions);
         SysData.getInstance().serJsonQuestion();
-        initTable();
+        ObservableList<NewQuestion> observableList = FXCollections.observableArrayList(getNewQuestionList());
+        observableList.remove(selected);
+        TableView_Question.setItems(observableList);
 
+        //add the changes the admin did
+        EditHistoryController controller= new EditHistoryController();
+        ArrayList<EditHistoryController.historyEdit> listofchanges= controller.getHistory();
+        if(listofchanges==null)
+        {
+            listofchanges= new ArrayList<>();
+        }
+        EditHistoryController.historyEdit change= new EditHistoryController.historyEdit(quesId,STATUS.DELETE,LocalDateTime.now());
+        listofchanges.add(change);
+        controller.setHistory(listofchanges);
+
+        HelloApplication.loadPage("EditPageForAdmin.fxml");
     }
 
 }

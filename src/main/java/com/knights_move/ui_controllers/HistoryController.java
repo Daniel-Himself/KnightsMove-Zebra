@@ -123,14 +123,13 @@ public class HistoryController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ArrayList<NewGame> listOfGames=new ArrayList<>();
         HashMap<Player,ArrayList<Game>> playerAndGame=SysData.getInstance().getPlayerAndgames();
-
         if(playerAndGame!=null) {
             for (Map.Entry<Player, ArrayList<Game>> entry : playerAndGame.entrySet()) {
                 Player playerKey = entry.getKey();
                 if (playerKey.getUserName().compareTo(SysData.getInstance().getUsername()) == 0) {
                     ArrayList<Game> gameValue = entry.getValue();
                     for (Game game : gameValue) {
-                        listOfGames.add(new NewGame(game.getGameID(), playerKey.getUserName(), game.getPosition(), game.getDateOfGame()));
+                        listOfGames.add(new NewGame(game.getGameID(), playerKey.getUserName(), playerKey.getPositionInGame(game), game.getDateOfGame()));
                     }
                 }
             }
@@ -144,17 +143,30 @@ public class HistoryController implements Initializable {
         historTbl.setItems(observableList);
 
         BTRY.setOnAction(e->{
-            add();
+                add();
         });
-    }
+        }
+        public void add()
+        {
+            Game g= new Game(3,LocalDate.now());
+            HashMap<Player,ArrayList<Game>> map =SysData.getInstance().getPlayerAndgames();
+            if(map!=null) {
+                for(Player p:map.keySet())
+                {
+                    if(p.getUserName().compareTo(SysData.getInstance().getUsername())==0)
+                    {
+                        ArrayList<Game> gamePlayer=map.get(p);
+                        gamePlayer.add(g);
+                        SysData.getInstance().setPlayerAndgames(map);
+                        if(p.getPositionInGame().get(g)==null)
+                        {
+                            p.setPositionInGame(g,5);
+                        }
+                        SysData.getInstance().serJsonGames();
+                    }
+                }
+            }
 
-    public void add()
-    {
-        HashMap<Player,ArrayList<Game>> playerAndGame=SysData.getInstance().getPlayerAndgames();
-        ArrayList<Game> array= playerAndGame.get(new Player("noa"));
-        array.add(new Game(1,LocalDate.now(),3));
-        playerAndGame.put(new Player("noa"), array);
-        SysData.getInstance().serJsonGames();
-    }
+        }
 
 }

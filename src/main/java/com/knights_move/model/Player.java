@@ -4,40 +4,49 @@ import java.util.*;
 
 public class Player {
     private String userName;
-    private HashMap<Game, Integer> scoreInGame;
+    private HashMap<Game, Integer> positionInGame;
 
-
+    //same userName as sysData, used for get the attribute of player
     public Player(String userName)
     {
         this.userName=userName;
     }
-    public HashMap<Game, Integer> getScoreInGame() {
-        return scoreInGame;
-    }
+
     public String getUserName() {
         return userName;
     }
+
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    //save user scores by game
-    public boolean addScoreOfPlayer (Game game, int totalGrade){
-        try {
-            if(game != null && totalGrade != -1 && !scoreInGame.containsKey(game)){
-                scoreInGame.put(game,totalGrade);
-                return true;
-            }
-            return false;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
+    // update all game and score
+    public void setPositionInGame(HashMap<Game, Integer> scoreInGame) {
+        this.positionInGame = scoreInGame;
     }
+    //update score in game
+    public void setPositionInGame(Game g, Integer score)
+    {
+        if(getPositionInGame()==null)
+        {
+            positionInGame=new HashMap<>();
+        }
+        getPositionInGame().put(g,score);
+    }
+
+    public int getPositionInGame(Game game) {
+        return positionInGame.get(game);
+    }
+    public HashMap<Game,Integer> getPositionInGame() {
+        return positionInGame;
+    }
+
+
     @Override
     public String toString() {
         return "Player{" +
                 "userName='" + userName + '\'' +
+                ", positionInGame=" + positionInGame +
                 '}';
     }
 }

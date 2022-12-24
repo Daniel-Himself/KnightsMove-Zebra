@@ -135,22 +135,22 @@ public class GameSession {
     //add total score per player
 
 
-    public boolean addTotalScore() {
-        try {
-            if (currentLevelScore != -1) {
-                totalScoreInGame += currentLevelScore;
-                boolean result = player.addScoreOfPlayer(game, totalScoreInGame);
-                if (result)
-                    return true;
-                else
-                    return false;
-            } else
-                return false;
-        }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public boolean addTotalScore() {
+//        try {
+//            if (currentLevelScore != -1) {
+//                totalScoreInGame += currentLevelScore;
+//                boolean result = player.addScoreOfPlayer(game, totalScoreInGame);
+//                if (result)
+//                    return true;
+//                else
+//                    return false;
+//            } else
+//                return false;
+//        }
+//        catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     //init game -> stage one
     public void initGame(){

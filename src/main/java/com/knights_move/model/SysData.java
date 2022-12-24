@@ -20,7 +20,6 @@ public class SysData {
     private ArrayList<Question> questions;
     private String username; // a string that holds the username of the current user
 
-
     //singleton constructor
     public static SysData getInstance() {
         if (instance == null) {
@@ -147,18 +146,29 @@ public class SysData {
                 //we iterate through json object
                 for (Object games : arrayGamesJson) {
                     int gameID = Integer.valueOf (((JSONObject) games).get("gameId").toString());
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
                     LocalDate dateOfGame = LocalDate.parse((((JSONObject) games).get("DateOfGame").toString()),formatter);
-                    int position = Integer.valueOf(((JSONObject) games).get("position").toString());
-                    Game newGame = new Game(gameID, dateOfGame,position);
+                    Game newGame = new Game(gameID, dateOfGame);
                     gameOfCurrentPlayer.add(newGame);
+
+                    int position = Integer.valueOf(((JSONObject) games).get("position").toString());
+                    HashMap<Game,Integer> playerGame=player.getPositionInGame();
+                    if(playerGame==null)
+                    {
+                        playerGame= new HashMap<>();
+                    }
+                    if (!(playerGame.containsKey(newGame)))
+                    {
+                        playerGame.put(newGame,position);
+                    }
+                    player.setPositionInGame(playerGame);
+
                 }
                 if(this.playerAndgames==null)
                 {
                     playerAndgames=new HashMap<>();
                 }
                 playerAndgames.put(player, gameOfCurrentPlayer);
-                System.out.println(playerAndgames.toString());
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -177,24 +187,24 @@ public class SysData {
     public boolean serJsonGames() {
         try (FileWriter file = new FileWriter(".\\lib\\Games.json")) {
             //we can write any JSONArray or JSONobject instance to the file
-            JSONObject playerObj = new JSONObject();
             JSONArray playerlist = new JSONArray();
             JSONObject listPlayerJson = new JSONObject();
 
             for (Map.Entry<Player, ArrayList<Game>> entry : playerAndgames.entrySet()) {
+                JSONArray gamelist = new JSONArray();
+                JSONObject playerObj = new JSONObject();
                 Player playerKey = entry.getKey();
                 ArrayList<Game> gameValue = entry.getValue();
                 if (gameValue != null && !(gameValue.isEmpty())) {
-                    JSONArray gamelist = new JSONArray();
                     for (Game game : gameValue) {
                         JSONObject gameobj = new JSONObject();
                         gameobj.put("gameId", game.getGameID());
-                        gameobj.put("DateOfGame", game.getDateOfGame());
-                        gameobj.put("position", game.getPosition());
+                        gameobj.put("DateOfGame", game.getDateOfGame().toString());
+                        gameobj.put("position", playerKey.getPositionInGame(game));
 
                         gamelist.add(gameobj);
                     }
-                    playerObj.put("player", playerKey);
+                    playerObj.put("player", playerKey.getUserName());
                     playerObj.put("Games", gamelist);
 
                     playerlist.add(playerObj);

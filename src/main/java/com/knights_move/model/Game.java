@@ -13,9 +13,6 @@ public class Game {
     private List<Question> question;
     private LocalDate dateOfGame;
 
-
-    int position;
-
     public Game(int gameID, Board gameBoard, Stage stageGame, List<Question> question) {
         this.gameID = gameID;
         this.gameBoard = gameBoard;
@@ -24,10 +21,9 @@ public class Game {
         this.dateOfGame=java.time.LocalDate.now();
     }
     //construcor for json
-    public Game(int gameID,LocalDate date, int position) {
+    public Game(int gameID,LocalDate date) {
         this.gameID = gameID;
         this.dateOfGame = date;
-        this.position=position;
     }
 
     public Game() {
@@ -41,13 +37,7 @@ public class Game {
     public void setGameID(int gameID) {
         this.gameID = gameID;
     }
-    public int getPosition() {
-        return position;
-    }
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
     public Board getGameBoard() {
         return gameBoard;
     }

@@ -6,6 +6,7 @@ module com.knights_move {
     requires jackson.core.asl;
 
 
+
     exports com.knights_move.view;
     opens com.knights_move.view to javafx.fxml;
     exports com.knights_move.controller;
