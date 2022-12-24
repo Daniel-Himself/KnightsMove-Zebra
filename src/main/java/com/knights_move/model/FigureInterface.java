@@ -1,7 +1,9 @@
 package com.knights_move.model;
 
+import java.util.List;
+
 public interface FigureInterface {
-    public Position move(Position a, Position b);
+    //public List<Position> move(Position a, Position b);
 
 
 }

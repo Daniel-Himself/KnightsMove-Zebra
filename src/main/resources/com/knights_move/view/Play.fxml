@@ -38,7 +38,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <Button fx:id="startBtn" layoutX="366.0" layoutY="68.0" mnemonicParsing="false" text="Start a game" textFill="WHITE" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
+      <Button fx:id="startBtn" layoutX="366.0" layoutY="68.0" mnemonicParsing="false" text="Start a game" textFill="WHITE" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="250.0" />
       <Button fx:id="endGameBtn" layoutX="465.0" layoutY="523.0" mnemonicParsing="false" text="End game" textFill="WHITE" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
       <Text fx:id="timeArea" fill="#e91e63" layoutX="154.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Timer" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="50.0">
          <font>
@@ -59,23 +59,21 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fx:id="horseImg" fitHeight="33.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="horseImg" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@horse.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="queenImg" fitHeight="33.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               </image></ImageView>
+            <ImageView fx:id="queenImg" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                <image>
                   <Image url="@queen.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="kingImg" fitHeight="33.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+               </image></ImageView>
+            <ImageView fx:id="kingImg" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                <image>
                   <Image url="@king.png" />
                </image>
             </ImageView>
          </children>
       </GridPane>
-      <Text fx:id="msgTxt" layoutX="235.0" layoutY="473.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="131.0" />
+      <Text fx:id="msgTxt" layoutX="200.0" layoutY="474.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
    </children>
 </AnchorPane>
