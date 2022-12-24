@@ -1,12 +1,6 @@
 package com.knights_move.model;
 
-import org.json.simple.JSONObject;
-
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.*;
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -160,11 +154,59 @@ public class Game {
             throw new RuntimeException(e);
         }
     }
+
+   public List<Tile> setSpecialTilesInLevel(int numOfTiles) {
+        try {
+            ArrayList<Position> randomPositions;
+            ArrayList<Tile> listOfSpecialTiles = new ArrayList<>();
+            randomPositions = gameBoard.generateRandomPositions(numOfTiles);
+        if(gameBoard.getBoardId() == 1) {
+            for(Position p : randomPositions) {
+                Tile specialTile = new Tile(p, TypeTile.RANDOMPJUMP, Color.WHITE, false);
+                listOfSpecialTiles.add(specialTile);
+            }
+            return listOfSpecialTiles;
+        }
+        if(gameBoard.getBoardId() == 2) {
+            //Tile(p, TypeTile.FORGOTTEN, Color.WHITE, false);
+            for(Position p : randomPositions) {
+                Tile specialTile = new Tile(p, TypeTile.FORGOTTEN, Color.WHITE, false);
+                listOfSpecialTiles.add(specialTile);
+            }
+            return listOfSpecialTiles;
+        }
+
+        if(gameBoard.getBoardId() == 3) {
+            for(Position p : randomPositions) {
+                Tile specialTile = new Tile(p, TypeTile.FORGOTTEN, Color.WHITE, false);
+                listOfSpecialTiles.add(specialTile);
+            }
+            randomPositions = gameBoard.generateRandomPositions(numOfTiles);
+            for(Position p : randomPositions) {
+                Tile specialTile = new Tile(p, TypeTile.RANDOMPJUMP, Color.WHITE, false);
+                listOfSpecialTiles.add(specialTile);
+            }
+            return listOfSpecialTiles;
+        }
+        if (gameBoard.getBoardId() == 4) {
+            //new Tile(p, TypeTile.BLOCKED, Color.RED, false);
+            for(Position p : randomPositions) {
+                Tile specialTile = new Tile(p, TypeTile.BLOCKED, Color.RED, false);
+                listOfSpecialTiles.add(specialTile);
+            }
+            return listOfSpecialTiles;
+        }
+        else
+            return null;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+   }
     //waiting for Question class
         //public void addQuestion
         //removeQuestion
         //editQuestion
-    public Board setSpecialTilesInLevel(int gameLevel, Board b){
+    /*public Board setSpecialTilesInLevel(int gameLevel, Board b){
         try {
             Random rand = new Random();
             if(gameLevel == 1) {
@@ -172,7 +214,7 @@ public class Game {
                 //create new 3 jumpingTiles
                 Tile[] tiles = new Tile[3];
 
-                for(int i = 0; i < 3; i++){ //todo random logic
+                for(int i = 0; i < 3; i++){
                     int randomPositionX = rand.ints(1,63).findFirst().getAsInt();
                     int randomPositionY = rand.ints(1,63).findFirst().getAsInt();
                     Position p = new Position(randomPositionX, randomPositionY);
@@ -207,6 +249,10 @@ public class Game {
                     Position p = new Position(randomPositionX1, randomPositionY);
                     tiles2[i] = new Tile(p, TypeTile.FORGOTTEN, Color.WHITE, false);
                     //gameBoard.removeTilePosition(p)
+
+
+
+
                     b.addTilePosition(p, tiles2[i]);
                 }
                 for(int i = 0; i < 2; i++){
@@ -240,7 +286,7 @@ public class Game {
             throw new RuntimeException(e);
         }
 
-    }
+    }*/
 
 //        } catch (JsonMappingException e) {
 //            throw new RuntimeException(e);
