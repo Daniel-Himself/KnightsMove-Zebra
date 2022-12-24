@@ -94,7 +94,6 @@ public abstract class Figure {
         int x = p.getX();
         int y = p.getY();
         if(x <= 7 && x >= 0 && y <= 7 && y >= 0){
-            System.out.println("valid pos: "+x+","+y);
             return  true;
         }
         return false;

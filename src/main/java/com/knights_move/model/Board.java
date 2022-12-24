@@ -6,7 +6,6 @@ import static com.knights_move.model.TypeTile.RANDOMPJUMP;
 public class Board {
     private int boardId;
     private int numOfForgottenTiles;
-    private int numOfBlockedTiles;
     private int numOfRandomJumpTiles;
     private List<Tile> visitedTile;
     private List<Tile> emptyTile;
@@ -17,7 +16,6 @@ public class Board {
     public Board(int boardId, int numOfForgottenTiles, int numOfBlockedTiles, int numOfRandomJumpTiles) {
         this.boardId = boardId;
         this.numOfRandomJumpTiles = numOfRandomJumpTiles;
-        this.numOfBlockedTiles = numOfBlockedTiles;
         this.numOfForgottenTiles = numOfForgottenTiles;
         this.emptyTile = new ArrayList<>();
         this.tileList = new ArrayList<>();
@@ -51,6 +49,7 @@ public class Board {
     public Tile getTileByPosition(Position p){
         for(Tile t: getTileList()){
             if(t.getTilePosition().equals(p)){
+                System.out.println("tile: "+t);
                 return t;
             }
         }
@@ -270,5 +269,21 @@ int y = num % 10000;*/
 
     public void setTileList(List<Tile> tileList) {
         this.tileList = tileList;
+    }
+
+    public int getNumOfForgottenTiles() {
+        return numOfForgottenTiles;
+    }
+
+    public void setNumOfForgottenTiles(int numOfForgottenTiles) {
+        this.numOfForgottenTiles = numOfForgottenTiles;
+    }
+
+    public int getNumOfRandomJumpTiles() {
+        return numOfRandomJumpTiles;
+    }
+
+    public void setNumOfRandomJumpTiles(int numOfRandomJumpTiles) {
+        this.numOfRandomJumpTiles = numOfRandomJumpTiles;
     }
 }
