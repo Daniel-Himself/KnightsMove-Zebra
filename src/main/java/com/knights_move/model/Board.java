@@ -77,6 +77,7 @@ public class Board {
         Random rand = new Random();
         int pick;
         for (int j = 0; j < num; j++) {
+
             pick = rand.nextInt(64);
             list.add(pick);
         }
@@ -85,15 +86,39 @@ public class Board {
     }
 
     public ArrayList<Position> generateRandomPositions(int n){
-        ArrayList<Integer> tiles = getRandoms(n);
+        ArrayList<Integer> position = getRandoms(n);
+        //ArrayList<Integer> positionY = getRandoms(n);
         ArrayList<Position> positions = new ArrayList<>();
-        for (int num : tiles) {
+        int x, y;
+        //int maxValueY = 8;
+        /*int x = num / 10000;
+int y = num % 10000;*/
+        for(int num: position) {
+             /*x = (int)(num % 100) / 10;
+             y = 7 - (int)(num % 100) / 10;*/
+            //8 is mac value of x and y
+            x = num / 8;
+            y = num % 8;
+            positions.add(new Position(x,y));
+            System.out.println("myRandomTiles"+ x + " "+y);
+            System.out.println(position.size());
+
+        }
+      /*  for(int num: positionY) {
+            y = (int)(num % 100) / 10;
+        }*/
+       /* for (int num : tiles) {
+            // int tens = (int)(number % 100) / 10;
             int y = num % 10;
             int x = (num - y) / 10;
             //todo from 0-63 to 0,0-7,7
             positions.add(new Position(x,y));
-      //      System.out.println(x + " "+y);
-        }
+            System.out.println(x + " "+y);
+        }*/
+        //System.out.println("size"+ positions.size());
+
+        System.out.println(position);
+        System.out.println(positions);
         return positions;
     }
 
