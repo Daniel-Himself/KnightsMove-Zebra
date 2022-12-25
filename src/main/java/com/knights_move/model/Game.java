@@ -1,9 +1,7 @@
 package com.knights_move.model;
 
 import javafx.stage.Stage;
-import org.json.simple.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
