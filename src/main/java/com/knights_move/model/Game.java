@@ -179,7 +179,7 @@ public class Game {
     //public void addQuestion
     //removeQuestion
     //editQuestion
-    public Board setSpecialTilesInLevel(int gameLevel, Board b){
+  /*  public Board setSpecialTilesInLevel(int gameLevel, Board b){
         try {
             Random rand = new Random();
             if(gameLevel == 1) {
@@ -255,7 +255,7 @@ public class Game {
             throw new RuntimeException(e);
         }
 
-    }
+    }*/
     //using Factory Design Pattern
     public List<Figure> initFigures(){
         try {
@@ -273,7 +273,7 @@ public class Game {
             throw new RuntimeException(e);
         }
     }
-
+    //set Special tiles in level by given num of tiles - daniela
     public List<Tile> setSpecialTilesInLevel(int numOfTiles) {
         try {
             ArrayList<Position> randomPositions;
@@ -284,6 +284,7 @@ public class Game {
                     Tile specialTile = new Tile(p, TypeTile.RANDOMPJUMP, Color.WHITE, false);
                     listOfSpecialTiles.add(specialTile);
                 }
+                System.out.println(listOfSpecialTiles);
                 return listOfSpecialTiles;
             }
             if(gameBoard.getBoardId() == 2) {

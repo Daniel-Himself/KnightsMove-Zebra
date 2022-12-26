@@ -1,7 +1,9 @@
 package com.knights_move.model;
-import java.util.*;
 
-import static com.knights_move.model.TypeTile.RANDOMPJUMP;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 public class Board {
     private int boardId;
@@ -99,8 +101,8 @@ int y = num % 10000;*/
             x = num / 8;
             y = num % 8;
             positions.add(new Position(x,y));
-            System.out.println("myRandomTiles"+ x + " "+y);
-            System.out.println(position.size());
+            //System.out.println("myRandomTiles"+ x + " "+y);
+            //System.out.println(position.size());
 
         }
       /*  for(int num: positionY) {
@@ -141,6 +143,8 @@ int y = num % 10000;*/
             if(tile != null && visitedTile.contains(tile)) {
                 tile.setVisited(false);
                 visitedTile.remove(tile);
+                System.out.println("visited tile" + tile.getTilePosition() + "removed from visitedTile list");
+                System.out.println("visitedTile list" + visitedTile);
                 return true;
             }
             else
@@ -192,8 +196,8 @@ int y = num % 10000;*/
         try {
             if(p != null && t != null && !tilePositions.containsKey(p))
             {
-                //position range of x -> 0 till 63, y -> 0 till 63.
-                if(p.getX() < 64 && p.getY() <64) {
+                //position range of x -> 0 till 7, y -> 0 till 7.
+                if(p.getX() < 8 && p.getY() < 8) {
                     tilePositions.put(p,t);
                     return true;
                 }
@@ -246,7 +250,7 @@ int y = num % 10000;*/
     }
 
     //init positions values.
-    public Position[] initPosition(){
+   /* public Position[] initPosition(){
         try {
             int sizeOfBoard = 64;
             Position[] positionList = new Position[64];
@@ -261,7 +265,7 @@ int y = num % 10000;*/
             throw new RuntimeException(e);
         }
 
-    }
+    }*/
 
     public List<Tile> getTileList() {
         return tileList;
