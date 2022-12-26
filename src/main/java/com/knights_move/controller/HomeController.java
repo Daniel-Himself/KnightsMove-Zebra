@@ -142,12 +142,24 @@ public class HomeController {
             }
         }
         if(e.getSource() == qaBtn){
-            try{
-                pnlChoosedPage.getChildren().clear();
-                Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/QA.fxml")));
-                pnlChoosedPage.getChildren().add(node);
-            } catch(IOException | NullPointerException ex){
-                System.out.println(ex.getMessage());
+            // Restrict access to the QA page only to the "manager" user
+            if(!SysData.getInstance().getUsername().equals("Manager")){
+                try{
+                    pnlChoosedPage.getChildren().clear();
+                    Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/PermissionDeniedPage.fxml")));
+                    pnlChoosedPage.getChildren().add(node);
+                } catch(IOException | NullPointerException ex){
+                    System.out.println(ex.getMessage());
+                }
+            }
+            else{
+                try{
+                    pnlChoosedPage.getChildren().clear();
+                    Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/QA.fxml")));
+                    pnlChoosedPage.getChildren().add(node);
+                } catch(IOException | NullPointerException ex){
+                    System.out.println(ex.getMessage());
+                }
             }
         }
         if(e.getSource() == rulesBtn){

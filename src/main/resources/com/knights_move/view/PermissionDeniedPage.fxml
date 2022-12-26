@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" styleClass="body" stylesheets="@design.scss" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.controller.PermissionDeniedController">
+    <children>
+          <BorderPane prefHeight="200.0" prefWidth="200.0">
+              <top>
+                  <Pane prefHeight="376.0" prefWidth="301.0" BorderPane.alignment="CENTER" />
+              </top>
+          </BorderPane>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="200.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="395.16243743896484" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="150.0">
+         <image>
+            <Image url="@chess.JPG" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="172.0" layoutY="283.0" text="Only the manager is allowed to access this page." />
+      <Label alignment="CENTER" layoutX="172.0" layoutY="308.0" text="Please log in to the manager account to acces it." />
+    </children>
+</AnchorPane>
