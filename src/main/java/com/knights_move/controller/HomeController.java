@@ -30,14 +30,9 @@ public class HomeController {
 
     @FXML
     private Label usernameLabel;
-    @FXML
-    private Button onboardingBtn;
 
     @FXML
     private Button exitBtn;
-
-    @FXML
-    private Button logoBtn;
 
     @FXML
     private Button qaBtn;
@@ -54,17 +49,12 @@ public class HomeController {
     @FXML
     private Button signOutBtn;
 
-    @FXML
-    private AnchorPane pnlHistory;
-
-    @FXML
-    private Button tosignInBtn;
 
     @FXML
     void initialize() {
-        assert onboardingBtn != null : "fx:id=\"onboardingBtn\" was not injected: check your FXML file 'HomePanel.fxml'.";
         assert pnlHome != null : "fx:id=\"pnlHome\" was not injected: check your FXML file 'HomePanel.fxml'.";
-        assert tosignInBtn != null : "fx:id=\"tosignInBtn\" was not injected: check your FXML file 'HomePanel.fxml'.";
+
+        // Set username welcome label
         usernameLabel.setText("Hello " + SysData.getInstance().getUsername());
 
         exitBtn.setOnAction(event -> {
@@ -147,6 +137,7 @@ public class HomeController {
                 try{
                     pnlChoosedPage.getChildren().clear();
                     Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/PermissionDeniedPage.fxml")));
+                    System.out.println("Permission denied! A non-manager user tried to access the QA page.");
                     pnlChoosedPage.getChildren().add(node);
                 } catch(IOException | NullPointerException ex){
                     System.out.println(ex.getMessage());
