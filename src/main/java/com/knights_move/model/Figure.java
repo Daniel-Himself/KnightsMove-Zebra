@@ -11,13 +11,6 @@ public abstract class Figure {
     //todo - fix it cause no access to queens method move
     public abstract Position move(Position a, Position b);
 
-
-    /*public Figure(int figureId, Position position, String typeOfFigure, int speedRate) {
-        this.figureId = figureId;
-        this.position = position;
-        this.typeOfFigure = typeOfFigure;
-        this.speedRate = speedRate;
-    }*/
     public Figure(int figureId, Position position, int speedRate) {
         this.figureId = figureId;
         this.position = position;
@@ -40,14 +33,6 @@ public abstract class Figure {
     public void setPosition(Position position) {
         this.position = position;
     }
-
-    /*public String getTypeOfFigure() {
-        return typeOfFigure;
-    }
-
-    public void setTypeOfFigure(String typeOfFigure) {
-        this.typeOfFigure = typeOfFigure;
-    }*/
 
     public int getSpeedRate() {
         return speedRate;

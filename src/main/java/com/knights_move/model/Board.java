@@ -16,7 +16,12 @@ public class Board {
     private HashMap<Position,Tile> tilePositions;
 
     public Board(int boardId, int numOfForgottenTiles, int numOfBlockedTiles, int numOfRandomJumpTiles) {
-        this.boardId = boardId;
+        //boardID represents level number in game. for each level in game(range 1 - 4) -> new board.
+        if(this.boardId <= 1 && this.boardId <= 4) {
+            this.boardId = boardId;
+        }
+        else
+            this.boardId = -1;
         this.numOfRandomJumpTiles = numOfRandomJumpTiles;
         this.numOfForgottenTiles = numOfForgottenTiles;
         this.emptyTile = new ArrayList<>();

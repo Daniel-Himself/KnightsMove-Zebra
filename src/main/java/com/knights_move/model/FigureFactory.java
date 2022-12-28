@@ -6,7 +6,7 @@ public class FigureFactory {
         if(figureType == null)
             return null;
 
-        if(figureType.equalsIgnoreCase("HORSE")){
+        if(figureType.equalsIgnoreCase("horse")){
             Position p0 = new Position(0,0);
             return new Horse(1, p0, 0);
         }
@@ -16,8 +16,8 @@ public class FigureFactory {
             return new King(3 ,p1 ,0);
         }
         else if(figureType.equalsIgnoreCase("QUEEN")) {
-            Position p3 = new Position(0,7);
-            return new Queen(2, p3, 0);
+            Position p2 = new Position(0,7);
+            return new Queen(2, p2, 0);
         }
 
         return null;
