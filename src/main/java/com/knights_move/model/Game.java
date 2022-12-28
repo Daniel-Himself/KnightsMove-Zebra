@@ -145,7 +145,7 @@ public class Game {
     }
 
     //using Factory Design Pattern
-    public List<Figure> initFigureInStage(int stageNumber){
+    public List<Figure> initFigureInStage(){
         try {
             //init the position of figures At the beginning of the stage
             /*Position p = new Position(0,0);
@@ -156,7 +156,7 @@ public class Game {
             List<Figure> listOfFigures = new ArrayList<>();
             listOfFigures.add(horse);
 
-            if(stageNumber >= 1 && stageNumber <=2){
+            if(gameBoard.getBoardId() ==  1 && gameBoard.getBoardId() ==2){
                 /*Position p2 = new Position(63,63);
                 Figure queen = new Figure(3, p2,"queen", 0);*/
                 Figure queen = (Figure) figureFactory.getFigure("queen");
