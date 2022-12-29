@@ -16,7 +16,7 @@ public class Board {
     private HashMap<Position,Tile> tilePositions;
 
 
-
+    //todo - fix board controller constructors
     public Board(int boardId, int numOfForgottenTiles, int numOfBlockedTiles, int numOfRandomJumpTiles) {
         //boardID represents level number in game. for each level in game(range 1 - 4) -> new board.
         if(this.boardId <= 1 && this.boardId <= 4) {
@@ -36,10 +36,22 @@ public class Board {
         this.lastThreeScoreChange = new LinkedList<>();
     }
 
-    public Board(int boardId, HashMap<Integer, HashMap<Position, Tile>> tilesPositionInBoard) {
+    public Board(int boardId) {
         this.boardId = boardId;
+        if(this.boardId <= 1 && this.boardId <= 4) {
+            this.boardId = boardId;
+        }
+        else this.boardId = -1;
+        numOfRandomJumpTiles = (boardId == 1)? 3:(boardId == 3)? 2:0;
+        numOfForgottenTiles = (boardId == 2)? 3:(boardId == 3)? 2:0;
+        numOfBlockedTiles = (boardId == 4)? 8:0;
+        this.emptyTile = new ArrayList<>();
+        this.tileList = new ArrayList<>();
+        this.visitedTile = new ArrayList<>();
         this.tilesPositionInBoard = new HashMap<>();
         this.tilePositions = new HashMap<>();
+        this.lastThreePositions = new LinkedList<>();
+        this.lastThreeScoreChange = new LinkedList<>();
     }
 
     public int getBoardId() {
@@ -65,7 +77,6 @@ public class Board {
     public Tile getTileByPosition(Position p){
         for(Tile t: getTileList()){
             if(t.getTilePosition().equals(p)){
-                System.out.println("tile: "+t);
                 return t;
             }
         }
@@ -123,38 +134,13 @@ public class Board {
 
     public ArrayList<Position> generateRandomPositions(int n){
         ArrayList<Integer> position = getRandoms(n);
-        //ArrayList<Integer> positionY = getRandoms(n);
         ArrayList<Position> positions = new ArrayList<>();
         int x, y;
-        //int maxValueY = 8;
-        /*int x = num / 10000;
-int y = num % 10000;*/
         for(int num: position) {
-             /*x = (int)(num % 100) / 10;
-             y = 7 - (int)(num % 100) / 10;*/
-            //8 is mac value of x and y
             x = num / 8;
             y = num % 8;
             positions.add(new Position(x,y));
-            //System.out.println("myRandomTiles"+ x + " "+y);
-            //System.out.println(position.size());
-
         }
-      /*  for(int num: positionY) {
-            y = (int)(num % 100) / 10;
-        }*/
-       /* for (int num : tiles) {
-            // int tens = (int)(number % 100) / 10;
-            int y = num % 10;
-            int x = (num - y) / 10;
-            //todo from 0-63 to 0,0-7,7
-            positions.add(new Position(x,y));
-            System.out.println(x + " "+y);
-        }*/
-        //System.out.println("size"+ positions.size());
-
-        //System.out.println(position);
-        //System.out.println(positions);
         return positions;
     }
 
@@ -261,46 +247,6 @@ int y = num % 10000;*/
         }
 
     }
-
-    // for each board that belong to game ->  HashMap<Integer,HashMap<Position,Tile>> tilesPositionInBoard
-    // if the key is already in the map, override with new value.
-    public boolean addTilesPositionToBoard (Position p, Tile t){
-        try {
-            if(p != null && t != null){
-                boolean result = addTilePosition(p,t);
-                if(result){
-                    tilesPositionInBoard.put(boardId, tilePositions);
-                    return true;
-                }
-                else
-                    return false;
-            }
-            else
-                return false;
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    //init positions values.
-   /* public Position[] initPosition(){
-        try {
-            int sizeOfBoard = 64;
-            Position[] positionList = new Position[64];
-            for(int i = 0; i < sizeOfBoard ; i++){
-                for(int j = 0 ; j < sizeOfBoard ; j++){
-                    positionList[i] = new Position(i, j);
-                }
-            }
-            return positionList;
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-    }*/
 
     public List<Tile> getTileList() {
         return tileList;

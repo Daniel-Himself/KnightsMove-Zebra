@@ -68,9 +68,7 @@ public abstract class Figure {
         for(Position pp: possiblePos){
             if(validPosition(pp)){
                 Tile t = board.getTileByPosition(pp);
-                if(!t.isVisited()){
-                    optionList.add(pp);
-                }
+                optionList.add(pp);
             }
         }
         return optionList;
