@@ -1,6 +1,5 @@
 package com.knights_move.controller;
-import java.util.ArrayList;
-import java.util.List;
+
 import com.knights_move.model.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -14,11 +13,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.List;
 
 import static com.knights_move.model.TypeTile.EMPTY;
-import static com.knights_move.model.TypeTile.RANDOMPJUMP;
 
 public class PlayController {
 
@@ -63,9 +60,8 @@ public class PlayController {
 
     private int sec = 60;
     private Timeline timeline;
-    private Game game;
-    private Board board;
     private Tile tile;
+    private Game game;
     private Figure horse;
     private Figure queen;
     private Figure king;
@@ -76,8 +72,7 @@ public class PlayController {
 
         startBtn.setOnAction(event -> {
             if(!initialized) {
-                initFigures(1);
-                initGrid(board);
+                initFigures();
             }
             setFiguresOnBoard();
             visible(true,true,true,true,false,true,true);
@@ -86,17 +81,17 @@ public class PlayController {
 
         endGameBtn.setOnAction(event -> {
             clearGrid();
-            initGrid(board);
+            initGrid(game);
             boardGrid.setVisible(false);
         });
     }
 
     private void clearGrid() {
-        board = new Board(1,3,0,0); //todo check this line is ok or delete visited array
-        System.out.println("board: "+board.getTileList());
+        game.getGameBoard().getVisitedTile().clear();
+        game.getGameBoard().getTileList().clear();
         boardGrid.getChildren().removeIf(Node.class::isInstance);
         visible(true,true,true,true,true,true,false);
-        msgTxt.setText("Game lasted "+(60-sec)+" seconds");
+        msgTxt.setText("Game level lasted "+(60-sec)+" seconds");
         if(timeline != null){
             timeline.stop();
             timeArea.setText("Timer");
@@ -122,33 +117,22 @@ public class PlayController {
         boardGrid.setVisible(boardGrid1);
         endGameBtn.setVisible(endGameBtn1);
     }
-    private ArrayList<Integer> getRandoms(int num){
-        ArrayList list = new ArrayList();
-        Random rand = new Random();
-        int pick;
-        for (int j = 0; j < num; j++) {
-            pick = rand.nextInt(64);
-            list.add(pick);
-        }
-        System.out.println(list);
-        return list;
-    }
 
     public void setFiguresOnBoard() {
         msgTxt.setText("Game started");
-        Button btnHorse = (Button)getNodeByRowColumnIndex(horse.getPosition().getX(),horse.getPosition().getY(), boardGrid);
+        Button btnHorse = (Button)PlayAssistController.getNodeByRowColumnIndex(horse.getPosition().getX(),horse.getPosition().getY(), boardGrid);
         btnHorse.getStyleClass().add("vbox");
         btnHorse.setGraphic(horseImg);
-        Button btnQueen = (Button)getNodeByRowColumnIndex(queen.getPosition().getX(),queen.getPosition().getY(), boardGrid);
+        Button btnQueen = (Button)PlayAssistController.getNodeByRowColumnIndex(queen.getPosition().getX(),queen.getPosition().getY(), boardGrid);
         btnQueen.setGraphic(queenImg);
         btnQueen.getStyleClass().add("vbox");
         horseImg.setVisible(true);
         queenImg.setVisible(true);
     }
 
-    private void initGrid(Board board){
+    private void initGrid(Game game){
         int count = 0;
-        double s = 38; // side of rectangle
+        double s = 38; // side of button in grid
         for (int i = 0; i < 8; i++) {
             count++;
             for (int j = 0; j < 8; j++) {
@@ -157,78 +141,76 @@ public class PlayController {
                 button.setOnAction(event -> {
                     moveFigure(button);
                 });
-
-               // board.getEmptyTilesList().add(tile);
-                board.addEmptyTile(tile);
-                board.getTileList().add(tile);
+                game.getGameBoard().addEmptyTile(tile);
+                game.getGameBoard().getTileList().add(tile);
                 button.setPrefSize(s, s);
                 button.getStyleClass().removeAll("button");
                 if (count % 2 == 0) { button.getStyleClass().add("whiteTile");}
                 else { button.getStyleClass().add("greenTile"); }
                 boardGrid.add(button, j, i);
                 count++;
-            } //todo in backend + tiles + questions
-            if(board.getBoardId() == 1){
-                ArrayList<Position> randomPositions = board.generateRandomPositions(board.getNumOfRandomJumpTiles());
-
-                    //Button b = (Button) getNodeByRowColumnIndex(p.getX(), p.getY(), boardGrid);
-                    //board.getTileList().get(num).setType(RANDOMPJUMP);
-
-
             }
-            else if(board.getBoardId() == 2){
-                ArrayList<Position> randomPositions = board.generateRandomPositions(3);
-                //ArrayList<Position> randomPositions = board.generateRandomPositions(2);
-
-                for(Position p: randomPositions){
-                    Button b = (Button) getNodeByRowColumnIndex(p.getX(), p.getY(), boardGrid);
-                }
-            }
-
+        }//todo in backend -> tiles with questions
+        PlayAssistController.setSpecialTilesByLevel(game, game.getGameBoard());
+        for(Tile t: game.getGameBoard().getTileList()){
+            System.out.println("tile: "+t);
         }
         initialized = true;
     }
 
-    private void initFigures(int level){
-        board = new Board(1, 0,0,3);
+    private void initFigures(){
+        Board board = new Board(1, 0,0,3);
         game = new Game(1, board, null);
         List<Figure> figures = game.initFigures();
         horse = figures.get(0);
         queen = figures.get(1);
         king = figures.get(2);
-
+        initGrid(game);
     }
 //todo track visited (tile+board)+ timer/level
     private void moveFigure(Button button){
         if(turn == 1){
-            List<Position> horseOptions = horse.horseOptions(horse.getPosition(), board);
-            System.out.println(horseOptions);
+            List<Position> horseOptions = horse.horseOptions(horse.getPosition(), game.getGameBoard());
             Position horseNewPos = new Position(GridPane.getRowIndex(button), GridPane.getColumnIndex(button));
             if(horseOptions.contains(horseNewPos)){
-                horse.setPosition(horseNewPos);
-                Tile t = board.getTileByPosition(horseNewPos);
-                if(t != null) t.setVisited(true);
-                board.addVisitedTile(t);
-                board.removeEmptyTile(t);
-                button.getStyleClass().add("vbox");
-                button.setGraphic(horseImg);
-                turn++;
+                Tile t = game.getGameBoard().getTileByPosition(horseNewPos);
+                if(!game.getGameBoard().getVisitedTile().contains(t)){
+                    if(t.getType() == TypeTile.RANDOMPJUMP){
+                        int x = PlayAssistController.generateRandomJumpPosition();
+                        int y = PlayAssistController.generateRandomJumpPosition();
+                        horseNewPos.setX(x);
+                        horseNewPos.setY(y);
+                        button = (Button)PlayAssistController.getNodeByRowColumnIndex(x,y, boardGrid);
+                    }
+                    if(t.getType() == TypeTile.FORGOTTEN){
+                        //todo - implement forgotten logic
+                    }
+                    horse.setPosition(horseNewPos);
+                    game.getGameBoard().updateLastThreePositions(horseNewPos); // updating last 3 horse positions
+                   // game.getGameBoard().updateLastThreeScoreChange(); //todo
+                    t.setVisited(true);
+                    game.getGameBoard().addVisitedTile(t);
+                    game.getGameBoard().removeEmptyTile(t);
+                    button.getStyleClass().add("vbox");
+                    button.setGraphic(horseImg);
+                    turn++;
+
+                }
+                else msgTxt.setText("Visited tile -1 score");
             }
-            else {
-                msgTxt.setText("Horse can't move that way");
-            }
+            else msgTxt.setText("Horse can't move that way");
+
             if(turn == 2){
                 Position queenCurrPosition = queen.getPosition();
                 Position queenNextPosition = queen.move(horse.getPosition(), queenCurrPosition);
                 queen.setPosition(queenNextPosition);
-                Button nextNode = (Button)getNodeByRowColumnIndex(queenNextPosition.getX(),queenNextPosition.getY(), boardGrid);
+                Button nextNode = (Button)PlayAssistController.getNodeByRowColumnIndex(queenNextPosition.getX(),queenNextPosition.getY(), boardGrid);
                 msgTxt.setText("horse : " + horse.getPosition().getX()+" "+ horse.getPosition().getY()+
                         "  queen : "+queen.getPosition().getX()+" "+ queen.getPosition().getY());
                 nextNode.setGraphic(queenImg);
                 turn--;
             }
         }
-        System.out.println("visited: "+board.getVisitedTile());
     }
 
     private Timeline initTimer(){
@@ -238,7 +220,7 @@ public class PlayController {
             if(sec < 10){ timeArea.setText("Time: 0"+sec); }
             else { timeArea.setText("Time: "+sec); }
             if(sec == 0){  timeArea.setText("Game over!");}
-            endLevel(board.getBoardId()); //todo equals to  level num
+         //   endLevel(board.getBoardId()); //todo equals to  level num
         }));
         timeline.setCycleCount(60);
         timeline.play();
@@ -250,19 +232,5 @@ public class PlayController {
 
         }
     }
-
-    public Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
-        Node result = null;
-        ObservableList<Node> children = gridPane.getChildren();
-        for (Node node : children) {
-            if(gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
-                result = node;
-                break;
-            }
-        }
-        return result;
-    }
-
-
 
 }

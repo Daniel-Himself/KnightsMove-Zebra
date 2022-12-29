@@ -1,19 +1,21 @@
 package com.knights_move.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Board {
     private int boardId;
     private int numOfForgottenTiles;
     private int numOfRandomJumpTiles;
+    int numOfBlockedTiles;
     private List<Tile> visitedTile;
     private List<Tile> emptyTile;
     private List<Tile> tileList;
+    private LinkedList<Position> lastThreePositions;
+    private LinkedList<Integer> lastThreeScoreChange;
     private HashMap<Integer,HashMap<Position,Tile>> tilesPositionInBoard;
     private HashMap<Position,Tile> tilePositions;
+
+
 
     public Board(int boardId, int numOfForgottenTiles, int numOfBlockedTiles, int numOfRandomJumpTiles) {
         //boardID represents level number in game. for each level in game(range 1 - 4) -> new board.
@@ -24,12 +26,14 @@ public class Board {
             this.boardId = -1;
         this.numOfRandomJumpTiles = numOfRandomJumpTiles;
         this.numOfForgottenTiles = numOfForgottenTiles;
+        this.numOfBlockedTiles = numOfBlockedTiles;
         this.emptyTile = new ArrayList<>();
         this.tileList = new ArrayList<>();
         this.visitedTile = new ArrayList<>();
         this.tilesPositionInBoard = new HashMap<>();
         this.tilePositions = new HashMap<>();
-
+        this.lastThreePositions = new LinkedList<>();
+        this.lastThreeScoreChange = new LinkedList<>();
     }
 
     public Board(int boardId, HashMap<Integer, HashMap<Position, Tile>> tilesPositionInBoard) {
@@ -46,7 +50,12 @@ public class Board {
         this.boardId = boardId;
     }
 
-
+    public LinkedList<Position> getLastThreePositions() {
+        return lastThreePositions;
+    }
+    public LinkedList<Integer> getLastThreeScoreChange() {
+        return lastThreeScoreChange;
+    }
     public HashMap<Integer, HashMap<Position, Tile>> getTilesPositionInBoard() {
         return tilesPositionInBoard;
     }
@@ -61,6 +70,27 @@ public class Board {
             }
         }
         return null;
+    }
+
+    //keep tracking last 3 horse positions
+    public void updateLastThreePositions(Position position){
+        if(lastThreePositions.size() < 3){
+            lastThreePositions.add(position);
+        }
+        else{
+            lastThreePositions.removeFirst();
+            lastThreePositions.add(position);
+        }
+    }
+
+    public void updateLastThreeScoreChange(int score){
+        if(lastThreeScoreChange.size() < 3){
+            lastThreeScoreChange.add(score);
+        }
+        else{
+            lastThreeScoreChange.removeFirst();
+            lastThreeScoreChange.add(score);
+        }
     }
 
     public List<Tile> getEmptyTile() {
@@ -123,8 +153,8 @@ int y = num % 10000;*/
         }*/
         //System.out.println("size"+ positions.size());
 
-        System.out.println(position);
-        System.out.println(positions);
+        //System.out.println(position);
+        //System.out.println(positions);
         return positions;
     }
 
@@ -294,5 +324,13 @@ int y = num % 10000;*/
 
     public void setNumOfRandomJumpTiles(int numOfRandomJumpTiles) {
         this.numOfRandomJumpTiles = numOfRandomJumpTiles;
+    }
+
+    public void setNumOfBlockedTiles(int numOfBlockedTiles) {
+        this.numOfBlockedTiles = numOfBlockedTiles;
+    }
+
+    public int getNumOfBlockedTiles() {
+        return numOfBlockedTiles;
     }
 }
