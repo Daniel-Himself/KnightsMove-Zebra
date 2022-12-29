@@ -3,6 +3,7 @@ package com.knights_move.controller;
 import com.knights_move.model.Answer;
 import com.knights_move.model.Question;
 import com.knights_move.model.SysData;
+import com.knights_move.model.Team;
 import com.knights_move.view.HelloApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -167,18 +168,13 @@ public class AddQuestionController implements Initializable {
     }
     public void initTeam() {
         combo_Team.getSelectionModel().clearSelection();
-        List<String> TeamUniqelist = new ArrayList<String>();
-        if(SysData.getInstance().getQuestions()!=null){
-            for (Question question : SysData.getInstance().getQuestions()) {
-                String team = question.getTeamNick();
-                if (!TeamUniqelist.contains(team)) {
-                    TeamUniqelist.add(team);
-                }
-            }
+        List<String> teamUniqelist = new ArrayList<String>();
+        Team[] allTeams= Team.values();
+        for (Team team:allTeams)
+        {
+            teamUniqelist.add(String.valueOf(team));
         }
-        //convert list to ObservableList list
-        //JavaFX ObservableList is JavaFX SDK’s special implementation of List interface.
-        ObservableList observableList = FXCollections.observableArrayList(TeamUniqelist);
+        ObservableList observableList = FXCollections.observableArrayList(teamUniqelist);
         combo_Team.setItems(observableList);
     }
     public void initCorrectAnswer() {
@@ -238,14 +234,15 @@ public class AddQuestionController implements Initializable {
             answer.add(a4);
             int correct_ans = Integer.valueOf(this.combo_correctAns.getSelectionModel().getSelectedItem());
             int level = Integer.valueOf((this.combo_level.getSelectionModel().getSelectedItem()));
-            String team = this.combo_Team.getSelectionModel().getSelectedItem();
+            Team team = Team.valueOf(combo_Team.getSelectionModel().getSelectedItem());
+
             //check if the questions exist
             if(EditMode==false) {
                 if (SysData.getInstance().getQuestions() != null && !(SysData.getInstance().getQuestions().isEmpty())) {
                     if (SysData.getInstance().getQuestionByName(questionId) != null) {
                         HelloApplication.alertError("Error", "This questions content exist");
                     } else {
-                        Question newQuestion = new Question(questionId, answer, correct_ans, level, team);
+                        Question newQuestion = new Question(questionId, answer, correct_ans, level, team.toString());
                         SysData.getInstance().getQuestions().add(newQuestion);
                         SysData.getInstance().serJsonQuestion();
                         System.out.println(SysData.getInstance().getQuestions());
@@ -258,7 +255,8 @@ public class AddQuestionController implements Initializable {
                 q.setAnswers(answer);
                 q.setCorrect_answerID(correct_ans);
                 q.setLevel(level);
-                q.setTeamNick(team);
+                q.setTeamNick(team.toString());
+                SysData.getInstance().serJsonQuestion();
                 HelloApplication.alertSuccesful("Successful","the question is up to date");
             }
         }
