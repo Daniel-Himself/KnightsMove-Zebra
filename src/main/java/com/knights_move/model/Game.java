@@ -1,25 +1,23 @@
 package com.knights_move.model;
 
-import javafx.stage.Stage;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 public class Game {
     private int gameID;
     private Board gameBoard;
-    private Stage stageGame;
     private List<Question> question;
     private LocalDate dateOfGame;
 
-    int position;
     private HashMap<Game, Integer> scoreInGame;
     private String userName;
     private LocalDateTime startTime;
     private LocalDateTime finishTime;
-    private int currentLevelScore;
-
+    private int currentLevelScore = 0;
 
     private int totalScoreInGame;
     private Boolean award;
@@ -36,13 +34,7 @@ public class Game {
         this.gameID = gameID;
         this.dateOfGame = date;
     }
-    public int getPosition() {
-        return position;
-    }
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
 
     public HashMap<Game, Integer> getScoreInGame() {
         return scoreInGame;
@@ -121,13 +113,6 @@ public class Game {
         this.gameBoard = gameBoard;
     }
 
-    public Stage getStageGame() {
-        return stageGame;
-    }
-
-    public void setStageGame(Stage stageGame) {
-        this.stageGame = stageGame;
-    }
     public void setQuestion(List<Question> question) {
         this.question = question;
     }
@@ -274,50 +259,51 @@ public class Game {
         }
     }
     //set Special tiles in level by given num of tiles - daniela
-    public List<Tile> setSpecialTilesInLevel(int numOfTiles) {
+    public void setSpecialTilesInLevel(int numOfTiles) {
         try {
-            ArrayList<Position> randomPositions;
-            ArrayList<Tile> listOfSpecialTiles = new ArrayList<>();
-            randomPositions = gameBoard.generateRandomPositions(numOfTiles);
+            ArrayList<Position> randomPositions = gameBoard.generateRandomPositions(numOfTiles);
             if(gameBoard.getBoardId() == 1) {
                 for(Position p : randomPositions) {
-                    Tile specialTile = new Tile(p, TypeTile.RANDOMPJUMP, Color.WHITE, false);
-                    listOfSpecialTiles.add(specialTile);
+                    Tile specialTile = gameBoard.getTileByPosition(p);
+                    specialTile.setTileColor(Color.WHITE);
+                    specialTile.setType(TypeTile.RANDOMPJUMP);
+                    System.out.println("random ->" + specialTile);
                 }
-                System.out.println(listOfSpecialTiles);
-                return listOfSpecialTiles;
             }
             if(gameBoard.getBoardId() == 2) {
-                //Tile(p, TypeTile.FORGOTTEN, Color.WHITE, false);
                 for(Position p : randomPositions) {
-                    Tile specialTile = new Tile(p, TypeTile.FORGOTTEN, Color.WHITE, false);
-                    listOfSpecialTiles.add(specialTile);
+                    Tile specialTile = gameBoard.getTileByPosition(p);
+                    specialTile.setTileColor(Color.WHITE);
+                    specialTile.setType(TypeTile.FORGOTTEN);
+                    System.out.println("forgotten ->" + specialTile);
                 }
-                return listOfSpecialTiles;
             }
-
             if(gameBoard.getBoardId() == 3) {
                 for(Position p : randomPositions) {
-                    Tile specialTile = new Tile(p, TypeTile.FORGOTTEN, Color.WHITE, false);
-                    listOfSpecialTiles.add(specialTile);
+                    int count = 0;
+                    while(count < 2){ //todo need to be changed according to board.getNumOfForgotten/random
+                        Tile specialTile = gameBoard.getTileByPosition(p);
+                        specialTile.setTileColor(Color.WHITE);
+                        specialTile.setType(TypeTile.FORGOTTEN);
+                        randomPositions.remove(p); //todo check if ensure unique numbers without duplicates
+                        System.out.println("forgotten ->" + specialTile);
+                    }
                 }
-                randomPositions = gameBoard.generateRandomPositions(numOfTiles);
                 for(Position p : randomPositions) {
-                    Tile specialTile = new Tile(p, TypeTile.RANDOMPJUMP, Color.WHITE, false);
-                    listOfSpecialTiles.add(specialTile);
+                    Tile specialTile = gameBoard.getTileByPosition(p);
+                    specialTile.setTileColor(Color.WHITE);
+                    specialTile.setType(TypeTile.RANDOMPJUMP);
+                    System.out.println("random ->" + specialTile);
                 }
-                return listOfSpecialTiles;
             }
             if (gameBoard.getBoardId() == 4) {
-                //new Tile(p, TypeTile.BLOCKED, Color.RED, false);
                 for(Position p : randomPositions) {
-                    Tile specialTile = new Tile(p, TypeTile.BLOCKED, Color.RED, false);
-                    listOfSpecialTiles.add(specialTile);
+                    Tile specialTile = gameBoard.getTileByPosition(p);
+                    specialTile.setTileColor(Color.RED);
+                    specialTile.setType(TypeTile.BLOCKED);
+                    System.out.println("blocked ->" + specialTile);
                 }
-                return listOfSpecialTiles;
             }
-            else
-                return null;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -328,7 +314,6 @@ public class Game {
         return "Game{" +
                 "gameID=" + gameID +
                 ", gameBoard=" + gameBoard +
-                ", stageGame=" + stageGame +
                 ", question=" + question +
                 ", dateOfGame=" + dateOfGame +
                 '}';
