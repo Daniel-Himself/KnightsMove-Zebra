@@ -10,46 +10,21 @@
 
 <AnchorPane fx:id="ap" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.controller.AddQuestionController">
    <Pane id="pane_top" fx:id="pane_top" prefHeight="42.0" prefWidth="600.0" style="-fx-background-color: #424242;">
-      <Label fx:id="label_title" layoutX="8.0" layoutY="6.0" prefHeight="26.0" prefWidth="462.0" text="Questions and Answers management page" textFill="#fffefe">
+      <Label fx:id="label_title" layoutX="8.0" layoutY="6.0" prefHeight="26.0" prefWidth="600.0" text="Questions and Answers management page" textFill="#fffefe">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
    </Pane>
    <AnchorPane layoutX="77.0" layoutY="62.0" prefHeight="504.0" prefWidth="446.0">
-      <TextField fx:id="text_question" layoutX="210.0" layoutY="39.0" prefHeight="22.0" prefWidth="181.0" promptText="Questions" />
+      <TextField fx:id="text_question" layoutX="208.0" layoutY="39.0" prefHeight="22.0" prefWidth="181.0" promptText="Questions" />
       <ComboBox fx:id="combo_level" layoutX="209.0" layoutY="282.0" prefHeight="26.0" prefWidth="157.0" />
       <ComboBox fx:id="combo_Team" layoutX="208.0" layoutY="314.0" prefHeight="26.0" prefWidth="158.0" />
-      <Button fx:id="addTeam" layoutX="392.0" layoutY="314.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="26.0" text="+" />
       <Button fx:id="button_save" layoutX="223.0" layoutY="363.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="52.0" style="-fx-background-color: green;" text="Save" textFill="#f4ebeb">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="button_new_answer1" layoutX="392.0" layoutY="74.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="35.0" text="+">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="button_new_answer2" layoutX="392.0" layoutY="119.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="35.0" text="+">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="button_new_answer3" layoutX="392.0" layoutY="162.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="35.0" text="+">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="button_new_answer4" layoutX="392.0" layoutY="201.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="35.0" text="+">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <ComboBox fx:id="combo_answer1" layoutX="210.0" layoutY="74.0" prefWidth="150.0" />
-      <ComboBox fx:id="combo_answer2" layoutX="210.0" layoutY="119.0" prefWidth="150.0" />
-      <ComboBox fx:id="combo_answer3" layoutX="210.0" layoutY="163.0" prefWidth="150.0" />
-      <ComboBox fx:id="combo_answer4" layoutX="210.0" layoutY="201.0" prefWidth="150.0" />
       <ComboBox fx:id="combo_correctAns" layoutX="210.0" layoutY="239.0" prefHeight="26.0" prefWidth="150.0" />
       <Label layoutX="82.0" layoutY="39.0" prefHeight="26.0" prefWidth="126.0" text="Question content" />
       <Label layoutX="82.0" layoutY="74.0" prefHeight="26.0" prefWidth="126.0" text="Answer #1" />
@@ -60,5 +35,9 @@
       <Label layoutX="82.0" layoutY="239.0" prefHeight="26.0" prefWidth="126.0" text="Correct Answer" />
       <Label layoutX="82.0" layoutY="201.0" prefHeight="26.0" prefWidth="126.0" text="Answer #4" />
       <Button fx:id="button_back" layoutX="156.0" layoutY="363.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="52.0" text="Back" />
+      <TextField fx:id="textFiled_answer1" layoutX="211.0" layoutY="75.0" />
+      <TextField fx:id="textFiled_answer2" layoutX="210.0" layoutY="119.0" />
+      <TextField fx:id="textFiled_answer3" layoutX="210.0" layoutY="163.0" />
+      <TextField fx:id="textFiled_answer4" layoutX="211.0" layoutY="202.0" />
    </AnchorPane>
 </AnchorPane>

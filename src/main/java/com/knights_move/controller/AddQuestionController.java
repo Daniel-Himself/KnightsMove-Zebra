@@ -33,34 +33,21 @@ public class AddQuestionController implements Initializable {
     private Button addTeam;
 
     @FXML
-    private Button button_new_answer1;
-
-    @FXML
-    private Button button_new_answer2;
-
-    @FXML
-    private Button button_new_answer3;
-
-    @FXML
-    private Button button_new_answer4;
-
-    @FXML
     private Button button_save;
 
     @FXML
     private ComboBox<String> combo_Team;
+    @FXML
+    private TextField textFiled_answer1;
 
     @FXML
-    private ComboBox<String> combo_answer1;
+    private TextField textFiled_answer2;
 
     @FXML
-    private ComboBox<String> combo_answer2;
+    private TextField textFiled_answer3;
 
     @FXML
-    private ComboBox<String> combo_answer3;
-
-    @FXML
-    private ComboBox<String> combo_answer4;
+    private TextField textFiled_answer4;
 
     @FXML
     private ComboBox<String> combo_correctAns;
@@ -100,10 +87,10 @@ public class AddQuestionController implements Initializable {
                         if(EditMode)
                         {
                             text_question.setText(newQuestion.getQuesID());
-                            combo_answer1.getSelectionModel().select(newQuestion.getAnswers().get(0).getContent());
-                            combo_answer2.getSelectionModel().select(newQuestion.getAnswers().get(1).getContent());
-                            combo_answer3.getSelectionModel().select(newQuestion.getAnswers().get(2).getContent());
-                            combo_answer4.getSelectionModel().select(newQuestion.getAnswers().get(3).getContent());
+                            textFiled_answer1.setText(newQuestion.getAnswers().get(0).getContent());
+                            textFiled_answer2.setText(newQuestion.getAnswers().get(1).getContent());
+                            textFiled_answer3.setText(newQuestion.getAnswers().get(2).getContent());
+                            textFiled_answer4.setText(newQuestion.getAnswers().get(3).getContent());
                             combo_correctAns.getSelectionModel().select(newQuestion.getCorrect_answerID());
                             combo_level.getSelectionModel().select(String.valueOf(newQuestion.getLevel()));
                             combo_Team.getSelectionModel().select(String.valueOf(newQuestion.getTeamNick()));
@@ -119,31 +106,6 @@ public class AddQuestionController implements Initializable {
             insertNewRow();
         });
 
-        button_new_answer1.setOnAction(e->{
-            showAnswers();
-        });
-        button_new_answer2.setOnAction(e->{
-            showAnswers();
-        });
-        button_new_answer3.setOnAction(e->{
-            showAnswers();
-        });
-        button_new_answer4.setOnAction(e->{
-            showAnswers();
-        });
-
-        combo_answer1.setOnMouseClicked(e->{
-            initAnswer();
-        });
-        combo_answer2.setOnMouseClicked(e->{
-            initAnswer();
-        });
-        combo_answer3.setOnMouseClicked(e->{
-            initAnswer();
-        });
-        combo_answer4.setOnMouseClicked(e->{
-            initAnswer();
-        });
         button_back.setOnAction(e->{
             HelloApplication.loadPage("MainFrame.fxml");
         });
@@ -189,45 +151,15 @@ public class AddQuestionController implements Initializable {
         ObservableList observableList = FXCollections.observableArrayList(CorrectList);
         combo_correctAns.setItems(observableList);
     }
-    private void initAnswer()
-    {
 
-        if(AnswersController.getAllAnswer()!=null){
-            if(!(AnswersController.getAllAnswer().isEmpty())) {
-                List<Answer> array = new ArrayList<>();
-                List<String> answerContent = new ArrayList<>();
-                for(AnswersController.NewAnswer NewAnswer:AnswersController.getAllAnswer())
-                    array.add(new Answer(NewAnswer.getContent()));
-
-                for (Answer answer : array) {
-                    answerContent.add(answer.getContent());
-                }
-                ObservableList observableList = FXCollections.observableArrayList(answerContent);
-                combo_answer1.setItems(observableList);
-                combo_answer2.setItems(observableList);
-                combo_answer3.setItems(observableList);
-                combo_answer4.setItems(observableList);
-            }
-        }
-    }
-    private void showAnswers()
-    {
-        try{
-            HelloApplication.loadPage("Answers.fxml");
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-    }
     public void insertNewRow()
     {
             String questionId = this.text_question.getText();
             ArrayList<Answer> answer = new ArrayList<>();
-            Answer a1 = new Answer(combo_answer1.getSelectionModel().getSelectedItem());
-            Answer a2 = new Answer(combo_answer2.getSelectionModel().getSelectedItem());
-            Answer a3 = new Answer(combo_answer3.getSelectionModel().getSelectedItem());
-            Answer a4 = new Answer(combo_answer4.getSelectionModel().getSelectedItem());
+            Answer a1 = new Answer(textFiled_answer1.getText().toString());
+            Answer a2 = new Answer(textFiled_answer2.getText().toString());
+            Answer a3 = new Answer(textFiled_answer3.getText().toString());
+            Answer a4 = new Answer(textFiled_answer4.getText().toString());
             answer.add(a1);
             answer.add(a2);
             answer.add(a3);
