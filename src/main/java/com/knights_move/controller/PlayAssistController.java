@@ -2,11 +2,14 @@ package com.knights_move.controller;
 
 import com.knights_move.model.Board;
 import com.knights_move.model.Game;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
-import java.util.ArrayList;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
+
 import java.util.Random;
 
 // Splitted controller of Play game logic with assist methods
@@ -47,5 +50,14 @@ public class PlayAssistController {
         int pick = rand.nextInt(8);
         return pick;
     }
+
+    public static void disappear(Text lable){
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished(e -> lable.setText(null));
+        pause.play();
+    }
+
+
+
 
 }
