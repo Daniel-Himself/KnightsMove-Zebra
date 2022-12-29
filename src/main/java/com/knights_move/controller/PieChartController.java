@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
 
 public class PieChartController{
@@ -15,10 +14,6 @@ public class PieChartController{
     private PieChart pieChart;
     @FXML
     private AnchorPane piePanel;
-    //c
-    public Pane pnlChoosedPage;
-
-
 
     public void initialize () {
         assert pieChart != null : "fx:id=\"pieChart\" was not injected: check your FXML file 'PieChart.fxml'.";
@@ -30,7 +25,7 @@ public class PieChartController{
                         new PieChart.Data("Level 2", SysData.getInstance().getQuestionByLevel(2).values().size()),
                         new PieChart.Data("Level 3", SysData.getInstance().getQuestionByLevel(2).values().size()));
         final PieChart chart = new PieChart(pieChartData);
-        chart.setTitle("Questions by levels");
+        chart.setTitle(""); // blank title because there is already an FXML title bar, it helps to avoid overlapping objects
         // add chart to panel
         piePanel.getChildren().add(chart);
 
