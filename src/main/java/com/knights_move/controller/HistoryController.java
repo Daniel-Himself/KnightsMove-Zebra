@@ -142,13 +142,11 @@ public class HistoryController implements Initializable {
         ObservableList<NewGame> observableList = FXCollections.observableArrayList(listOfGames);
         historTbl.setItems(observableList);
 
-        BTRY.setOnAction(e->{
-            add();
-        });
     }
-    public void add()
+    //todo point this one to real game -> from play controller -> fix it
+    public static void add(Game game)
     {
-        Game g= new Game(3,LocalDate.now());
+        Game g= game;
         HashMap<Player,ArrayList<Game>> map =SysData.getInstance().getPlayerAndgames();
         if(map!=null) {
             for(Player p:map.keySet())
