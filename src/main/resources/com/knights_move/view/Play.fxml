@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+
 <AnchorPane fx:id="pnlHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" styleClass="body" stylesheets="@design.scss" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.controller.PlayController">
    <children>
       <Label fx:id="levelLbl" layoutX="63.0" layoutY="55.0" text="Level 1" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
@@ -75,5 +79,16 @@
          </children>
       </GridPane>
       <Text fx:id="msgTxt" layoutX="200.0" layoutY="474.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
+      <ImageView fx:id="awardImg" fitHeight="145.0" fitWidth="200.0" layoutX="191.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="209.0" AnchorPane.topAnchor="205.0">
+         <image>
+            <Image url="@award.gif" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="NONE" />
+         </cursor>
+         <effect>
+            <ColorAdjust />
+         </effect>
+      </ImageView>
    </children>
 </AnchorPane>

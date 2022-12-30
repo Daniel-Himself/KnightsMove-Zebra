@@ -2,14 +2,17 @@ package com.knights_move.controller;
 
 import com.knights_move.model.Board;
 import com.knights_move.model.Game;
+import com.knights_move.model.TypeTile;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import java.util.HashMap;
 import java.util.Random;
 
 // Splitted controller of Play game logic with assist methods
@@ -30,19 +33,12 @@ public class PlayAssistController {
         }
         return result;
     }
-    public static void setSpecialTilesByLevel(Game game, Board board){
-        if(board.getBoardId() == 1){
-            game.setSpecialTilesInLevel(board.getNumOfRandomJumpTiles());
-        }
-        else if(board.getBoardId() == 2){
-            game.setSpecialTilesInLevel(board.getNumOfForgottenTiles());
-        }
-        else if(board.getBoardId() == 3){
-            game.setSpecialTilesInLevel(board.getNumOfForgottenTiles() + board.getNumOfRandomJumpTiles());
-        }
-        else if(board.getBoardId() == 4){
-            game.setSpecialTilesInLevel(board.getNumOfBlockedTiles());
-        }
+    public static void setSpecialTilesByLevel(Game game){
+
+        int level = game.getGameBoard().getBoardId();
+        int numOfTiles = game.getGameBoard().getNumOgSpecialTilesByLevel(level);
+        System.out.println("Level -> : "+level+"    Num of tiles -> : "+numOfTiles);
+        game.setSpecialTilesInLevel(numOfTiles);
     }
     //returns random number in range 0-7 -> used while generating random Jump destination
     public static int generateRandomJumpPosition(){
@@ -51,9 +47,15 @@ public class PlayAssistController {
         return pick;
     }
 
-    public static void disappear(Text lable){
-        PauseTransition pause = new PauseTransition(Duration.seconds(2));
-        pause.setOnFinished(e -> lable.setText(null));
+    public static void disappear(Text lable, ImageView image, int duration){
+        PauseTransition pause = new PauseTransition(Duration.seconds(duration));
+        if(lable != null){
+            pause.setOnFinished(e -> lable.setText(null));
+        }
+        if(image != null){
+            pause.setOnFinished(e -> image.setVisible(false));
+        }
+        ;
         pause.play();
     }
 

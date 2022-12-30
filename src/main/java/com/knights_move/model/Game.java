@@ -151,21 +151,19 @@ public class Game {
                 }
             }
             if(gameBoard.getBoardId() == 3) {
-                for(Position p : randomPositions) {
-                    int count = 0;
-                    while(count < 2){ //todo need to be changed according to board.getNumOfForgotten/random
-                        Tile specialTile = gameBoard.getTileByPosition(p);
-                        specialTile.setTileColor(Color.WHITE);
-                        specialTile.setType(TypeTile.FORGOTTEN);
-                        randomPositions.remove(p); //todo check if ensure unique numbers without duplicates
-                        System.out.println("forgotten ->" + specialTile);
-                    }
-                }
+                int count = 0;
                 for(Position p : randomPositions) {
                     Tile specialTile = gameBoard.getTileByPosition(p);
                     specialTile.setTileColor(Color.WHITE);
-                    specialTile.setType(TypeTile.RANDOMPJUMP);
-                    System.out.println("random ->" + specialTile);
+                    if(count < 2){
+                        specialTile.setType(TypeTile.FORGOTTEN);
+                        System.out.println("forgotten ->" + specialTile);
+                        count++;
+                    }
+                    else {
+                        specialTile.setType(TypeTile.RANDOMPJUMP);
+                        System.out.println("random ->" + specialTile);
+                    }
                 }
             }
             if (gameBoard.getBoardId() == 4) {

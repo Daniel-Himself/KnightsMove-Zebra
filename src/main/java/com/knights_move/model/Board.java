@@ -3,7 +3,7 @@ package com.knights_move.model;
 import java.util.*;
 
 public class Board {
-    private int boardId;
+    private int boardId; //equal to level number
     private int numOfForgottenTiles;
     private int numOfRandomJumpTiles;
     int numOfBlockedTiles;
@@ -33,7 +33,9 @@ public class Board {
         this.tilesPositionInBoard = new HashMap<>();
         this.tilePositions = new HashMap<>();
         this.lastThreePositions = new LinkedList<>();
+        lastThreePositions.add(new Position(0,0));
         this.lastThreeScoreChange = new LinkedList<>();
+        lastThreeScoreChange.add(0);
     }
 
     public Board(int boardId) {
@@ -42,9 +44,6 @@ public class Board {
             this.boardId = boardId;
         }
         else this.boardId = -1;
-        numOfRandomJumpTiles = (boardId == 1)? 3:(boardId == 3)? 2:0;
-        numOfForgottenTiles = (boardId == 2)? 3:(boardId == 3)? 2:0;
-        numOfBlockedTiles = (boardId == 4)? 8:0;
         this.emptyTile = new ArrayList<>();
         this.tileList = new ArrayList<>();
         this.visitedTile = new ArrayList<>();
@@ -73,6 +72,18 @@ public class Board {
     }
 
     public List<Tile> getVisitedTile() { return visitedTile;}
+
+    public int getNumOgSpecialTilesByLevel(int level){
+        if(level == 1 || level == 2){
+            return 3;
+        }
+        if(level == 3){
+            return 4;
+        }
+        else{
+            return 8;
+        }
+    }
 
     public Tile getTileByPosition(Position p){
         for(Tile t: getTileList()){
@@ -106,17 +117,6 @@ public class Board {
 
     public List<Tile> getEmptyTile() {
         return emptyTile;
-    }
-
-    @Override
-    public String toString() {
-        return "Board{" +
-                "boardId=" + boardId +
-                ", visitedTile=" + visitedTile +
-                ", emptyTile=" + emptyTile +
-                ", tilesPositionInBoard=" + tilesPositionInBoard +
-                ", tilePositions=" + tilePositions +
-                '}';
     }
 
     private ArrayList<Integer> getRandoms(int num){
@@ -278,5 +278,16 @@ public class Board {
 
     public int getNumOfBlockedTiles() {
         return numOfBlockedTiles;
+    }
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "boardId=" + boardId +
+                ", visitedTile=" + visitedTile +
+                ", emptyTile=" + emptyTile +
+                ", tilesPositionInBoard=" + tilesPositionInBoard +
+                ", tilePositions=" + tilePositions +
+                '}';
     }
 }
