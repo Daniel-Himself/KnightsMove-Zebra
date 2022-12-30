@@ -1,74 +1,51 @@
 package com.knights_move.model;
 
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class GameTest {
-
-
-   // @Test
-   /* void setSpecialTilesInLevel() {
-        // public List<Tile> setSpecialTilesInLevel(int numOfTiles)
-        //int gameID, Board gameBoard, List<Question> question
-        //int boardId, int numOfForgottenTiles, int numOfBlockedTiles, int numOfRandomJumpTiles
-        Board b1 = new Board(1, 0, 0, 0);
-        Game game = new Game(1,b1, null);
-        List<Tile> setSpecialTilesInLevel = game.setSpecialTilesInLevel(3);
-
-        for(Tile t : setSpecialTilesInLevel) {
-            //System.out.println(t);
-            assertTrue(t.getType() == TypeTile.RANDOMPJUMP);
+    @Test
+    void initFigureInStage() {
+        Board board = new Board(1, 0, 0, 0);
+        Game game = new Game(1,board, null);
+        List<Figure> initFigureInStage1 = game.initFigureInStage();
+        for(Figure f : initFigureInStage1) {
+            assertTrue(f.getClass().toString().contains("Horse") ||f.getClass().toString().contains("Queen"));
+            assertFalse(f.getClass().toString().contains("King"));
         }
 
-        Board b2 = new Board(2, 0, 0, 0);
-        game.setGameBoard(b2);
-        List<Tile> setSpecialTilesInLevel1 = game.setSpecialTilesInLevel(3);
+        board.setBoardId(2);
+        game.setGameBoard(board);
+        List<Figure> initFigureInStage2 = game.initFigureInStage();
 
-        for(Tile t : setSpecialTilesInLevel1) {
-            System.out.println(t);
-            assertTrue(t.getType() == TypeTile.FORGOTTEN);
+        for(Figure f : initFigureInStage2) {
+            assertTrue(f.getClass().toString().contains("Horse") ||f.getClass().toString().contains("Queen"));
+            assertFalse(f.getClass().toString().contains("King"));
         }
 
-        Board b3 = new Board(3, 0, 0, 0);
-        game.setGameBoard(b3);
-        List<Tile> setSpecialTilesInLevel2 = game.setSpecialTilesInLevel(3);
+        board.setBoardId(3);
+        game.setGameBoard(board);
+        List<Figure> initFigureInStage3 = game.initFigureInStage();
 
-        for(Tile t : setSpecialTilesInLevel2) {
-            //System.out.println(t);
-            assertTrue(t.getType() == TypeTile.FORGOTTEN || t.getType() == TypeTile.RANDOMPJUMP);
+        for(Figure f : initFigureInStage3) {
+            assertTrue(f.getClass().toString().contains("Horse") ||f.getClass().toString().contains("King"));
+            assertFalse(f.getClass().toString().contains("Queen"));
         }
 
-        Board b4 = new Board(4, 0, 0, 0);
-        game.setGameBoard(b4);
-        List<Tile> setSpecialTilesInLevel4 = game.setSpecialTilesInLevel(3);
+        board.setBoardId(4);
+        game.setGameBoard(board);
+        List<Figure> initFigureInStage4 = game.initFigureInStage();
 
-        for(Tile t : setSpecialTilesInLevel4) {
-            //System.out.println(t);
-            assertTrue(t.getType() ==  TypeTile.BLOCKED);
-        }
-        //should be null, boardID rage between 1-4.
-        Board b5 = new Board(5, 0, 0, 0);
-        game.setGameBoard(b5);
-        List<Tile> setSpecialTilesInLevel5 = game.setSpecialTilesInLevel(3);
-
-       assertTrue(setSpecialTilesInLevel5 == null);
-
-
-
-    }*/
-
-   // @Test
-   /* void initFigures() {
-        //List<Figure> initFigures()
-        Board b1 = new Board(1, 0, 0, 0);
-        Game game = new Game(1,b1, null);
-        List<Figure> figures = game.initFigures();
-        for(Figure f: figures) {
-            System.out.println(f.getClass().toString());
-            assertTrue(f.getClass().toString().contains("Horse") || f.getClass().toString().contains( "Queen") || f.getClass().toString().contains("King"));
+        for(Figure f : initFigureInStage4) {
+            assertTrue(f.getClass().toString().contains("Horse") ||f.getClass().toString().contains("King"));
+            assertFalse(f.getClass().toString().contains("Queen"));
         }
 
-        for(Figure f: figures) {
-            assertFalse(f.getClass().toString().contains("Figure"));
-        }
+    }
 
-    }*/
 
 }

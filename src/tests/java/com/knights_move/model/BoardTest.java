@@ -55,4 +55,23 @@ class BoardTest {
         assertFalse(removeVisitedTile2);
     }
 
+    //public Tile getTileByPosition(Position p)
+    @Test
+    void getTileByPosition() {
+        //test case 1
+        Position p1 = new Position(1,1);
+        Tile tile1 = new Tile(p1, TypeTile.EMPTY, Color.WHITE, true);
+        board.getTileList().add(tile1);
+        Tile getTileByPosition = board.getTileByPosition(p1);
+        assertTrue(getTileByPosition != null);
+        assertTrue(getTileByPosition.getTilePosition() == p1);
+
+        //test case 2 - should return true(null)  -> the object is not in the list.
+        Position p2 = new Position(2,2);
+        Tile getTileByPosition1 = board.getTileByPosition(p2);
+        assertTrue(getTileByPosition1 == null);
+
+    }
+
+
 }
