@@ -4,13 +4,13 @@
       "question": "Which of the following best describes the key principles of agile programming?",
       "level": 2,
       "answers": [
-        "rigid hierarchies and detailed upfront planning",
-        "frequent delivery of working software and collaboration with customers",
-        "reliance on documentation and strict change management processes",
-        "use of Waterfall model and focus on individual tasks"
+        "Rigid hierarchies and detailed upfront planning",
+        "Frequent delivery of working software and collaboration with customers",
+        "Reliance on documentation and strict change management processes",
+        "Maintaining a constant pace for completed work"
       ],
       "team": "Zebra",
-      "correct_ans": 2
+      "correct_ans": 4
     },
     {
       "question": "Which of the following is NOT a principle of the Agile Manifesto?",
