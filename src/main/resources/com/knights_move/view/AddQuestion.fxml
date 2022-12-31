@@ -39,5 +39,10 @@
       <TextField fx:id="textFiled_answer2" layoutX="210.0" layoutY="119.0" />
       <TextField fx:id="textFiled_answer3" layoutX="210.0" layoutY="163.0" />
       <TextField fx:id="textFiled_answer4" layoutX="211.0" layoutY="202.0" />
+      <Label fx:id="message" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="401.0" prefHeight="17.0" prefWidth="423.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
    </AnchorPane>
 </AnchorPane>

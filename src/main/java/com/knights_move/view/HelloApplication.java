@@ -57,15 +57,6 @@ public class HelloApplication extends Application {
         alert.showAndWait();
     }
 
-    public static void alertSuccesful(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initStyle(StageStyle.UTILITY);
-        alert.setTitle(title);
-        alert.setHeaderText(title);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
     public static void alertInformation(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UTILITY);

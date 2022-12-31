@@ -31,7 +31,8 @@ public class AddQuestionController implements Initializable {
     private AnchorPane ap;
     @FXML
     private Button addTeam;
-
+    @FXML
+    private Label message;
     @FXML
     private Button button_save;
 
@@ -189,7 +190,10 @@ public class AddQuestionController implements Initializable {
                 q.setLevel(level);
                 q.setTeamNick(team.toString());
                 SysData.getInstance().serJsonQuestion();
-                HelloApplication.alertSuccesful("Successful","the question is up to date");
+                message.setText("Question updated successfully");
+                message.setStyle("-fx-text-fill: green");
+                System.out.println("AddQuestionController message: Question updated successfully");
+                //HelloApplication.alertSuccesful("Successful","the question is up to date");
             }
         }
 }
