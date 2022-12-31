@@ -90,30 +90,33 @@
          <effect>
             <ColorAdjust />
          </effect>
+         <image>
+            <Image url="@award.gif" />
+         </image>
       </ImageView>
       <Pane fx:id="questionPane" layoutY="429.0" prefHeight="171.0" prefWidth="600.0">
          <children>
-            <RadioButton fx:id="answerRadio1" layoutX="14.0" layoutY="135.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="536.0" textAlignment="CENTER">
+            <RadioButton fx:id="answerRadio1" layoutX="35.0" layoutY="130.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="530.0" textAlignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
             </RadioButton>
-            <Text fx:id="questiotText" layoutX="32.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="535.826171875">
+            <Text fx:id="questiotText" layoutX="35.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="530.0">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
-            <RadioButton fx:id="answerRadio2" layoutX="14.0" layoutY="109.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="536.0" textAlignment="CENTER">
+            <RadioButton fx:id="answerRadio2" layoutX="35.0" layoutY="100.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="530.0" textAlignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="answerRadio3" layoutX="14.0" layoutY="80.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="536.0" textAlignment="CENTER">
+            <RadioButton fx:id="answerRadio3" layoutX="35.0" layoutY="70.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="530.0" textAlignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="answerRadio4" layoutX="14.0" layoutY="52.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="536.0" textAlignment="CENTER">
+            <RadioButton fx:id="answerRadio4" layoutX="35.0" layoutY="40.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="530.0" textAlignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
