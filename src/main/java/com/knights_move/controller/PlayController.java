@@ -3,18 +3,17 @@ package com.knights_move.controller;
 import com.knights_move.model.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,6 +21,20 @@ import static com.knights_move.model.TypeTile.EMPTY;
 
 public class PlayController {
 
+    @FXML
+    private Text questiotText;
+    @FXML
+    private RadioButton answerRadio1;
+
+    @FXML
+    private Pane questionPane;
+    @FXML
+    private RadioButton answerRadio2;
+    @FXML
+    private RadioButton answerRadio3;
+
+    @FXML
+    private RadioButton answerRadio4;
 
     @FXML
     private ImageView queenImg;
@@ -67,12 +80,14 @@ public class PlayController {
     private Timeline timeline;
     private Tile tile;
     private Game game;
+    private Question question;
     private Figure horse;
     private Figure queen;
     private Figure king;
     @FXML
     void initialize() {
         awardImg.setVisible(false);
+        questionPane.setVisible(false);
         visible(true, true,true, true, true, true, false);
         figureGrid.setVisible(false);
 
@@ -93,6 +108,20 @@ public class PlayController {
             initGrid(game);
             boardGrid.setVisible(false);
         });
+
+        answerRadio1.setOnAction(event -> {
+            PlayAssistController.checkAnswerForRadio(question, 1, msgTxt, game, questionPane, answerRadio1);
+        });
+        answerRadio2.setOnAction(event -> {
+            PlayAssistController.checkAnswerForRadio(question, 2, msgTxt, game, questionPane, answerRadio1);
+        });
+        answerRadio3.setOnAction(event -> {
+            PlayAssistController.checkAnswerForRadio(question, 3, msgTxt, game, questionPane, answerRadio1);
+        });
+        answerRadio4.setOnAction(event -> {
+            PlayAssistController.checkAnswerForRadio(question, 4, msgTxt, game, questionPane, answerRadio1);
+        });
+
     }
 
     private void clearGrid() {
@@ -146,13 +175,15 @@ public class PlayController {
             }
         }//todo in backend -> tiles with questions
         PlayAssistController.setSpecialTilesByLevel(game, boardGrid);
+        game.setQuestionTiles();
         initialized = true;
     }
 
     private void initFigures(){
         Board board = new Board(1);
-        game = new Game(1, board, null);
-        System.out.println("question array: "+SysData.getInstance().getQuestions());
+        game = new Game(1, board);
+        game.setQuestion(SysData.getInstance().getQuestions());
+        System.out.println("question array: "+game.getQuestion());
         List<Figure> figures = game.initFigureInStage();
         horse = figures.get(0);
         queen = figures.get(1);
@@ -175,6 +206,9 @@ public class PlayController {
                 if(!t.isVisited()){
                     t.setVisited(true);
                     button.getStyleClass().add("vbox");
+                    if(t.getTileQuestion() != null){
+                        setQuestionPane(t);
+                    }
                     if(t.getType() == TypeTile.RANDOMPJUMP){
                         int x = PlayAssistController.generateRandomJumpPosition();
                         int y = PlayAssistController.generateRandomJumpPosition();
@@ -291,6 +325,15 @@ public class PlayController {
         }
     }
 
+    public void setQuestionPane(Tile t){
+        questionPane.setVisible(true);
+        question = t.getTileQuestion();
+        questiotText.setText(question.getQuesId());
+        answerRadio1.setText(question.getAnswers().get(0).toString());
+        answerRadio2.setText(question.getAnswers().get(1).toString());
+        answerRadio3.setText(question.getAnswers().get(2).toString());
+        answerRadio4.setText(question.getAnswers().get(3).toString());
+    }
     public void visible(boolean scoreLbl1, boolean timeArea1, boolean levelLbl1, boolean scoreTxt1, boolean startBtn1, boolean boardGrid1, boolean endGameBtn1) {
         scoreLbl.setVisible(scoreLbl1);
         timeArea.setVisible(timeArea1);
