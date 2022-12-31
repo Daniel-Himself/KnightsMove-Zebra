@@ -173,11 +173,14 @@ public class AddQuestionController implements Initializable {
             if(EditMode==false) {
                 if (SysData.getInstance().getQuestions() != null && !(SysData.getInstance().getQuestions().isEmpty())) {
                     if (SysData.getInstance().getQuestionByName(questionId) != null) {
-                        HelloApplication.alertError("Error", "This questions content exist");
+                        message.setText("Question already exists!");
+                        message.setStyle("-fx-text-fill: red");
                     } else {
                         Question newQuestion = new Question(questionId, answer, correct_ans, level, team.toString());
                         SysData.getInstance().getQuestions().add(newQuestion);
                         SysData.getInstance().serJsonQuestion();
+                        message.setText("Question added successfully");
+                        message.setStyle("-fx-text-fill: green");
                         System.out.println(SysData.getInstance().getQuestions());
                     }
                 }
