@@ -1,1 +1,172 @@
-{"questions":[{"question":"Which of the following best describes the key principles of agile programming?","level":2,"answers":["rigid hierarchies and detailed upfront planning","frequent delivery of working software and collaboration with customers","reliance on documentation and strict change management processes","use of Waterfall model and focus on individual tasks"],"team":"Zebra","correct_ans":2},{"question":"Which of the following is NOT a principle of the Agile Manifesto?","level":1,"answers":["Individuals and interactions over processes and tools","Working software over comprehensive documentation","Customer collaboration over contract negotiation","Follow a strict project plan"],"team":"Zebra","correct_ans":4},{"question":"Which of the following is NOT a characteristic of good software requirements?","level":3,"answers":["Complete","Testable","Flexible","Consistant"],"team":"Zebra","correct_ans":4}]}
+{
+  "questions": [
+    {
+      "question": "Which of the following best describes the key principles of agile programming?",
+      "level": 2,
+      "answers": [
+        "rigid hierarchies and detailed upfront planning",
+        "frequent delivery of working software and collaboration with customers",
+        "reliance on documentation and strict change management processes",
+        "use of Waterfall model and focus on individual tasks"
+      ],
+      "team": "Zebra",
+      "correct_ans": 2
+    },
+    {
+      "question": "Which of the following is NOT a principle of the Agile Manifesto?",
+      "level": 1,
+      "answers": [
+        "Individuals and interactions over processes and tools",
+        "Working software over comprehensive documentation",
+        "Customer collaboration over contract negotiation",
+        "Follow a strict project plan"
+      ],
+      "team": "Zebra",
+      "correct_ans": 4
+    },
+    {
+      "question": "Which of the following is NOT a characteristic of good software requirements?",
+      "level": 3,
+      "answers": [
+        "Complete",
+        "Testable",
+        "Confusing",
+        "Consistant"
+      ],
+      "team": "Zebra",
+      "correct_ans": 3
+    },
+    {
+      "question": "Which type of requirement is a contraints related requirement?",
+      "level": 1,
+      "answers": [
+        "Functional requirements",
+        "Non-functional requirements",
+        "Neither functional nor non-functional",
+        "Could be both"
+      ],
+      "team": "Zebra",
+      "correct_ans": 2
+    },
+    {
+      "question": "Which of the following is a common practice when code reviewing?",
+      "level": 1,
+      "answers": [
+        "Ignoring any comments or suggestions made by the code reviewer",
+        "Merging the code without fully understanding the changes made",
+        "Arguing with the code reviewer about their feedback",
+        "Incorporating feedback and making necessary changes to the code"
+      ],
+      "team": "Zebra",
+      "correct_ans": 4
+    },
+    {
+      "question": "Which of the following is NOT a benefit of code review?",
+      "level": 1,
+      "answers": [
+        "Increased team conflict",
+        "Enhanced team morale",
+        "Increased team productivity",
+        "Improved code quality"
+      ],
+      "team": "Zebra",
+      "correct_ans": 1
+    },
+    {
+      "question": "Which is the correct order of Architecture as an artefact?",
+      "level": 3,
+      "answers": [
+        "Low Lv. Design -> Requirements -> Architecture -> Implementation",
+        "Requirements -> Low Lv. Design -> Architecture -> Implementation",
+        "Requirements -> Architecture -> Low Lv. Design -> Implementation",
+        "Implementation -> Requirements -> Architecture -> Low Lv. Design"
+      ],
+      "team": "Zebra",
+      "correct_ans": 3
+    },
+    {
+      "question": "Which of the following is NOT a design pattern category?",
+      "level": 2,
+      "answers": [
+        "Creational Patterns",
+        "Multidimensional Pattens",
+        "Behavioral Patterns",
+        "Structural Patterns"
+      ],
+      "team": "Zebra",
+      "correct_ans": 2
+    },
+    {
+      "question": "Which of the following is a common practice in software maintenance?",
+      "level": 1,
+      "answers": [
+        "Adding new features to the software",
+        "Fixing bugs and errors in the software",
+        "Improving the performance of the software",
+        "All of the above"
+      ],
+      "team": "Zebra",
+      "correct_ans": 4
+    },
+    {
+      "question": "Which of the following is NOT a common task included in software maintenance?",
+      "level": 2,
+      "answers": [
+        "Fixing bugs",
+        "Adding new features",
+        "Upgrading hardware",
+        "Modifying existing code to meet changing requirements"
+      ],
+      "team": "Zebra",
+      "correct_ans": 3
+    },
+    {
+      "question": "Which of the following is NOT a type of software testing?",
+      "level": 3,
+      "answers": [
+        "Integration testing",
+        "Unit testing",
+        "Compilation testing",
+        "Regression testing"
+      ],
+      "team": "Zebra",
+      "correct_ans": 3
+    },
+    {
+      "question": "A benefit of software testing:",
+      "level": 3,
+      "answers": [
+        "It Identifies and corrects defects in the software",
+        "It increases the cost of development",
+        "It improves the performance of the software",
+        "All of the above"
+      ],
+      "team": "Zebra",
+      "correct_ans": 1
+    },
+    {
+      "question": "Requirement reviews (SRRs) include:",
+      "level": 3,
+      "answers": [
+        "Customer's favorite colour",
+        "Team members' ID's",
+        "A working prototype",
+        "Expected Goals"
+      ],
+      "team": "Zebra",
+      "correct_ans": 4
+    },
+    {
+      "question": "Which of the following is a goal of Unit Testing?",
+      "level": 1,
+      "answers": [
+        "Improving the program's performance",
+        "Finding resource leaks",
+        "Maximising error handling",
+        "All of the above"
+      ],
+      "team": "Zebra",
+      "correct_ans": 4
+    }
+  ]
+}
