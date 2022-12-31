@@ -119,7 +119,7 @@ public class AddQuestionController implements Initializable {
     public void initlevel() {
         combo_level.getSelectionModel().clearSelection();
         List<String> levelList = new ArrayList<String>();
-        for(int i=1;i<5;i++)
+        for(int i=1;i<=3;i++)
         {
             levelList.add(String.valueOf(i));
         }
