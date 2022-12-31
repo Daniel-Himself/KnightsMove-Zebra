@@ -23,7 +23,7 @@ public class Game {
     private Boolean award;
 
 
-    public Game(int gameID, Board gameBoard, List<Question> question) {
+    public Game(int gameID, Board gameBoard) {
         this.gameID = gameID;
         this.gameBoard = gameBoard;
         this.question = new ArrayList<>();
@@ -130,6 +130,25 @@ public class Game {
 
     }
 
+
+    public void setQuestionTiles() {
+        try {
+            int questionLimit = 3;
+            int count = 0;
+            ArrayList<Position> randomPositions = gameBoard.generateRandomPositions(questionLimit);
+            if(this.getGameBoard().getBoardId() == 1) {
+                Collections.shuffle(question);
+            }
+            for(Position p : randomPositions) {
+                Tile specialTile = gameBoard.getTileByPosition(p);
+                specialTile.setTileQuestion(question.get(count));
+                System.out.println("question tile ->" + specialTile);
+                count++;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     //set Special tiles in level by given num of tiles - daniela
     public void setSpecialTilesInLevel(int numOfTiles) {
         try {
@@ -149,7 +168,7 @@ public class Game {
                     specialTile.setType(TypeTile.FORGOTTEN);
                     System.out.println("forgotten ->" + specialTile);
                 }
-            } // todo remove duplicates in leve 3
+            }
             if(gameBoard.getBoardId() == 3) {
                 int count = 0;
                 for(Position p : randomPositions) {
@@ -165,7 +184,7 @@ public class Game {
                         System.out.println("random ->" + specialTile);
                     }
                 }
-            }
+            } // todo figure out duplicates
             if (gameBoard.getBoardId() == 4) {
                 for(Position p : randomPositions) {
                     Tile specialTile = gameBoard.getTileByPosition(p);

@@ -36,6 +36,13 @@ public class Question {
 
     }
 
+    public boolean checkAnswer( int answer){
+        if(this.correct_answerID == answer){
+            return true;
+        }
+        return false;
+    }
+
     public ArrayList<String> returnContent()
     {
         ArrayList<String> content= new ArrayList<>();

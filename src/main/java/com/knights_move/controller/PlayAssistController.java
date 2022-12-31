@@ -6,12 +6,13 @@ import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-import java.util.HashMap;
 import java.util.Random;
 
 // Splitted controller of Play game logic with assist methods
@@ -82,7 +83,16 @@ public class PlayAssistController {
 
     }
 
-
+    public static void checkAnswerForRadio(Question question, int answer, Text msgTxt, Game game, Pane questionPane, RadioButton answerRadio){
+        answerRadio.setSelected(false);
+        questionPane.setVisible(false);
+        if(question.checkAnswer(answer)){
+            msgTxt.setText("Correct answer: +"+question.getLevel()+" points to score");
+            game.setCurrentLevelScore(game.getCurrentLevelScore() + question.getLevel());
+        }
+        else
+            msgTxt.setText("Wrong answer");
+    }
 
 
 }
