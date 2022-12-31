@@ -33,9 +33,7 @@ public class Board {
         this.tilesPositionInBoard = new HashMap<>();
         this.tilePositions = new HashMap<>();
         this.lastThreePositions = new LinkedList<>();
-        lastThreePositions.add(new Position(0,0));
         this.lastThreeScoreChange = new LinkedList<>();
-        lastThreeScoreChange.add(0);
     }
 
     public Board(int boardId) {
@@ -64,6 +62,7 @@ public class Board {
     public LinkedList<Position> getLastThreePositions() {
         return lastThreePositions;
     }
+
     public LinkedList<Integer> getLastThreeScoreChange() {
         return lastThreeScoreChange;
     }
@@ -285,9 +284,8 @@ public class Board {
         return "Board{" +
                 "boardId=" + boardId +
                 ", visitedTile=" + visitedTile +
-                ", emptyTile=" + emptyTile +
-                ", tilesPositionInBoard=" + tilesPositionInBoard +
-                ", tilePositions=" + tilePositions +
+                ", lastThreePositions=" + lastThreePositions +
+                ", lastThreeScoreChange=" + lastThreeScoreChange +
                 '}';
     }
 }

@@ -149,7 +149,7 @@ public class Game {
                     specialTile.setType(TypeTile.FORGOTTEN);
                     System.out.println("forgotten ->" + specialTile);
                 }
-            }
+            } // todo remove duplicates in leve 3
             if(gameBoard.getBoardId() == 3) {
                 int count = 0;
                 for(Position p : randomPositions) {
