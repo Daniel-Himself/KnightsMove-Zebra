@@ -1,27 +1,40 @@
 package com.knights_move.controller;
-import java.util.ArrayList;
-import java.util.List;
+
 import com.knights_move.model.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 import static com.knights_move.model.TypeTile.EMPTY;
-import static com.knights_move.model.TypeTile.RANDOMPJUMP;
 
 public class PlayController {
 
+    @FXML
+    private Text questiotText;
+    @FXML
+    private RadioButton answerRadio1;
+
+    @FXML
+    private Pane questionPane;
+    @FXML
+    private RadioButton answerRadio2;
+    @FXML
+    private RadioButton answerRadio3;
+
+    @FXML
+    private RadioButton answerRadio4;
 
     @FXML
     private ImageView queenImg;
@@ -58,26 +71,30 @@ public class PlayController {
 
     @FXML
     private ImageView horseImg;
+    @FXML
+    private ImageView awardImg;
     private boolean initialized = false;
     private int turn = 1;
 
     private int sec = 60;
     private Timeline timeline;
-    private Game game;
-    private Board board;
     private Tile tile;
+    private Game game;
+    private Question question;
     private Figure horse;
     private Figure queen;
     private Figure king;
     @FXML
     void initialize() {
+        awardImg.setVisible(false);
+        questionPane.setVisible(false);
         visible(true, true,true, true, true, true, false);
         figureGrid.setVisible(false);
 
         startBtn.setOnAction(event -> {
+            awardImg.setVisible(false);
             if(!initialized) {
-                initFigures(1);
-                initGrid(board);
+                initFigures();
             }
             setFiguresOnBoard();
             visible(true,true,true,true,false,true,true);
@@ -85,18 +102,35 @@ public class PlayController {
         });
 
         endGameBtn.setOnAction(event -> {
+            game.getGameBoard().setBoardId(1);
             clearGrid();
-            initGrid(board);
+            visible(true,true,true,true,true,true,false);
+            initGrid(game);
             boardGrid.setVisible(false);
         });
+
+        answerRadio1.setOnAction(event -> {
+            PlayAssistController.checkAnswerForRadio(question, 1, msgTxt, game, questionPane, answerRadio1);
+        });
+        answerRadio2.setOnAction(event -> {
+            PlayAssistController.checkAnswerForRadio(question, 2, msgTxt, game, questionPane, answerRadio1);
+        });
+        answerRadio3.setOnAction(event -> {
+            PlayAssistController.checkAnswerForRadio(question, 3, msgTxt, game, questionPane, answerRadio1);
+        });
+        answerRadio4.setOnAction(event -> {
+            PlayAssistController.checkAnswerForRadio(question, 4, msgTxt, game, questionPane, answerRadio1);
+        });
+
     }
 
     private void clearGrid() {
-        board = new Board(1,3,0,0); //todo check this line is ok or delete visited array
-        System.out.println("board: "+board.getTileList());
-        boardGrid.getChildren().removeIf(Node.class::isInstance);
-        visible(true,true,true,true,true,true,false);
-        msgTxt.setText("Game lasted "+(60-sec)+" seconds");
+        game.setCurrentLevelScore(0);
+        scoreLbl.setText(""+game.getCurrentLevelScore());
+        levelLbl.setText("Level "+game.getGameBoard().getBoardId());
+        PlayAssistController.clearBoard(game.getGameBoard());
+        boardGrid.getChildren().removeIf(Objects::nonNull);
+        msgTxt.setText("Game level lasted "+(60-sec)+" seconds");
         if(timeline != null){
             timeline.stop();
             timeArea.setText("Timer");
@@ -104,15 +138,202 @@ public class PlayController {
         }
         horseImg.setVisible(false);
         queenImg.setVisible(false);
-        ObservableList<Node> children = boardGrid.getChildren();
-        for (Node node : children) {
-            Button btn = (Button)node;
-            btn.getStyleClass().removeAll("vbox");
-        }
         horse.setPosition(new Position(0,0));
         queen.setPosition(new Position(0,7));
     }
 
+    public void setFiguresOnBoard() {
+        msgTxt.setText("Game started");
+        Button btnHorse = (Button)PlayAssistController.getNodeByRowColumnIndex(horse.getPosition().getX(),horse.getPosition().getY(), boardGrid);
+        btnHorse.getStyleClass().add("vbox");
+        btnHorse.setGraphic(horseImg);
+        Button btnQueen = (Button)PlayAssistController.getNodeByRowColumnIndex(queen.getPosition().getX(),queen.getPosition().getY(), boardGrid);
+        btnQueen.setGraphic(queenImg);
+        horseImg.setVisible(true);
+        queenImg.setVisible(true);
+    }
+
+    private void initGrid(Game game){
+        int count = 0;
+        double s = 38; // side of button in grid
+        for (int i = 0; i < 8; i++) {
+            count++;
+            for (int j = 0; j < 8; j++) {
+                tile = new Tile(new Position(i,j),EMPTY,Color.WHITE,null,false);
+                Button button = new Button();
+                button.setOnAction(event -> {
+                    moveFigure(button);
+                });
+                game.getGameBoard().addEmptyTile(tile);
+                game.getGameBoard().getTileList().add(tile);
+                button.setPrefSize(s, s);
+                button.getStyleClass().removeAll("button");
+                if (count % 2 == 0) { button.getStyleClass().add("whiteTile");}
+                else { button.getStyleClass().add("greenTile"); }
+                boardGrid.add(button, j, i);
+                count++;
+            }
+        }//todo in backend -> tiles with questions
+        PlayAssistController.setSpecialTilesByLevel(game, boardGrid);
+        game.setQuestionTiles();
+        initialized = true;
+    }
+
+    private void initFigures(){
+        Board board = new Board(1);
+        game = new Game(1, board);
+        game.setQuestion(SysData.getInstance().getQuestions());
+        System.out.println("question array: "+game.getQuestion());
+        List<Figure> figures = game.initFigureInStage();
+        horse = figures.get(0);
+        queen = figures.get(1);
+       // king = figures.get(2);
+        initGrid(game);
+    }
+//todo track visited (tile+board)+ timer/level
+    //todo -> figure out how queen/king kill horse
+    //todo -> blocked logic + colors
+    //todo questions logic
+    private void moveFigure(Button button){
+        Board board = game.getGameBoard();
+        System.out.println("last 3 tracked: "+board.getLastThreePositions()+"   score: "+board.getLastThreeScoreChange());
+        if(turn == 1){
+            List<Position> horseOptions = horse.horseOptions(horse.getPosition(), board);  // horse valid moves
+            Position horseNewPos = new Position(GridPane.getRowIndex(button), GridPane.getColumnIndex(button));
+            if(horseOptions.contains(horseNewPos)){
+                int scoreChange = 0;
+                Tile t = board.getTileByPosition(horseNewPos);
+                if(!t.isVisited()){
+                    t.setVisited(true);
+                    button.getStyleClass().add("vbox");
+                    if(t.getTileQuestion() != null){
+                        setQuestionPane(t);
+                    }
+                    if(t.getType() == TypeTile.RANDOMPJUMP){
+                        int x = PlayAssistController.generateRandomJumpPosition();
+                        int y = PlayAssistController.generateRandomJumpPosition();
+                        horseNewPos.setX(x);
+                        horseNewPos.setY(y);
+                        button = (Button)PlayAssistController.getNodeByRowColumnIndex(x,y, boardGrid);
+                        button.getStyleClass().add("vbox");
+                        Tile dest = board.getTileByPosition(horseNewPos);
+                        scoreChange = dest.isVisited()? -1 : 1;     // score update according random destination tile
+                        System.out.println("button new random position -> "+GridPane.getRowIndex(button)+" "+ GridPane.getColumnIndex(button));
+                        button.setGraphic(horseImg);
+                    }
+                    else if(t.getType() == TypeTile.FORGOTTEN){
+                        button.getStyleClass().remove("vbox");
+                        for(int i: board.getLastThreeScoreChange()){
+                            scoreChange += i;
+                        }
+                        Collections.reverse(board.getLastThreePositions());
+                        for(Position p: board.getLastThreePositions()){
+                            System.out.println("to clean : "+p);
+                            button = (Button)PlayAssistController.getNodeByRowColumnIndex(p.getX(),p.getY(), boardGrid);
+                            button.getStyleClass().remove("vbox");   // cleaning visited tiles
+                            System.out.println("button forgotten position -> "+GridPane.getRowIndex(button)+" "+ GridPane.getColumnIndex(button));
+                            Tile forgotten = board.getTileByPosition(p);
+                            forgotten.setVisited(false);    // removing from visited list + visited false
+                            board.getVisitedTile().remove(forgotten);
+                            horseNewPos = p;
+                        }
+                        System.out.println("new destination after forgotten position : " +horseNewPos);
+                        Collections.reverse(board.getLastThreePositions());
+                        msgTxt.setText("Forgotten tile: "+scoreChange+" to score");
+                        button.setGraphic(horseImg);
+                    }
+                    else{
+                        scoreChange = 1;
+                        button.setGraphic(horseImg);
+                    }
+                    horse.setPosition(horseNewPos);
+                    board.updateLastThreePositions(horseNewPos); // updating last 3 horse positions
+                    board.addVisitedTile(t);
+                    board.removeEmptyTile(t);
+                }
+                else {
+                    msgTxt.setText("Visited tile: -1 to score");
+                    PlayAssistController.disappear(msgTxt, null,2, startBtn);
+                    scoreChange = -1;
+                }
+                game.setCurrentLevelScore(game.getCurrentLevelScore() + scoreChange);
+                board.updateLastThreeScoreChange(scoreChange);
+                scoreLbl.setText(""+game.getCurrentLevelScore());
+                if(game.getCurrentLevelScore() >= 10){                     // case of success level passing the next level
+                    endLevel(board.getBoardId() +1, true);     // board ID store level num in game
+                    turn--;
+                }
+                turn++;
+            }
+            else {
+                msgTxt.setText("Horse can't move that way");
+                PlayAssistController.disappear(msgTxt, null, 2, startBtn);
+            }
+            if(turn == 2){
+                Position queenCurrPosition = queen.getPosition();
+                Position queenNextPosition = queen.move(horse.getPosition(), queenCurrPosition);
+                queen.setPosition(queenNextPosition);
+                Button nextNode = (Button)PlayAssistController.getNodeByRowColumnIndex(queenNextPosition.getX(),queenNextPosition.getY(), boardGrid);
+                msgTxt.setText("horse : " + horse.getPosition().getX()+" "+ horse.getPosition().getY()+
+                        "  queen : "+queen.getPosition().getX()+" "+ queen.getPosition().getY());
+                nextNode.setGraphic(queenImg);
+                turn--;
+            }
+        }
+    }
+
+    private Timeline initTimer(){
+        timeArea.setText("Time: "+sec);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e ->{
+            sec--;
+            if(sec < 10){ timeArea.setText("Time: 0"+sec); }
+            else { timeArea.setText("Time: "+sec); }
+            if(sec == 0){
+                timeArea.setText("Game over!");
+                endLevel(game.getGameBoard().getBoardId(), false);  // case of timeout -> triggers game over
+            }
+             //todo equals to  level num
+        }));
+        timeline.setCycleCount(60);
+        timeline.play();
+        return timeline;
+    }
+    // end level implements game over case or successfully passing to the next one
+    private void endLevel(int level, boolean success) {
+        //clearGrid();
+        if(success){
+            clearGrid();
+            //todo  -> fix after Noa will improve history -> award logic
+            if(level > 4) {
+                awardImg.setVisible(true);
+                endGameBtn.setVisible(false);
+                PlayAssistController.disappear(null, awardImg, 3, startBtn);
+                msgTxt.setText("Congratulations!!! You won "+game.getTotalScoreInGame()+" points!");
+            }
+            else {
+                clearGrid();
+                game.getGameBoard().setBoardId(level);
+                initGrid(game);
+                setFiguresOnBoard();
+                timeline = initTimer();
+                System.out.println("board id: " + game.getGameBoard());
+            }
+        }
+        else {
+          //  HistoryController.add(game);
+          //  Player p = new Player(SysData.getInstance().getUsername());
+        }
+    }
+
+    public void setQuestionPane(Tile t){
+        questionPane.setVisible(true);
+        question = t.getTileQuestion();
+        questiotText.setText(question.getQuesId());
+        answerRadio1.setText(question.getAnswers().get(0).toString());
+        answerRadio2.setText(question.getAnswers().get(1).toString());
+        answerRadio3.setText(question.getAnswers().get(2).toString());
+        answerRadio4.setText(question.getAnswers().get(3).toString());
+    }
     public void visible(boolean scoreLbl1, boolean timeArea1, boolean levelLbl1, boolean scoreTxt1, boolean startBtn1, boolean boardGrid1, boolean endGameBtn1) {
         scoreLbl.setVisible(scoreLbl1);
         timeArea.setVisible(timeArea1);
@@ -122,147 +343,5 @@ public class PlayController {
         boardGrid.setVisible(boardGrid1);
         endGameBtn.setVisible(endGameBtn1);
     }
-    private ArrayList<Integer> getRandoms(int num){
-        ArrayList list = new ArrayList();
-        Random rand = new Random();
-        int pick;
-        for (int j = 0; j < num; j++) {
-            pick = rand.nextInt(64);
-            list.add(pick);
-        }
-        System.out.println(list);
-        return list;
-    }
-
-    public void setFiguresOnBoard() {
-        msgTxt.setText("Game started");
-        Button btnHorse = (Button)getNodeByRowColumnIndex(horse.getPosition().getX(),horse.getPosition().getY(), boardGrid);
-        btnHorse.getStyleClass().add("vbox");
-        btnHorse.setGraphic(horseImg);
-        Button btnQueen = (Button)getNodeByRowColumnIndex(queen.getPosition().getX(),queen.getPosition().getY(), boardGrid);
-        btnQueen.setGraphic(queenImg);
-        btnQueen.getStyleClass().add("vbox");
-        horseImg.setVisible(true);
-        queenImg.setVisible(true);
-    }
-
-    private void initGrid(Board board){
-        int count = 0;
-        double s = 38; // side of rectangle
-        for (int i = 0; i < 8; i++) {
-            count++;
-            for (int j = 0; j < 8; j++) {
-                tile = new Tile(new Position(i,j),EMPTY,null,null,false);
-                Button button = new Button();
-                button.setOnAction(event -> {
-                    moveFigure(button);
-                });
-
-               // board.getEmptyTilesList().add(tile);
-                board.addEmptyTile(tile);
-                board.getTileList().add(tile);
-                button.setPrefSize(s, s);
-                button.getStyleClass().removeAll("button");
-                if (count % 2 == 0) { button.getStyleClass().add("whiteTile");}
-                else { button.getStyleClass().add("greenTile"); }
-                boardGrid.add(button, j, i);
-                count++;
-            } //todo in backend + tiles + questions
-            if(board.getBoardId() == 1){
-                ArrayList<Position> randomPositions = board.generateRandomPositions(board.getNumOfRandomJumpTiles());
-
-                    //Button b = (Button) getNodeByRowColumnIndex(p.getX(), p.getY(), boardGrid);
-                    //board.getTileList().get(num).setType(RANDOMPJUMP);
-
-
-            }
-            else if(board.getBoardId() == 2){
-                ArrayList<Position> randomPositions = board.generateRandomPositions(3);
-                //ArrayList<Position> randomPositions = board.generateRandomPositions(2);
-
-                for(Position p: randomPositions){
-                    Button b = (Button) getNodeByRowColumnIndex(p.getX(), p.getY(), boardGrid);
-                }
-            }
-
-        }
-        initialized = true;
-    }
-
-    private void initFigures(int level){
-        board = new Board(1, 0,0,3);
-        game = new Game(1, board, null);
-        List<Figure> figures = game.initFigures();
-        horse = figures.get(0);
-        queen = figures.get(1);
-        king = figures.get(2);
-
-    }
-//todo track visited (tile+board)+ timer/level
-    private void moveFigure(Button button){
-        if(turn == 1){
-            List<Position> horseOptions = horse.horseOptions(horse.getPosition(), board);
-            System.out.println(horseOptions);
-            Position horseNewPos = new Position(GridPane.getRowIndex(button), GridPane.getColumnIndex(button));
-            if(horseOptions.contains(horseNewPos)){
-                horse.setPosition(horseNewPos);
-                Tile t = board.getTileByPosition(horseNewPos);
-                if(t != null) t.setVisited(true);
-                board.addVisitedTile(t);
-                board.removeEmptyTile(t);
-                button.getStyleClass().add("vbox");
-                button.setGraphic(horseImg);
-                turn++;
-            }
-            else {
-                msgTxt.setText("Horse can't move that way");
-            }
-            if(turn == 2){
-                Position queenCurrPosition = queen.getPosition();
-                Position queenNextPosition = queen.move(horse.getPosition(), queenCurrPosition);
-                queen.setPosition(queenNextPosition);
-                Button nextNode = (Button)getNodeByRowColumnIndex(queenNextPosition.getX(),queenNextPosition.getY(), boardGrid);
-                msgTxt.setText("horse : " + horse.getPosition().getX()+" "+ horse.getPosition().getY()+
-                        "  queen : "+queen.getPosition().getX()+" "+ queen.getPosition().getY());
-                nextNode.setGraphic(queenImg);
-                turn--;
-            }
-        }
-        System.out.println("visited: "+board.getVisitedTile());
-    }
-
-    private Timeline initTimer(){
-        timeArea.setText("Time: "+sec);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e ->{
-            sec--;
-            if(sec < 10){ timeArea.setText("Time: 0"+sec); }
-            else { timeArea.setText("Time: "+sec); }
-            if(sec == 0){  timeArea.setText("Game over!");}
-            endLevel(board.getBoardId()); //todo equals to  level num
-        }));
-        timeline.setCycleCount(60);
-        timeline.play();
-        return timeline;
-    }
-
-    private void endLevel(int level) {
-        if(game.getTotalScoreInGame() >= level * 15){
-
-        }
-    }
-
-    public Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
-        Node result = null;
-        ObservableList<Node> children = gridPane.getChildren();
-        for (Node node : children) {
-            if(gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
-                result = node;
-                break;
-            }
-        }
-        return result;
-    }
-
-
 
 }

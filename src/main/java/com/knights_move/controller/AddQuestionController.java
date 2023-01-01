@@ -37,7 +37,8 @@ public class AddQuestionController implements Initializable {
     private AnchorPane ap;
     @FXML
     private Button addTeam;
-
+    @FXML
+    private Label message;
     @FXML
     private Button button_save;
 
@@ -115,7 +116,7 @@ public class AddQuestionController implements Initializable {
     public void initlevel() {
         combo_level.getSelectionModel().clearSelection();
         List<String> levelList = new ArrayList<String>();
-        for(int i=1;i<5;i++)
+        for(int i=1;i<=3;i++)
         {
             levelList.add(String.valueOf(i));
         }
@@ -174,11 +175,14 @@ public class AddQuestionController implements Initializable {
             if(EditMode==false) {
                 if (SysData.getInstance().getQuestions() != null && !(SysData.getInstance().getQuestions().isEmpty())) {
                     if (SysData.getInstance().getQuestionByName(questionId) != null) {
-                        HelloApplication.alertError("Error", "This questions content exist");
+                        message.setText("Question already exists!");
+                        message.setStyle("-fx-text-fill: red");
                     } else {
                         Question newQuestion = new Question(questionId, answer, correct_ans, level, team.toString());
                         SysData.getInstance().getQuestions().add(newQuestion);
                         SysData.getInstance().serJsonQuestion();
+                        message.setText("Question added successfully");
+                        message.setStyle("-fx-text-fill: green");
                         System.out.println(SysData.getInstance().getQuestions());
                     }
                 }
@@ -207,6 +211,10 @@ public class AddQuestionController implements Initializable {
                     throw new RuntimeException(e);
                 }
 
+     //           message.setText("Question updated successfully");
+     //           message.setStyle("-fx-text-fill: green");
+     //           System.out.println("AddQuestionController message: Question updated successfully");
+                //HelloApplication.alertSuccesful("Successful","the question is up to date");
             }
         }
 }

@@ -32,6 +32,14 @@ public class HelloApplication extends Application {
             e.printStackTrace();
         }
     }
+    public static void alertSuccesful(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle(title);
+        alert.setHeaderText(title);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
     //A generic method for replacing a page
     public static <T> T loadPage(String pageControllerName) {
         try {
@@ -47,33 +55,7 @@ public class HelloApplication extends Application {
             return null;
         }
     }
-    //alert pop up for project
-    public static void alertError(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.initStyle(StageStyle.UTILITY);
-        alert.setTitle(title);
-        alert.setHeaderText(title);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 
-    public static void alertSuccesful(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initStyle(StageStyle.UTILITY);
-        alert.setTitle(title);
-        alert.setHeaderText(title);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    public static void alertInformation(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initStyle(StageStyle.UTILITY);
-        alert.setTitle(title);
-        alert.setHeaderText(title);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
     public static void main(String[] args) {
         launch();
     }

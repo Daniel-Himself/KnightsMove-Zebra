@@ -13,7 +13,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="body" stylesheets="@design.scss" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.controller.HomeController">
     <BorderPane prefHeight="600.0" prefWidth="800.0" styleClass="body">
         <left>
-            <VBox alignment="CENTER" prefHeight="600.0" prefWidth="185.0" styleClass="vbox" stylesheets="@design.scss" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="600.0" prefWidth="200.0" styleClass="vbox" stylesheets="@design.scss" BorderPane.alignment="CENTER">
                 <Button id="logo" fx:id="logoBtn" mnemonicParsing="false" prefHeight="72.0" prefWidth="185.0" text="Knight's Move" textFill="#fff9f9">
                     <font>
                         <Font name="System Bold" size="18.0" />
@@ -43,7 +43,7 @@
         <center>
             <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                 <top>
-                    <Pane fx:id="pnlChoosedPage" prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+                    <Pane fx:id="pnlChoosedPage" maxWidth="600.0" prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
                 </top>
             </BorderPane>
         </center>

@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+
 <AnchorPane fx:id="pnlHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" styleClass="body" stylesheets="@design.scss" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.controller.PlayController">
    <children>
-      <Label fx:id="levelLbl" layoutX="63.0" layoutY="55.0" text="Level 1" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
+      <Label fx:id="levelLbl" layoutX="63.0" layoutY="55.0" text="Level 1" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="30.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="scoreTxt" layoutX="63.0" layoutY="522.0" text="Score" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0">
+      <Label fx:id="scoreTxt" layoutX="63.0" layoutY="522.0" text="Score" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="60.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <GridPane fx:id="boardGrid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" AnchorPane.bottomAnchor="170.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="150.0">
+      <GridPane fx:id="boardGrid" layoutX="150.0" layoutY="92.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" AnchorPane.bottomAnchor="220.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="110.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -40,11 +45,11 @@
       </GridPane>
       <Button fx:id="startBtn" layoutX="366.0" layoutY="68.0" mnemonicParsing="false" text="Start a game" textFill="WHITE" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="250.0" />
       <Button fx:id="endGameBtn" layoutX="465.0" layoutY="523.0" mnemonicParsing="false" text="End game" textFill="WHITE" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
-      <Text fx:id="timeArea" fill="#e91e63" layoutX="154.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Timer" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="50.0">
+      <Text fx:id="timeArea" fill="#e91e63" layoutX="154.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Timer" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="30.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Text>
-      <Label fx:id="scoreLbl" layoutX="155.0" layoutY="522.0" text="00" textFill="#e91e63" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="150.0">
+      <Label fx:id="scoreLbl" layoutX="155.0" layoutY="522.0" text="00" textFill="#e91e63" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="60.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -74,6 +79,49 @@
             </ImageView>
          </children>
       </GridPane>
-      <Text fx:id="msgTxt" layoutX="200.0" layoutY="474.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
+      <Text fx:id="msgTxt" layoutX="190.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="236.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="174.0">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <ImageView fx:id="awardImg" fitHeight="145.0" fitWidth="200.0" layoutX="191.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="209.0" AnchorPane.topAnchor="205.0">
+         <cursor>
+            <Cursor fx:constant="NONE" />
+         </cursor>
+         <effect>
+            <ColorAdjust />
+         </effect>
+         <image>
+            <Image url="@award.gif" />
+         </image>
+      </ImageView>
+      <Pane fx:id="questionPane" layoutY="429.0" prefHeight="171.0" prefWidth="600.0">
+         <children>
+            <RadioButton fx:id="answerRadio1" layoutX="35.0" layoutY="130.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="530.0" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </RadioButton>
+            <Text fx:id="questiotText" layoutX="35.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="530.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <RadioButton fx:id="answerRadio2" layoutX="35.0" layoutY="100.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="530.0" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="answerRadio3" layoutX="35.0" layoutY="70.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="530.0" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="answerRadio4" layoutX="35.0" layoutY="40.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="530.0" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </RadioButton>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
