@@ -11,7 +11,7 @@ class GameTest {
     @Test
     void initFigureInStage() {
         Board board = new Board(1, 0, 0, 0);
-        Game game = new Game(1,board, null);
+        Game game = new Game(1,board);
         List<Figure> initFigureInStage1 = game.initFigureInStage();
         for(Figure f : initFigureInStage1) {
             assertTrue(f.getClass().toString().contains("Horse") ||f.getClass().toString().contains("Queen"));

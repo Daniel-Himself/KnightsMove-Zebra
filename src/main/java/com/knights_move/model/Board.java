@@ -123,11 +123,13 @@ public class Board {
         Random rand = new Random();
         int pick;
         for (int j = 0; j < num; j++) {
-
             pick = rand.nextInt(64);
-            list.add(pick);
+            if(!list.contains(pick))
+                list.add(pick);
+            else
+                num++;
         }
-  //      System.out.println(list);
+        System.out.println(list.size());
         return list;
     }
 

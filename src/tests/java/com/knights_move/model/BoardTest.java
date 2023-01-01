@@ -2,6 +2,8 @@ package com.knights_move.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -70,6 +72,13 @@ class BoardTest {
         Position p2 = new Position(2,2);
         Tile getTileByPosition1 = board.getTileByPosition(p2);
         assertTrue(getTileByPosition1 == null);
+    }
+
+    // public ArrayList<Position> generateRandomPositions(int n)
+    @Test
+    void generateRandomPositions() {
+        ArrayList<Position> p1 = board.generateRandomPositions(8);
+        System.out.println(p1);
 
     }
 
