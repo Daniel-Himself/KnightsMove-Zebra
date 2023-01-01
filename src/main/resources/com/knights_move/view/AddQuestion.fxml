@@ -34,7 +34,6 @@
       <Label layoutX="82.0" layoutY="282.0" prefHeight="26.0" prefWidth="126.0" text="Difficulty level" />
       <Label layoutX="82.0" layoutY="239.0" prefHeight="26.0" prefWidth="126.0" text="Correct Answer" />
       <Label layoutX="82.0" layoutY="201.0" prefHeight="26.0" prefWidth="126.0" text="Answer #4" />
-      <Button fx:id="button_back" layoutX="156.0" layoutY="363.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="52.0" text="Back" />
       <TextField fx:id="textFiled_answer1" layoutX="211.0" layoutY="75.0" />
       <TextField fx:id="textFiled_answer2" layoutX="210.0" layoutY="119.0" />
       <TextField fx:id="textFiled_answer3" layoutX="210.0" layoutY="163.0" />

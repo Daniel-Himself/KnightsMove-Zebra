@@ -20,7 +20,7 @@ import java.util.Objects;
 public class HomeController {
 
 
-    public Pane pnlChoosedPage;
+    public  Pane pnlChoosedPage;
     public AnchorPane pnlHome;
     @FXML
     private Button historyBtn;
@@ -48,14 +48,31 @@ public class HomeController {
 
     @FXML
     private Button signOutBtn;
+    @FXML
+    private Button historyChangesBtn;
+    public static boolean quesPage=false;
+    public static boolean reQuesPage=false;
 
+    public static boolean isReQuesPage() {
+        return reQuesPage;
+    }
 
+    public static void setReQuesPage(boolean reQuesPage) {
+        HomeController.reQuesPage = reQuesPage;
+    }
+    public static boolean isQuesPage() {
+        return quesPage;
+    }
+
+    public static void setQuesPage(boolean quesPage) {
+        HomeController.quesPage = quesPage;
+    }
     @FXML
     void initialize() {
         assert pnlHome != null : "fx:id=\"pnlHome\" was not injected: check your FXML file 'HomePanel.fxml'.";
 
         // Set username welcome label
-        usernameLabel.setText("Hello " + SysData.getInstance().getUsername());
+         usernameLabel.setText("Hello " + SysData.getInstance().getUsername());
 
         exitBtn.setOnAction(event -> {
             Stage stage = (Stage) exitBtn.getScene().getWindow();
@@ -70,14 +87,38 @@ public class HomeController {
                 err.printStackTrace();
             }
         });
-
-        try{
-            pnlChoosedPage.getChildren().clear();
-            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/HomePanel.fxml")));
-            pnlChoosedPage.getChildren().add(node);
-        } catch(IOException | NullPointerException e){
-            System.out.println(e.getMessage());
+        if(quesPage==true) {
+            try {
+                setQuesPage(false);
+                pnlChoosedPage.getChildren().clear();
+                Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/AddQuestion.fxml")));
+                pnlChoosedPage.getChildren().add(node);
+            } catch (IOException | NullPointerException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
+        else if(isReQuesPage()==true)
+        {
+            try{
+            setReQuesPage(false);
+            pnlChoosedPage.getChildren().clear();
+            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/QA.fxml")));
+            pnlChoosedPage.getChildren().add(node);
+        } catch (IOException | NullPointerException ex) {
+            System.out.println(ex.getMessage());
+        }
+        }
+        else {
+            try {
+                pnlChoosedPage.getChildren().clear();
+                Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/HomePanel.fxml")));
+                pnlChoosedPage.getChildren().add(node);
+            } catch (IOException | NullPointerException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+
     }
 
     @FXML
@@ -97,13 +138,17 @@ public class HomeController {
         if(e.getSource() == pieChartBtn){
             initMenuItems(e);
         }
+        if(e.getSource()==historyChangesBtn)
+        {
+            initMenuItems(e);
+        }
         if(e.getSource() == homeBtn){
             initialize();
         }
     }
 
     @FXML
-    private void initMenuItems(ActionEvent e){
+    void initMenuItems(ActionEvent e){
         if(e.getSource() == homeBtn){
             try{
                 pnlChoosedPage.getChildren().clear();
@@ -171,5 +216,15 @@ public class HomeController {
                 System.out.println(ex.getMessage());
             }
         }
+        if(e.getSource() == historyChangesBtn){
+            try{
+                pnlChoosedPage.getChildren().clear();
+                Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/EditPageForAdmin.fxml")));
+                pnlChoosedPage.getChildren().add(node);
+            } catch(IOException | NullPointerException ex){
+                System.out.println(ex.getMessage());
+            }
+        }
+
     }
 }

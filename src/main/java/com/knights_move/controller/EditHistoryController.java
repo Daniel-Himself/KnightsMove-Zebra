@@ -118,10 +118,10 @@ public class EditHistoryController implements Initializable {
         StatusCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         changeFiledCol.setCellValueFactory(new PropertyValueFactory<>("changes"));
         DateCol.setCellValueFactory(new PropertyValueFactory<>("dateof"));
-
-        ObservableList<historyEdit> observableList = FXCollections.observableArrayList(getHistory());
-        tableView_historyEdit.setItems(observableList);
-
+        if(getHistory()!=null) {
+            ObservableList<historyEdit> observableList = FXCollections.observableArrayList(getHistory());
+            tableView_historyEdit.setItems(observableList);
+        }
 
     }
 }

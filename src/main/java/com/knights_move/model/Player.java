@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Player {
     private String userName;
-    private HashMap<Game, Integer> positionInGame;
+    private HashMap<Game, Integer> scoreInGame;
 
     //same userName as sysData, used for get the attribute of player
     public Player(String userName)
@@ -21,24 +21,24 @@ public class Player {
     }
 
     // update all game and score
-    public void setPositionInGame(HashMap<Game, Integer> scoreInGame) {
-        this.positionInGame = scoreInGame;
+    public void setScoreInGame(HashMap<Game, Integer> scoreInGame) {
+        this.scoreInGame = scoreInGame;
     }
     //update score in game
-    public void setPositionInGame(Game g, Integer score)
+    public void setScoreInGame(Game g, Integer score)
     {
-        if(getPositionInGame()==null)
+        if(getScoreInGame()==null)
         {
-            positionInGame=new HashMap<>();
+            scoreInGame=new HashMap<>();
         }
-        getPositionInGame().put(g,score);
+        getScoreInGame().put(g,score);
     }
 
-    public int getPositionInGame(Game game) {
-        return positionInGame.get(game);
+    public int getScoreInGame(Game game) {
+        return scoreInGame.get(game);
     }
-    public HashMap<Game,Integer> getPositionInGame() {
-        return positionInGame;
+    public HashMap<Game,Integer> getScoreInGame() {
+        return scoreInGame;
     }
 
 
@@ -46,7 +46,7 @@ public class Player {
     public String toString() {
         return "Player{" +
                 "userName='" + userName + '\'' +
-                ", positionInGame=" + positionInGame +
+                ", positionInGame=" + scoreInGame +
                 '}';
     }
 }

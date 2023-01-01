@@ -7,19 +7,18 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.ui_controllers.EditHistoryController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.controller.EditHistoryController">
    <children>
       <Pane id="pane_top" fx:id="pane_top" prefHeight="42.0" prefWidth="600.0" style="-fx-background-color: #424242;">
          <children>
             <Label fx:id="label_title" layoutX="14.0" layoutY="11.0" prefHeight="26.0" prefWidth="462.0" text="Questions and Answers mangment page" textFill="#fffefe">
                <font>
-                  <Font name="Lucida Calligraphy Italic" size="20.0" />
+                  <Font size="20.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <TableView fx:id="tableView_historyEdit" layoutX="68.0" layoutY="103.0" prefHeight="245.0" prefWidth="462.0">
+      <TableView fx:id="tableView_historyEdit" layoutX="37.0" layoutY="109.0" prefHeight="245.0" prefWidth="462.0">
         <columns>
           <TableColumn fx:id="QuestionIdCol" prefWidth="119.20001220703125" text="QuestionId" />
           <TableColumn fx:id="StatusCol" prefWidth="105.5999755859375" text="Status" />

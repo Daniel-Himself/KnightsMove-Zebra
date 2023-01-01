@@ -9,8 +9,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -20,10 +22,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import java.awt.*;
+import java.awt.event.InputEvent;
 
 public class AddQuestionController implements Initializable {
 
@@ -64,9 +70,6 @@ public class AddQuestionController implements Initializable {
     @FXML
     private TextField text_question;
     @FXML
-    private Button button_back;
-
-
     private static boolean EditMode=false;
     public static boolean getEditMode() {
         return EditMode;
@@ -74,30 +77,28 @@ public class AddQuestionController implements Initializable {
     public static void setEditMode(boolean editMode) {
         EditMode = editMode;
     }
+    public static QuestionAnswerController.NewQuestion newQuestion;
+    public static QuestionAnswerController.NewQuestion getNewQuestion() {
+        return newQuestion;
+    }
 
-    QuestionAnswerController.NewQuestion newQuestion;
+    public static void setNewQuestion(QuestionAnswerController.NewQuestion newQuestion) {
+        AddQuestionController.newQuestion = newQuestion;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        ap.addEventHandler(MouseEvent.MOUSE_PRESSED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        receiveData(mouseEvent);
-                        if(EditMode)
-                        {
-                            text_question.setText(newQuestion.getQuesID());
-                            textFiled_answer1.setText(newQuestion.getAnswers().get(0).getContent());
-                            textFiled_answer2.setText(newQuestion.getAnswers().get(1).getContent());
-                            textFiled_answer3.setText(newQuestion.getAnswers().get(2).getContent());
-                            textFiled_answer4.setText(newQuestion.getAnswers().get(3).getContent());
-                            combo_correctAns.getSelectionModel().select(newQuestion.getCorrect_answerID());
-                            combo_level.getSelectionModel().select(String.valueOf(newQuestion.getLevel()));
-                            combo_Team.getSelectionModel().select(String.valueOf(newQuestion.getTeamNick()));
-                        }
-
-                    }
-        });
+        if(EditMode)
+        {
+            text_question.setText(newQuestion.getQuesID());
+            textFiled_answer1.setText(newQuestion.getAnswers().get(0).getContent());
+            textFiled_answer2.setText(newQuestion.getAnswers().get(1).getContent());
+            textFiled_answer3.setText(newQuestion.getAnswers().get(2).getContent());
+            textFiled_answer4.setText(newQuestion.getAnswers().get(3).getContent());
+            combo_correctAns.getSelectionModel().select(String.valueOf(newQuestion.getCorrect_answerID()));
+            combo_level.getSelectionModel().select(String.valueOf(newQuestion.getLevel()));
+            combo_Team.getSelectionModel().select(String.valueOf(newQuestion.getTeamNick()));
+        }
         initTeam();
         initCorrectAnswer();
         initlevel();
@@ -106,15 +107,10 @@ public class AddQuestionController implements Initializable {
             insertNewRow();
         });
 
-        button_back.setOnAction(e->{
-            HelloApplication.loadPage("MainFrame.fxml");
-        });
 }
-    private  void receiveData(MouseEvent e) {
-        Node node = (Node) e.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
-       this.newQuestion = (QuestionAnswerController.NewQuestion) stage.getUserData();
 
+    public static void receiveQues(QuestionAnswerController.NewQuestion newQues) {
+        setNewQuestion(newQues);
     }
     public void initlevel() {
         combo_level.getSelectionModel().clearSelection();
@@ -166,8 +162,14 @@ public class AddQuestionController implements Initializable {
             answer.add(a4);
             int correct_ans = Integer.valueOf(this.combo_correctAns.getSelectionModel().getSelectedItem());
             int level = Integer.valueOf((this.combo_level.getSelectionModel().getSelectedItem()));
-            Team team = Team.valueOf(combo_Team.getSelectionModel().getSelectedItem());
-
+            Team team=null;
+            for(Team teamName:Team.values())
+            {
+                if(teamName.toString().compareTo(combo_Team.getSelectionModel().getSelectedItem())==0)
+                {
+                    team=teamName;
+                }
+            }
             //check if the questions exist
             if(EditMode==false) {
                 if (SysData.getInstance().getQuestions() != null && !(SysData.getInstance().getQuestions().isEmpty())) {
@@ -188,8 +190,23 @@ public class AddQuestionController implements Initializable {
                 q.setCorrect_answerID(correct_ans);
                 q.setLevel(level);
                 q.setTeamNick(team.toString());
-                SysData.getInstance().serJsonQuestion();
                 HelloApplication.alertSuccesful("Successful","the question is up to date");
+
+                //pass pages
+                try {
+                    SysData.getInstance().serJsonQuestion();
+                    HomeController homeController = new HomeController();
+                    homeController.setReQuesPage(true);
+                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("MainFrame.fxml"));
+                    HelloApplication.parent = loader.load();
+                    loader.getController();
+                    Scene scene = new Scene(HelloApplication.parent);
+                    HelloApplication.stage.setScene(scene);
+                    HelloApplication.stage.show();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
             }
         }
 }

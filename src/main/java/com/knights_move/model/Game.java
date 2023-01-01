@@ -22,7 +22,7 @@ public class Game {
 
 
     private int totalScoreInGame;
-    private Boolean award;
+    private result award;
 
 
     public Game(int gameID, Board gameBoard, List<Question> question) {
@@ -92,11 +92,11 @@ public class Game {
         this.totalScoreInGame = totalScoreInGame;
     }
 
-    public Boolean getAward() {
+    public result getAward() {
         return award;
     }
 
-    public void setAward(Boolean award) {
+    public void setAward(result award) {
         this.award = award;
     }
 

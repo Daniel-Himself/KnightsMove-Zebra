@@ -24,13 +24,16 @@ public class HistoryController implements Initializable {
     public class NewGame{
         private int gameID;
         private String userName;
-        private int positionOfPlayer;
+        private int scoreOfPlayer;
+        private result statusInGame;
         private LocalDate dateOfGame;
 
-        public NewGame(int gameID, String userName, int positionOfPlayer, LocalDate dateOfGame) {
+
+        public NewGame(int gameID, String userName, result statusInGame, int scoreOfPlayer, LocalDate dateOfGame) {
             this.gameID = gameID;
             this.userName = userName;
-            this.positionOfPlayer = positionOfPlayer;
+            this.statusInGame=statusInGame;
+            this.scoreOfPlayer = scoreOfPlayer;
             this.dateOfGame = dateOfGame;
         }
 
@@ -50,12 +53,12 @@ public class HistoryController implements Initializable {
             this.userName = userName;
         }
 
-        public int getPositionOfPlayer() {
-            return positionOfPlayer;
+        public int getScoreOfPlayer() {
+            return scoreOfPlayer;
         }
 
-        public void setPositionOfPlayer(int positionOfPlayer) {
-            this.positionOfPlayer = positionOfPlayer;
+        public void setScoreOfPlayer(int scoreOfPlayer) {
+            this.scoreOfPlayer = scoreOfPlayer;
         }
 
         public LocalDate getDateOfGame() {
@@ -65,6 +68,14 @@ public class HistoryController implements Initializable {
         public void setDateOfGame(LocalDate dateOfGame) {
             this.dateOfGame = dateOfGame;
         }
+        public result getStatusInGame() {
+            return statusInGame;
+        }
+
+        public void setStatusInGame(result statusInGame) {
+            this.statusInGame = statusInGame;
+        }
+
     }
 
     @FXML
@@ -73,7 +84,7 @@ public class HistoryController implements Initializable {
     @FXML
     private URL location;
     @FXML
-    private TableColumn<NewGame,Integer> positionCol;
+    private TableColumn<NewGame,Integer> scoreCol;
 
     @FXML
     private TableColumn<NewGame,String> userNameCol;
@@ -83,7 +94,8 @@ public class HistoryController implements Initializable {
 
     @FXML
     private TableColumn<NewGame, Integer> gameIdCol;
-
+    @FXML
+    private TableColumn<NewGame, result> statusCol;
     @FXML
     private TableView<NewGame> historTbl;
 
@@ -129,14 +141,15 @@ public class HistoryController implements Initializable {
                 if (playerKey.getUserName().compareTo(SysData.getInstance().getUsername()) == 0) {
                     ArrayList<Game> gameValue = entry.getValue();
                     for (Game game : gameValue) {
-                        listOfGames.add(new NewGame(game.getGameID(), playerKey.getUserName(), playerKey.getPositionInGame(game), game.getDateOfGame()));
+                        listOfGames.add(new NewGame(game.getGameID(), playerKey.getUserName(),result.Win, playerKey.getScoreInGame(game), game.getDateOfGame()));
                     }
                 }
             }
         }
         gameIdCol.setCellValueFactory(new PropertyValueFactory<>("gameID"));
         userNameCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
-        positionCol.setCellValueFactory(new PropertyValueFactory<>("positionOfPlayer"));
+        statusCol.setCellValueFactory(new PropertyValueFactory<>("statusInGame"));
+        scoreCol.setCellValueFactory(new PropertyValueFactory<>("scoreOfPlayer"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("dateOfGame"));
 
         ObservableList<NewGame> observableList = FXCollections.observableArrayList(listOfGames);
@@ -148,7 +161,7 @@ public class HistoryController implements Initializable {
     }
     public void add()
     {
-        Game g= new Game(3,LocalDate.now());
+        Game g= new Game(11,null,null);
         HashMap<Player,ArrayList<Game>> map =SysData.getInstance().getPlayerAndgames();
         if(map!=null) {
             for(Player p:map.keySet())
@@ -158,9 +171,9 @@ public class HistoryController implements Initializable {
                     ArrayList<Game> gamePlayer=map.get(p);
                     gamePlayer.add(g);
                     SysData.getInstance().setPlayerAndgames(map);
-                    if(p.getPositionInGame().get(g)==null)
+                    if(p.getScoreInGame().get(g)==null)
                     {
-                        p.setPositionInGame(g,5);
+                        p.setScoreInGame(g,5);
                     }
                     SysData.getInstance().serJsonGames();
                 }

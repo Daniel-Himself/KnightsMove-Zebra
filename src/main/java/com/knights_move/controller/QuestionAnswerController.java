@@ -13,6 +13,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -153,8 +154,14 @@ public class QuestionAnswerController implements Initializable {
         button_save.setOnAction(e->{
             try{
                 AddQuestionController.setEditMode(false);
-                HelloApplication.loadPage("AddQuestion.fxml");
-
+                HomeController homeController= new HomeController();
+                homeController.setQuesPage(true);
+                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("MainFrame.fxml"));
+                HelloApplication.parent = loader.load();
+                loader.getController();
+                Scene scene = new Scene(HelloApplication.parent);
+                HelloApplication.stage.setScene(scene);
+                HelloApplication.stage.show();
             } catch (Exception exc) {
                 throw new RuntimeException(exc);
             }
@@ -163,13 +170,17 @@ public class QuestionAnswerController implements Initializable {
             try{
                 AddQuestionController.setEditMode(true);
                 if(!TableView_Question.getSelectionModel().isEmpty()) {
-                    NewQuestion newQuestion=TableView_Question.getSelectionModel().getSelectedItem();
-                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("AddQuestion.fxml"));
+                    NewQuestion newQuestion = TableView_Question.getSelectionModel().getSelectedItem();
+                    AddQuestionController addQuestionController = new AddQuestionController();
+                    addQuestionController.receiveQues(newQuestion);
+
+                    HomeController homeController= new HomeController();
+                    homeController.setQuesPage(true);
+                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("MainFrame.fxml"));
                     HelloApplication.parent = loader.load();
                     loader.getController();
                     Scene scene = new Scene(HelloApplication.parent);
                     HelloApplication.stage.setScene(scene);
-                    HelloApplication.stage.setUserData(newQuestion);
                     HelloApplication.stage.show();
                 }
                 else {
@@ -268,8 +279,6 @@ public class QuestionAnswerController implements Initializable {
         EditHistoryController.historyEdit change= new EditHistoryController.historyEdit(quesId, STATUS.DELETE,LocalDateTime.now());
         listofchanges.add(change);
         controller.setHistory(listofchanges);
-
-        HelloApplication.loadPage("EditPageForAdmin.fxml");
     }
 
 }

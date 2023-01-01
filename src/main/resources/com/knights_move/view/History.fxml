@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+
 <AnchorPane fx:id="pnlHistory" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" styleClass="body" stylesheets="@design.scss" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.controller.HistoryController">
     <children>
         <BorderPane prefHeight="600.0" prefWidth="600.0" styleClass="body">
@@ -13,10 +17,11 @@
                       <children>
                   <TableView fx:id="historTbl" layoutX="67.0" layoutY="96.0" prefHeight="455.0" prefWidth="474.0" styleClass="body">
                     <columns>
-                        <TableColumn fx:id="userNameCol" prefWidth="75.0" text="UserName" />
-                        <TableColumn fx:id="gameIdCol" prefWidth="75.0" text="gameId" />
-                        <TableColumn fx:id="positionCol" prefWidth="75.0" text="position" />
-                        <TableColumn fx:id="dateCol" prefWidth="75.0" text="Date" />
+                        <TableColumn fx:id="userNameCol" prefWidth="92.66665649414062" text="UserName" />
+                        <TableColumn fx:id="gameIdCol" prefWidth="143.33331298828125" text="gameId" />
+                        <TableColumn fx:id="scoreCol" prefWidth="170.6666259765625" text="score" />
+                        <TableColumn fx:id="statusCol" prefWidth="75.0" text="status" />
+                        <TableColumn fx:id="dateCol" prefWidth="184.00006103515625" text="Date" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

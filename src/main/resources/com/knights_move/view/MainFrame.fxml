@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="body" stylesheets="@design.scss" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.knights_move.controller.HomeController">
     <BorderPane prefHeight="600.0" prefWidth="800.0" styleClass="body">
         <left>
@@ -28,6 +34,7 @@
                 <Button fx:id="qaBtn" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="46.0" prefWidth="201.0" text="Q &amp; A" textFill="#fff9f9" />
                 <Button fx:id="rulesBtn" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="46.0" prefWidth="201.0" text="Rules" textFill="#fff9f9" />
             <Button fx:id="pieChartBtn" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="46.0" prefWidth="201.0" text="Pie Chart" textFill="#fff9f9" />
+            <Button fx:id="historyChangesBtn" mnemonicParsing="false" prefHeight="35.0" onAction="#handleButtonClick"  prefWidth="185.0" text="HistoryChanges" textFill="#fff9f9" />
                 <Pane prefHeight="152.0" prefWidth="200.0" />
                 <Button fx:id="signOutBtn" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="46.0" prefWidth="201.0" text="Sign Out" textFill="#fff9f9" />
                 <Button fx:id="exitBtn" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="46.0" prefWidth="201.0" text="Exit" textFill="#fff9f9" />

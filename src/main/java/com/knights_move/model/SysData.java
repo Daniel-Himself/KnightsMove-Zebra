@@ -151,17 +151,17 @@ public class SysData {
                     Game newGame = new Game(gameID, dateOfGame);
                     gameOfCurrentPlayer.add(newGame);
 
-                    int position = Integer.valueOf(((JSONObject) games).get("position").toString());
-                    HashMap<Game,Integer> playerGame=player.getPositionInGame();
+                    int score = Integer.valueOf(((JSONObject) games).get("score").toString());
+                    HashMap<Game,Integer> playerGame=player.getScoreInGame();
                     if(playerGame==null)
                     {
                         playerGame= new HashMap<>();
                     }
                     if (!(playerGame.containsKey(newGame)))
                     {
-                        playerGame.put(newGame,position);
+                        playerGame.put(newGame,score);
                     }
-                    player.setPositionInGame(playerGame);
+                    player.setScoreInGame(playerGame);
 
                 }
                 if(this.playerAndgames==null)
@@ -200,7 +200,7 @@ public class SysData {
                         JSONObject gameobj = new JSONObject();
                         gameobj.put("gameId", game.getGameID());
                         gameobj.put("DateOfGame", game.getDateOfGame().toString());
-                        gameobj.put("position", playerKey.getPositionInGame(game));
+                        gameobj.put("score", playerKey.getScoreInGame(game));
 
                         gamelist.add(gameobj);
                     }

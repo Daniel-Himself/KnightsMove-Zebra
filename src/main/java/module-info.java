@@ -4,7 +4,8 @@ module com.knights_move {
     requires json.simple;
     requires jackson.mapper.asl;
     requires jackson.core.asl;
-
+    requires java.desktop;
+    requires java.scripting;
 
 
     exports com.knights_move.view;
