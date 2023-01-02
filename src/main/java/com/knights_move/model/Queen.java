@@ -1,7 +1,5 @@
 package com.knights_move.model;
 
-import java.util.List;
-
 public class Queen extends Figure implements FigureInterface{
     public Queen(int figureId, Position position, int speedRate) {
         super(figureId, position, speedRate);
@@ -21,17 +19,22 @@ public class Queen extends Figure implements FigureInterface{
         // as long as there are no pieces blocking her path.
         // Check if the target is in the same row, column, or diagonal as the queen
         if (row == targetRow || col == targetCol || Math.abs(row - targetRow) == Math.abs(col - targetCol)) {
+            System.out.println("Queen can attack");
             return true;
         }
         System.out.println("Queen can't attack, moving closer to opponent");
-        this.move(queenPosition, opponentPosition);
         return false;
     }
 
     @Override
     // Method to move the queen closer to the target piece
-    // TODO unit test queen's move method
     public Position move(Position queenPosition, Position opponentPosition) {
+
+        // If possible, attack the horse
+        if(canAttack(queenPosition, opponentPosition)) {
+            return opponentPosition;
+        }
+
         // Calculate the difference in rows and columns between the queen and the target piece
         int row = queenPosition.getY();
         int col = queenPosition.getX();
@@ -52,6 +55,7 @@ public class Queen extends Figure implements FigureInterface{
             col += colDiff / Math.abs(colDiff);
         }
 
+        // Return the new position closer to the horse if queen is unable to attack
         return new Position(col, row);
     }
 }

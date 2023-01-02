@@ -39,20 +39,34 @@ public class PlayAssistController {
         int numOfTiles = game.getGameBoard().getNumOgSpecialTilesByLevel(level);
         System.out.println("Level -> : "+level+"    Num of tiles -> : "+numOfTiles);
         game.setSpecialTilesInLevel(numOfTiles);
-        if(level == 4){         // case of blocked tiles -> colored red
-            for (Tile t: game.getGameBoard().getTileList()) {
-                if(t.getTileColor().equals(Color.RED)){
-                    Button button = (Button)getNodeByRowColumnIndex(t.getTilePosition().getX(),t.getTilePosition().getY(), boardGrid);
-                    button.getStyleClass().removeAll("button");
-                    button.getStyleClass().removeAll("greenTile");
-                    button.getStyleClass().removeAll("whiteTile");
-                    button.getStyleClass().add("redTile");
-                }
+     // case of blocked tiles -> colored red
+        for (Tile t: game.getGameBoard().getTileList()) {
+            if(t.getTileColor().equals(Color.RED)){
+                Button button = (Button)getNodeByRowColumnIndex(t.getTilePosition().getX(),t.getTilePosition().getY(), boardGrid);
+                button.getStyleClass().removeAll("button");
+                button.getStyleClass().removeAll("greenTile");
+                button.getStyleClass().removeAll("whiteTile");
+                button.getStyleClass().add("redTile");
             }
         }
     }
-    //returns random number in range 0-7 -> used while generating random Jump destination
-    public static int generateRandomJumpPosition(){
+    public static void setNextQuestion(Game game, GridPane boardGrid){
+        // case of question tiles -> colored blue
+        for (Tile t: game.getGameBoard().getTileList()) {
+            if(t.getTilePosition()!= new Position(0,0) && t.getTileColor().equals(Color.BLUE)){
+                Button button = (Button)getNodeByRowColumnIndex(t.getTilePosition().getX(),t.getTilePosition().getY(), boardGrid);
+                button.getStyleClass().removeAll("button");
+                button.getStyleClass().removeAll("greenTile");
+                button.getStyleClass().removeAll("whiteTile");
+                button.getStyleClass().removeAll("vbox");
+                button.getStyleClass().add("blueTile");
+                break;
+            }
+        }
+    }
+
+    //returns random number in range 0-7 -> used while generating random Jump destination, next question
+    public static int generateRandomPosition(){
         Random rand = new Random();
         int pick = rand.nextInt(8);
         return pick;
