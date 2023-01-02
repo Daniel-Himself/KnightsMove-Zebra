@@ -66,21 +66,63 @@ public abstract class Figure {
         possiblePos.add(new Position(x - 2, y - 1));
         possiblePos.add(new Position(x - 2, y + 1));
         for(Position pp: possiblePos){
-            if(validPosition(pp)){
-                Tile t = board.getTileByPosition(pp);
-                if(t.getType() != TypeTile.BLOCKED){
-                    optionList.add(pp);
-                }
+            System.out.println("position before check" + pp);
+            Position validPosition = validPosition(pp);
+            if(validPosition != null) {
+                    Tile t = board.getTileByPosition(validPosition);
+                    System.out.println("validPosition" + validPosition);
+                    if(t.getType() != TypeTile.BLOCKED){
+                        optionList.add(validPosition);
+                    }
             }
         }
+        System.out.println("optionList ->" + optionList);
         return optionList;
     }
-    private boolean validPosition(Position p){
+
+
+    private Position validPosition(Position p){
         int x = p.getX();
         int y = p.getY();
+        //case 1 - ok
         if(x <= 7 && x >= 0 && y <= 7 && y >= 0){
-            return  true;
+            return p;
         }
-        return false;
+
+        if((x < 0 && x >= -2) && (y <= 7 && y >= 0)) {
+            x = x + 8;
+            p.setX(x);
+            return p;
+        }
+        if((x > 7 && x <= 9) && (y <= 7 && y >= 0)) {
+            x = x - 8;
+            p.setX(x);
+            return p;
+        }
+        if((y < 0 && y >= -2) && (x <= 7 && x >= 0)){
+            y = y + 8;
+            p.setY(y);
+            return p;
+        }
+        if((y > 7 && y <= 9) && (x <= 7 && x >= 0)){
+            y = y - 8;
+            p.setY(y);
+            return p;
+        }
+        if((y > 7 && y <= 9) && (x > 7 && x <= 9)){
+            y = y - 8;
+            x = x - 8;
+            p.setY(y);
+            p.setX(x);
+            return p;
+        }
+        if((y < 0 && y >= -2) && (x < 0 && x >= -2)){
+            y = y + 8;
+            x = x + 8;
+            p.setY(y);
+            p.setX(x);
+            return p;
+        }
+        return null;
     }
 }
