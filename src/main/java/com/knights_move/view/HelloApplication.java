@@ -9,7 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.IOException;
+import java.util.Objects;
 
 public class HelloApplication extends Application {
     public static Scene scene;
@@ -23,9 +23,10 @@ public class HelloApplication extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginPage.fxml"));
             parent = loader.load();
             scene = new Scene(parent, 800,600);
-            scene.getStylesheets().add(getClass().getResource("design.scss").toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("design.scss")).toExternalForm());
             stage = primaryStage;
             primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
             primaryStage.show();
 
         } catch (Exception e) {
@@ -39,21 +40,6 @@ public class HelloApplication extends Application {
         alert.setHeaderText(title);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-    //A generic method for replacing a page
-    public static <T> T loadPage(String pageControllerName) {
-        try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(pageControllerName));
-            HelloApplication.parent = loader.load();
-            T t = loader.getController();
-            Scene scene = new Scene(HelloApplication.parent);
-            HelloApplication.stage.setScene(scene);
-            HelloApplication.stage.show();
-            return t;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     public static void main(String[] args) {
