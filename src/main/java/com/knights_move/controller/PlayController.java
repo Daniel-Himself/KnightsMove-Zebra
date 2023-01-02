@@ -101,7 +101,6 @@ public class PlayController {
             setFiguresOnBoard();
             visible(true,true,true,true,false,true,true);
             timeline = initTimer();
-            timeKing = initKingMoveTimer();
         });
 
         endGameBtn.setOnAction(event -> {
@@ -303,7 +302,7 @@ public class PlayController {
                 }
                 else{
                     Position kingCurrPosition = king.getPosition();
-                    Position kingNextPosition = queen.move(horse.getPosition(), kingCurrPosition);
+                    Position kingNextPosition = king.move(horse.getPosition(), kingCurrPosition);
                     king.setPosition(kingNextPosition);
                     Button nextNode = (Button)PlayAssistController.getNodeByRowColumnIndex(kingNextPosition.getX(),kingNextPosition.getY(), boardGrid);
                     nextNode.setGraphic(kingImg);
@@ -315,6 +314,11 @@ public class PlayController {
     }
 
     private Timeline initTimer(){
+      //  if(game.getGameBoard().getBoardId() == 4){
+            int trigger = 180;
+            timeKing = initKingMoveTimer(trigger);
+      //  }
+
         timeArea.setText("Time: "+sec);
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e ->{
             sec--;
@@ -358,16 +362,33 @@ public class PlayController {
         }
     }
 
-    //assumption - king moves every
-    private Timeline initKingMoveTimer(){
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(30), e ->{
+    //assumption - king moves from every 3 sec - to 0.5 sec
+    //0-10 -> 3 sec
+    //10-20 - 2.5
+    //20-30 - 2
+    //..
+    //50-60 - 0.5sec (30 mili)
+    private Timeline initKingMoveTimer(int trigger){
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1), e ->{
+            int nextMove = trigger;
             milisec--;
-            if(milisec < 3600 && milisec > 3000){
-        //        System.out.println("milisec: " + milisec);
-            }
-            else {
 
-            }
+                if(milisec == 3600 - trigger){
+                    System.out.println("milisec 50 - 60 : " + milisec);
+                    nextMove += 180;
+                }
+
+//            else if(milisec < 3000 && milisec > 2400){
+//                if(milisec == 3600 - trigger){
+//                    System.out.println("milisec 40 - 50 : " + milisec);
+//                    trigger += 150;
+//                }
+//            }
+//            else if(milisec < 3000 && milisec > 2400){
+//                if(milisec == 3600 - trigger){
+//                    System.out.println("milisec 50 - 60 : " + milisec);
+//                }
+//            }
         }));
         timeline.setCycleCount(3600);
         timeline.play();
