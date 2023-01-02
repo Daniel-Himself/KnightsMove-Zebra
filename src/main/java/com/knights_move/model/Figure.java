@@ -66,11 +66,11 @@ public abstract class Figure {
         possiblePos.add(new Position(x - 2, y - 1));
         possiblePos.add(new Position(x - 2, y + 1));
         for(Position pp: possiblePos){
-            System.out.println("position before check" + pp);
+          //  System.out.println("position before check" + pp);
             Position validPosition = validPosition(pp);
             if(validPosition != null) {
                     Tile t = board.getTileByPosition(validPosition);
-                    System.out.println("validPosition" + validPosition);
+             //       System.out.println("validPosition" + validPosition);
                     if(t.getType() != TypeTile.BLOCKED){
                         optionList.add(validPosition);
                     }

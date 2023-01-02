@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Game {
-    private int gameID;
+    private static int gameID = 0;
     private Board gameBoard;
     private List<Question> question;
     private LocalDate dateOfGame;
@@ -23,8 +23,9 @@ public class Game {
     private result award;
 
 
-    public Game(int gameID, Board gameBoard) {
-        this.gameID = gameID;
+
+    public Game( Board gameBoard) {
+        gameID++;
         this.gameBoard = gameBoard;
         this.question = new ArrayList<>();
         this.dateOfGame=java.time.LocalDate.now();
@@ -149,6 +150,14 @@ public class Game {
     }
 
 
+    public void setCurrentQuestion(int currentQuestion) {
+        this.currentQuestion = currentQuestion;
+    }
+
+    public int getCurrentQuestion() {
+        return currentQuestion;
+    }
+
     public void setQuestionTiles() {
         try {
             int questionLimit = 3;
@@ -161,6 +170,7 @@ public class Game {
                 specialTile.setTileQuestion(question.get(currentQuestion));
                 specialTile.setTileColor(Color.BLUE);
                 System.out.println("question tile ->" + specialTile);
+                System.out.println("current tile ->" + currentQuestion);
                 currentQuestion++;
             }
         } catch (Exception e) {

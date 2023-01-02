@@ -1,6 +1,7 @@
 package com.knights_move.controller;
 
 import com.knights_move.model.*;
+import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
@@ -20,6 +21,7 @@ public class PlayAssistController {
 
     private Timeline timeline;
     private int sec = 60;
+    static int kingSec;
 
 
     public static Node getNodeByRowColumnIndex(final int row, final int column, GridPane gridPane) {
@@ -72,7 +74,7 @@ public class PlayAssistController {
         return pick;
     }
 
-    public static void disappear(Text lable, ImageView image, int duration, Button stButton){
+    public static void disappear(Text lable, ImageView image, int duration){
         PauseTransition pause = new PauseTransition(Duration.seconds(duration));
         if(lable != null){
             pause.setOnFinished(e -> lable.setText(null));
@@ -80,7 +82,6 @@ public class PlayAssistController {
         if(image != null){
             pause.setOnFinished(e ->
                     image.setVisible(false));
-                    stButton.setVisible(true);
         }
         ;
         pause.play();
@@ -108,6 +109,9 @@ public class PlayAssistController {
         else
             msgTxt.setText("Wrong answer");
     }
+
+
+
 
 
 }
