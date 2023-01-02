@@ -68,7 +68,9 @@ public abstract class Figure {
         for(Position pp: possiblePos){
             if(validPosition(pp)){
                 Tile t = board.getTileByPosition(pp);
-                optionList.add(pp);
+                if(t.getType() != TypeTile.BLOCKED){
+                    optionList.add(pp);
+                }
             }
         }
         return optionList;

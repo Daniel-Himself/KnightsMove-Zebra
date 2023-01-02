@@ -83,8 +83,9 @@ public class PlayAssistController {
 
     }
 
-    public static void checkAnswerForRadio(Question question, int answer, Text msgTxt, Game game, Pane questionPane, RadioButton answerRadio){
+    public static void checkAnswerForRadio(Question question, int answer, Text msgTxt, Game game, Pane questionPane, RadioButton answerRadio, GridPane boardGrid){
         answerRadio.setSelected(false);
+        boardGrid.setDisable(false);
         questionPane.setVisible(false);
         if(question.checkAnswer(answer)){
             msgTxt.setText("Correct answer: +"+question.getLevel()+" points to score");

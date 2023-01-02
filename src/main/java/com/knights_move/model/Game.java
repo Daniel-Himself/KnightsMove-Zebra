@@ -130,6 +130,24 @@ public class Game {
 
     }
 
+    public List<Figure> initFigureInStage1(){
+        try {
+            FigureFactory figureFactory = new FigureFactory();
+            Figure horse = (Figure) figureFactory.getFigure("horse");
+            Figure queen = (Figure) figureFactory.getFigure("queen");
+            Figure king = (Figure) figureFactory.getFigure("king");
+            List<Figure> listOfFigures = new ArrayList<>();
+            listOfFigures.add(horse);
+            listOfFigures.add(queen);
+            listOfFigures.add(king);
+            return listOfFigures;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 
     public void setQuestionTiles() {
         try {

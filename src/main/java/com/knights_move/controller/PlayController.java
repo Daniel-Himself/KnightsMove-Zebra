@@ -110,21 +110,22 @@ public class PlayController {
         });
 
         answerRadio1.setOnAction(event -> {
-            PlayAssistController.checkAnswerForRadio(question, 1, msgTxt, game, questionPane, answerRadio1);
+            PlayAssistController.checkAnswerForRadio(question, 1, msgTxt, game, questionPane, answerRadio1, boardGrid);
         });
         answerRadio2.setOnAction(event -> {
-            PlayAssistController.checkAnswerForRadio(question, 2, msgTxt, game, questionPane, answerRadio1);
+            PlayAssistController.checkAnswerForRadio(question, 2, msgTxt, game, questionPane, answerRadio2, boardGrid);
         });
         answerRadio3.setOnAction(event -> {
-            PlayAssistController.checkAnswerForRadio(question, 3, msgTxt, game, questionPane, answerRadio1);
+            PlayAssistController.checkAnswerForRadio(question, 3, msgTxt, game, questionPane, answerRadio3, boardGrid);
         });
         answerRadio4.setOnAction(event -> {
-            PlayAssistController.checkAnswerForRadio(question, 4, msgTxt, game, questionPane, answerRadio1);
+            PlayAssistController.checkAnswerForRadio(question, 4, msgTxt, game, questionPane, answerRadio4, boardGrid);
         });
 
     }
 
     private void clearGrid() {
+        game.setTotalScoreInGame(game.getTotalScoreInGame() + game.getCurrentLevelScore());
         game.setCurrentLevelScore(0);
         scoreLbl.setText(""+game.getCurrentLevelScore());
         levelLbl.setText("Level "+game.getGameBoard().getBoardId());
@@ -140,6 +141,7 @@ public class PlayController {
         queenImg.setVisible(false);
         horse.setPosition(new Position(0,0));
         queen.setPosition(new Position(0,7));
+        king.setPosition(new Position(7,7));
     }
 
     public void setFiguresOnBoard() {
@@ -147,10 +149,18 @@ public class PlayController {
         Button btnHorse = (Button)PlayAssistController.getNodeByRowColumnIndex(horse.getPosition().getX(),horse.getPosition().getY(), boardGrid);
         btnHorse.getStyleClass().add("vbox");
         btnHorse.setGraphic(horseImg);
-        Button btnQueen = (Button)PlayAssistController.getNodeByRowColumnIndex(queen.getPosition().getX(),queen.getPosition().getY(), boardGrid);
-        btnQueen.setGraphic(queenImg);
         horseImg.setVisible(true);
-        queenImg.setVisible(true);
+        int level = game.getGameBoard().getBoardId();
+        if(level == 1 || level == 2){
+            Button btnQueen = (Button)PlayAssistController.getNodeByRowColumnIndex(queen.getPosition().getX(),queen.getPosition().getY(), boardGrid);
+            btnQueen.setGraphic(queenImg);
+            queenImg.setVisible(true);
+        }
+        else{
+            Button btnKing = (Button)PlayAssistController.getNodeByRowColumnIndex(king.getPosition().getX(),king.getPosition().getY(), boardGrid);
+            btnKing.setGraphic(kingImg);
+            kingImg.setVisible(true);
+        }
     }
 
     private void initGrid(Game game){
@@ -184,16 +194,15 @@ public class PlayController {
         game = new Game(1, board);
         game.setQuestion(SysData.getInstance().getQuestions());
         System.out.println("question array: "+game.getQuestion());
-        List<Figure> figures = game.initFigureInStage();
+        List<Figure> figures = game.initFigureInStage1();
         horse = figures.get(0);
         queen = figures.get(1);
-       // king = figures.get(2);
+        king = figures.get(2);
         initGrid(game);
     }
 //todo track visited (tile+board)+ timer/level
     //todo -> figure out how queen/king kill horse
-    //todo -> blocked logic + colors
-    //todo questions logic
+    //todo fix random question pick
     private void moveFigure(Button button){
         Board board = game.getGameBoard();
         System.out.println("last 3 tracked: "+board.getLastThreePositions()+"   score: "+board.getLastThreeScoreChange());
@@ -207,7 +216,9 @@ public class PlayController {
                     t.setVisited(true);
                     button.getStyleClass().add("vbox");
                     if(t.getTileQuestion() != null){
-                        setQuestionPane(t);
+                        boardGrid.setDisable(true);
+                        Question q = setQuestionPane(t);
+                        scoreChange = 0;  // already updated in check answer method scope
                     }
                     if(t.getType() == TypeTile.RANDOMPJUMP){
                         int x = PlayAssistController.generateRandomJumpPosition();
@@ -258,8 +269,8 @@ public class PlayController {
                 }
                 game.setCurrentLevelScore(game.getCurrentLevelScore() + scoreChange);
                 board.updateLastThreeScoreChange(scoreChange);
-                scoreLbl.setText(""+game.getCurrentLevelScore());
-                if(game.getCurrentLevelScore() >= 10){                     // case of success level passing the next level
+                scoreLbl.setText(""+game.getCurrentLevelScore());    //todo -> instant score update in queston answer
+                if(game.getCurrentLevelScore() >= 15){                     // case of success level passing the next level
                     endLevel(board.getBoardId() +1, true);     // board ID store level num in game
                     turn--;
                 }
@@ -270,13 +281,26 @@ public class PlayController {
                 PlayAssistController.disappear(msgTxt, null, 2, startBtn);
             }
             if(turn == 2){
-                Position queenCurrPosition = queen.getPosition();
-                Position queenNextPosition = queen.move(horse.getPosition(), queenCurrPosition);
-                queen.setPosition(queenNextPosition);
-                Button nextNode = (Button)PlayAssistController.getNodeByRowColumnIndex(queenNextPosition.getX(),queenNextPosition.getY(), boardGrid);
-                msgTxt.setText("horse : " + horse.getPosition().getX()+" "+ horse.getPosition().getY()+
-                        "  queen : "+queen.getPosition().getX()+" "+ queen.getPosition().getY());
-                nextNode.setGraphic(queenImg);
+                int level = board.getBoardId();
+                if(level == 1 || level == 2){
+                    Position queenCurrPosition = queen.getPosition();
+                    Position queenNextPosition = queen.move(horse.getPosition(), queenCurrPosition);
+                    queen.setPosition(queenNextPosition);
+                    Button nextNode = (Button)PlayAssistController.getNodeByRowColumnIndex(queenNextPosition.getX(),queenNextPosition.getY(), boardGrid);
+                    msgTxt.setText("horse : " + horse.getPosition().getX()+" "+ horse.getPosition().getY()+
+                            "  queen : "+queen.getPosition().getX()+" "+ queen.getPosition().getY());
+                    nextNode.setGraphic(queenImg);
+                }
+                else{
+                    Position kingCurrPosition = king.getPosition();
+                    Position kingNextPosition = queen.move(horse.getPosition(), kingCurrPosition);
+                    king.setPosition(kingNextPosition);
+                    Button nextNode = (Button)PlayAssistController.getNodeByRowColumnIndex(kingNextPosition.getX(),kingNextPosition.getY(), boardGrid);
+                    msgTxt.setText("horse : " + horse.getPosition().getX()+" "+ horse.getPosition().getY()+
+                            "  king : "+king.getPosition().getX()+" "+ king.getPosition().getY());
+                    nextNode.setGraphic(kingImg);
+                }
+
                 turn--;
             }
         }
@@ -325,7 +349,7 @@ public class PlayController {
         }
     }
 
-    public void setQuestionPane(Tile t){
+    public Question setQuestionPane(Tile t){
         questionPane.setVisible(true);
         question = t.getTileQuestion();
         questiotText.setText(question.getQuesId());
@@ -333,6 +357,7 @@ public class PlayController {
         answerRadio2.setText(question.getAnswers().get(1).toString());
         answerRadio3.setText(question.getAnswers().get(2).toString());
         answerRadio4.setText(question.getAnswers().get(3).toString());
+        return question;
     }
     public void visible(boolean scoreLbl1, boolean timeArea1, boolean levelLbl1, boolean scoreTxt1, boolean startBtn1, boolean boardGrid1, boolean endGameBtn1) {
         scoreLbl.setVisible(scoreLbl1);
