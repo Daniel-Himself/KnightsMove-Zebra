@@ -77,7 +77,9 @@ public class PlayController {
     private int turn = 1;
 
     private int sec = 60;
+    private int milisec = 3600;
     private Timeline timeline;
+    private Timeline timeKing;
     private Tile tile;
     private Game game;
     private Question question;
@@ -99,6 +101,7 @@ public class PlayController {
             setFiguresOnBoard();
             visible(true,true,true,true,false,true,true);
             timeline = initTimer();
+            timeKing = initKingMoveTimer();
         });
 
         endGameBtn.setOnAction(event -> {
@@ -186,6 +189,7 @@ public class PlayController {
         }//todo in backend -> tiles with questions
         PlayAssistController.setSpecialTilesByLevel(game, boardGrid);
         game.setQuestionTiles();
+        PlayAssistController.setNextQuestion(game, boardGrid);
         initialized = true;
     }
 
@@ -200,9 +204,10 @@ public class PlayController {
         king = figures.get(2);
         initGrid(game);
     }
-//todo track visited (tile+board)+ timer/level
+
     //todo -> figure out how queen/king kill horse
-    //todo fix random question pick
+    //todo horse king cyclic
+
     private void moveFigure(Button button){
         Board board = game.getGameBoard();
         System.out.println("last 3 tracked: "+board.getLastThreePositions()+"   score: "+board.getLastThreeScoreChange());
@@ -216,13 +221,16 @@ public class PlayController {
                     t.setVisited(true);
                     button.getStyleClass().add("vbox");
                     if(t.getTileQuestion() != null){
+                        t.setTileColor(Color.WHITE);
+                        PlayAssistController.setNextQuestion(game, boardGrid);
                         boardGrid.setDisable(true);
                         Question q = setQuestionPane(t);
                         scoreChange = 0;  // already updated in check answer method scope
+                        msgTxt.setText("Question tile: "+q.getLevel()+" points to score");
                     }
                     if(t.getType() == TypeTile.RANDOMPJUMP){
-                        int x = PlayAssistController.generateRandomJumpPosition();
-                        int y = PlayAssistController.generateRandomJumpPosition();
+                        int x = PlayAssistController.generateRandomPosition();
+                        int y = PlayAssistController.generateRandomPosition();
                         horseNewPos.setX(x);
                         horseNewPos.setY(y);
                         button = (Button)PlayAssistController.getNodeByRowColumnIndex(x,y, boardGrid);
@@ -231,6 +239,7 @@ public class PlayController {
                         scoreChange = dest.isVisited()? -1 : 1;     // score update according random destination tile
                         System.out.println("button new random position -> "+GridPane.getRowIndex(button)+" "+ GridPane.getColumnIndex(button));
                         button.setGraphic(horseImg);
+                        msgTxt.setText("Random jump tile: new position "+horseNewPos.getX()+","+horseNewPos.getY());
                     }
                     else if(t.getType() == TypeTile.FORGOTTEN){
                         button.getStyleClass().remove("vbox");
@@ -286,9 +295,10 @@ public class PlayController {
                     Position queenCurrPosition = queen.getPosition();
                     Position queenNextPosition = queen.move(horse.getPosition(), queenCurrPosition);
                     queen.setPosition(queenNextPosition);
+                    if(queenNextPosition == horseNewPos){   //kill horse case
+
+                    }
                     Button nextNode = (Button)PlayAssistController.getNodeByRowColumnIndex(queenNextPosition.getX(),queenNextPosition.getY(), boardGrid);
-                    msgTxt.setText("horse : " + horse.getPosition().getX()+" "+ horse.getPosition().getY()+
-                            "  queen : "+queen.getPosition().getX()+" "+ queen.getPosition().getY());
                     nextNode.setGraphic(queenImg);
                 }
                 else{
@@ -296,8 +306,6 @@ public class PlayController {
                     Position kingNextPosition = queen.move(horse.getPosition(), kingCurrPosition);
                     king.setPosition(kingNextPosition);
                     Button nextNode = (Button)PlayAssistController.getNodeByRowColumnIndex(kingNextPosition.getX(),kingNextPosition.getY(), boardGrid);
-                    msgTxt.setText("horse : " + horse.getPosition().getX()+" "+ horse.getPosition().getY()+
-                            "  king : "+king.getPosition().getX()+" "+ king.getPosition().getY());
                     nextNode.setGraphic(kingImg);
                 }
 
@@ -325,6 +333,7 @@ public class PlayController {
     // end level implements game over case or successfully passing to the next one
     private void endLevel(int level, boolean success) {
         //clearGrid();
+        timeline.stop();
         if(success){
             clearGrid();
             //todo  -> fix after Noa will improve history -> award logic
@@ -347,6 +356,22 @@ public class PlayController {
           //  HistoryController.add(game);
           //  Player p = new Player(SysData.getInstance().getUsername());
         }
+    }
+
+    //assumption - king moves every
+    private Timeline initKingMoveTimer(){
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(30), e ->{
+            milisec--;
+            if(milisec < 3600 && milisec > 3000){
+        //        System.out.println("milisec: " + milisec);
+            }
+            else {
+
+            }
+        }));
+        timeline.setCycleCount(3600);
+        timeline.play();
+        return timeline;
     }
 
     public Question setQuestionPane(Tile t){

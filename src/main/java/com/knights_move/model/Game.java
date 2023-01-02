@@ -18,7 +18,7 @@ public class Game {
     private LocalDateTime startTime;
     private LocalDateTime finishTime;
     private int currentLevelScore = 0;
-
+    private int currentQuestion = 0;
     private int totalScoreInGame;
     private result award;
 
@@ -152,16 +152,16 @@ public class Game {
     public void setQuestionTiles() {
         try {
             int questionLimit = 3;
-            int count = 0;
-            ArrayList<Position> randomPositions = gameBoard.generateRandomPositions(questionLimit);
-            if(this.getGameBoard().getBoardId() == 1) {
-                Collections.shuffle(question);
+            if(this.getGameBoard().getBoardId() == 1){
+                Collections.shuffle(question);   // ensure random order
             }
+            ArrayList<Position> randomPositions = gameBoard.generateRandomPositions(questionLimit);
             for(Position p : randomPositions) {
                 Tile specialTile = gameBoard.getTileByPosition(p);
-                specialTile.setTileQuestion(question.get(count));
+                specialTile.setTileQuestion(question.get(currentQuestion));
+                specialTile.setTileColor(Color.BLUE);
                 System.out.println("question tile ->" + specialTile);
-                count++;
+                currentQuestion++;
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -174,7 +174,6 @@ public class Game {
             if(gameBoard.getBoardId() == 1) {
                 for(Position p : randomPositions) {
                     Tile specialTile = gameBoard.getTileByPosition(p);
-                    specialTile.setTileColor(Color.WHITE);
                     specialTile.setType(TypeTile.RANDOMPJUMP);
                     System.out.println("random ->" + specialTile);
                 }
@@ -182,7 +181,6 @@ public class Game {
             if(gameBoard.getBoardId() == 2) {
                 for(Position p : randomPositions) {
                     Tile specialTile = gameBoard.getTileByPosition(p);
-                    specialTile.setTileColor(Color.WHITE);
                     specialTile.setType(TypeTile.FORGOTTEN);
                     System.out.println("forgotten ->" + specialTile);
                 }
@@ -191,7 +189,6 @@ public class Game {
                 int count = 0;
                 for(Position p : randomPositions) {
                     Tile specialTile = gameBoard.getTileByPosition(p);
-                    specialTile.setTileColor(Color.WHITE);
                     if(count < 2){
                         specialTile.setType(TypeTile.FORGOTTEN);
                         System.out.println("forgotten ->" + specialTile);
