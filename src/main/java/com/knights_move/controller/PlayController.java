@@ -197,7 +197,7 @@ public class PlayController {
 
     private void initFigures(){
         Board board = new Board(1);
-        game = new Game( board);
+        game = new Game(1, board);
         game.setQuestion(SysData.getInstance().getQuestions());
         System.out.println("question array: "+game.getQuestion());
         List<Figure> figures = game.initFigureInStage1();
@@ -291,7 +291,7 @@ public class PlayController {
                 game.setCurrentLevelScore(game.getCurrentLevelScore() + scoreChange);
                 board.updateLastThreeScoreChange(scoreChange);
                 scoreLbl.setText(""+game.getCurrentLevelScore());    //todo -> instant score update in queston answer
-                if(game.getCurrentLevelScore() >= 5){                     // case of success level passing the next level
+                if(game.getCurrentLevelScore() >= 15){                     // case of success level passing the next level
                     endLevel(board.getBoardId() +1, true);     // board ID store level num in game
                     turn--;
                 }
@@ -305,11 +305,19 @@ public class PlayController {
                 if(level == 1 || level == 2){
                     Position queenCurrPosition = queen.getPosition();
                     Position queenNextPosition = queen.move(horse.getPosition(), queenCurrPosition);
-                    queen.setPosition(queenNextPosition);
-                    if(queenNextPosition.equals(horseNewPos)){   //kill horse case
+                    Boolean canAttack = queen.canAttack(horse.getPosition(), queenCurrPosition);
+                    //kill horse case
+                    if(canAttack){
+                        queen.setPosition(queenNextPosition);
                         endLevel(board.getBoardId(), false);
                         msgTxt.setText("Queen Won! Game over");
                     }
+
+                    /*queen.setPosition(queenNextPosition);
+                    if(queenNextPosition.equals(horseNewPos)){   //kill horse case
+                        endLevel(board.getBoardId(), false);
+                        msgTxt.setText("Queen Won! Game over");
+                    }*/
                     else{
                         Button nextNode = (Button)PlayAssistController.getNodeByRowColumnIndex(queenNextPosition.getX(),queenNextPosition.getY(), boardGrid);
                         nextNode.setGraphic(queenImg);

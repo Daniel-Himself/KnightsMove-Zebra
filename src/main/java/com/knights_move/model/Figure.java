@@ -125,4 +125,6 @@ public abstract class Figure {
         }
         return null;
     }
+
+    public abstract boolean canAttack(Position position, Position queenCurrPosition);
 }

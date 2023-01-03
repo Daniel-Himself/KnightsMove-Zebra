@@ -1,12 +1,14 @@
 package com.knights_move.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Horse extends Figure implements FigureInterface{
 
     public Horse(int figureId, Position position, int speedRate) {
         super(figureId, position, speedRate);
+    }
+    //ignore
+    @Override
+    public boolean canAttack(Position position, Position queenCurrPosition) {
+        return false;
     }
 
     //need to complete

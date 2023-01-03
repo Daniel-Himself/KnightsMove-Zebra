@@ -9,38 +9,48 @@ public class Queen extends Figure implements FigureInterface{
     // Method to check if the queen can attack another piece at a given row and column on the board
     public boolean canAttack(Position queenPosition, Position opponentPosition) {
 
-        int row = queenPosition.getY();
-        int col = queenPosition.getX();
+        int queenX = queenPosition.getX();
+        int queenY = queenPosition.getY();
 
-        int targetRow = opponentPosition.getY();
-        int targetCol = opponentPosition.getX();
+        int targetX = opponentPosition.getX();
+        int targetY = opponentPosition.getY();
 
         // The queen can attack in any of the eight directions (horizontally, vertically, or diagonally)
         // as long as there are no pieces blocking her path.
         // Check if the target is in the same row, column, or diagonal as the queen
-        if (row == targetRow || col == targetCol || Math.abs(row - targetRow) == Math.abs(col - targetCol)) {
+
+        // Queen can move horizontally, vertically, or diagonally, so check if the knight is in any of these directions
+        if (queenX == targetX || queenY == targetY || Math.abs(queenX - targetX) == Math.abs(queenY - targetY)) {
             System.out.println("Queen can attack");
             return true;
         }
+
+
+        // If the knight is not in any of the above positions, the queen can attack it
         System.out.println("Queen can't attack, moving closer to opponent");
         return false;
+
     }
 
     @Override
     // Method to move the queen closer to the target piece
     public Position move(Position queenPosition, Position opponentPosition) {
 
+        /*List<Position> generateQueenMoves = generateQueenMoves(queenPosition, opponentPosition);
+        Random rand = new Random();
+        Position randomNextPosition = generateQueenMoves.get(rand.nextInt(generateQueenMoves.size()));*/
         // If possible, attack the horse
         if(canAttack(queenPosition, opponentPosition)) {
+            System.out.println(" i am in move first if");
             return opponentPosition;
         }
 
         // Calculate the difference in rows and columns between the queen and the target piece
-        int row = queenPosition.getY();
-        int col = queenPosition.getX();
+        int row = queenPosition.getX();
+        int col = queenPosition.getY();
 
-        int targetRow = opponentPosition.getY();
-        int targetCol = opponentPosition.getX();
+        int targetRow = opponentPosition.getX();
+        int targetCol = opponentPosition.getY();
 
         int rowDiff = targetRow - row;
         int colDiff = targetCol - col;
@@ -55,7 +65,10 @@ public class Queen extends Figure implements FigureInterface{
             col += colDiff / Math.abs(colDiff);
         }
 
-        // Return the new position closer to the horse if queen is unable to attack
-        return new Position(col, row);
+        // Return the new position closer to the horse if queen is unable to attack*/
+        return new Position(row, col);
+        //return randomNextPosition;
     }
+
+
 }

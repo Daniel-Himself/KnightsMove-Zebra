@@ -7,6 +7,13 @@ public class King extends Figure implements FigureInterface{
     public King(int figureId, Position position, int speedRate) {
         super(figureId, position, speedRate);
     }
+
+    //ignore
+    @Override
+    public boolean canAttack(Position position, Position queenCurrPosition) {
+        return false;
+    }
+
     //need to complete
     @Override
     public Position move(Position horseCuPosition, Position kingCuPosition) {

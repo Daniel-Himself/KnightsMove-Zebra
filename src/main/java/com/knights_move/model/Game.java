@@ -24,8 +24,8 @@ public class Game {
 
 
 
-    public Game( Board gameBoard) {
-        gameID++;
+    public Game(int gameID, Board gameBoard) {
+        Game.gameID++;
         this.gameBoard = gameBoard;
         this.question = new ArrayList<>();
         this.dateOfGame=java.time.LocalDate.now();

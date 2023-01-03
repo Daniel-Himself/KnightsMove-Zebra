@@ -31,5 +31,11 @@ class QueenTest {
         canAttack = queen.canAttack(queen.getPosition(), opponentPosition);
         assertFalse(canAttack);
 
+        /*opponentPosition = new Position(0, 4);
+        canAttack = queen.canAttack(queen.getPosition(), opponentPosition);
+        assertTrue(canAttack);*/
+
     }
+
+
 }
