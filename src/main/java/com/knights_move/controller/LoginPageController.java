@@ -15,6 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class LoginPageController {
 
@@ -53,35 +54,33 @@ public class LoginPageController {
         LoginBtn.setOnAction(event -> loginLogic());
 
         // Make the enter key act as a login button
-        UsernameField.setOnKeyPressed( event -> {
-            if( event.getCode() == KeyCode.ENTER ) {
+        UsernameField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
                 loginLogic();
             }
-        } );
+        });
 
     }
 
-    private void loginLogic(){
+    private void loginLogic() {
 
         // login to the manager user with either 'manager' or 'm' as the username
-        if(UsernameField.getText().equals("manager") || UsernameField.getText().equals("m")){
+        if (UsernameField.getText().equals("manager") || UsernameField.getText().equals("m") || UsernameField.getText().equals("Manager")) {
             try {
-                Parent root = FXMLLoader.load(HelloApplication.class.getResource("ManagerPasswordPage.fxml"));
+                Parent root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("ManagerPasswordPage.fxml")));
                 Stage stage = (Stage) LoginBtn.getScene().getWindow();
                 stage.setScene(new Scene(root));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else try {
+        } else try {
             // check if username field has illegal characters
             if (!UsernameField.getText().matches("[a-zA-Z]{1,10}")) {
                 loginErrorLabel.setStyle("-fx-fill: red");
                 loginErrorLabel.setText("Username can only contain 1 to 10 english letters");
-            }
-            else{
+            } else {
                 SysData.getInstance().setUsername(UsernameField.getText());
-                Parent root = FXMLLoader.load(HelloApplication.class.getResource("/com/knights_move/view/MainFrame.fxml"));
+                Parent root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("/com/knights_move/view/MainFrame.fxml")));
                 Stage stage = (Stage) LoginBtn.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();
