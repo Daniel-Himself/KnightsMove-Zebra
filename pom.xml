@@ -7,7 +7,7 @@
 
     <groupId>com</groupId>
     <artifactId>knights_move</artifactId>
-    <version>0.03-SNAPSHOT</version>
+    <version>1.00-RC</version>
     <name>knights_move</name>
 
     <properties>

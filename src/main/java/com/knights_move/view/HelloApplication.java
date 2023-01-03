@@ -26,6 +26,7 @@ public class HelloApplication extends Application {
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("design.scss")).toExternalForm());
             stage = primaryStage;
             primaryStage.setScene(scene);
+            primaryStage.setTitle("Knight's Move");
             primaryStage.setResizable(false);
             primaryStage.show();
 
