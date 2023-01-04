@@ -14,7 +14,7 @@
     <BorderPane prefHeight="600.0" prefWidth="800.0" styleClass="body">
         <left>
             <VBox alignment="CENTER" prefHeight="600.0" prefWidth="200.0" styleClass="vbox" stylesheets="@design.scss" BorderPane.alignment="CENTER">
-                <Button id="logo" fx:id="logoBtn" mnemonicParsing="false" prefHeight="72.0" prefWidth="185.0" text="Knight's Move" textFill="#fff9f9">
+                <Button id="logo" fx:id="homeBtn" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="72.0" prefWidth="185.0" text="Knight's Move" textFill="#fff9f9">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>
@@ -29,12 +29,11 @@
             </Label>
             <Separator prefWidth="200.0" />
                 <Button fx:id="playBtn" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="46.0" prefWidth="201.0" text="Play" textFill="#fff9f9" />
-                <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="46.0" prefWidth="201.0" text="Home" textAlignment="RIGHT" textFill="#fff9f9" />
                 <Button fx:id="historyBtn" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="46.0" prefWidth="201.0" text="History" textFill="#fff9f9" />
                 <Button fx:id="qaBtn" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="46.0" prefWidth="201.0" text="Q &amp; A" textFill="#fff9f9" />
                 <Button fx:id="rulesBtn" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="46.0" prefWidth="201.0" text="Rules" textFill="#fff9f9" />
             <Button fx:id="pieChartBtn" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="46.0" prefWidth="201.0" text="Pie Chart" textFill="#fff9f9" />
-            <Button fx:id="historyChangesBtn" mnemonicParsing="false" prefHeight="35.0" onAction="#handleButtonClick"  prefWidth="185.0" text="HistoryChanges" textFill="#fff9f9" />
+            <Button fx:id="historyChangesBtn" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="35.0" prefWidth="185.0" text="HistoryChanges" textFill="#fff9f9" />
                 <Pane prefHeight="152.0" prefWidth="200.0" />
                 <Button fx:id="signOutBtn" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="46.0" prefWidth="201.0" text="Sign Out" textFill="#fff9f9" />
                 <Button fx:id="exitBtn" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="46.0" prefWidth="201.0" text="Exit" textFill="#fff9f9" />
