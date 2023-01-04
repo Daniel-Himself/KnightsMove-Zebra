@@ -18,13 +18,14 @@
             </Label>
          </children>
       </Pane>
-      <TableView fx:id="tableView_historyEdit" layoutX="37.0" layoutY="109.0" prefHeight="245.0" prefWidth="462.0">
+      <TableView fx:id="tableView_historyEdit" layoutX="118.0" layoutY="141.0" prefHeight="203.0" prefWidth="333.0">
         <columns>
-          <TableColumn fx:id="QuestionIdCol" prefWidth="119.20001220703125" text="QuestionId" />
-          <TableColumn fx:id="StatusCol" prefWidth="105.5999755859375" text="Status" />
-            <TableColumn fx:id="changeFiledCol" prefWidth="122.39996337890625" text="changeFiled" />
-            <TableColumn fx:id="DateCol" prefWidth="113.60003662109375" text="Date" />
+          <TableColumn fx:id="QuestionIdCol" prefWidth="206.66665649414062" text="QuestionId" />
+          <TableColumn fx:id="StatusCol" prefWidth="60.0" text="Status" />
+            <TableColumn fx:id="DateCol" prefWidth="73.33331298828125" text="Date" />
+            <TableColumn fx:id="changeFiledCol" prefWidth="122.39996337890625" text="changeFiled" visible="false" />
         </columns>
       </TableView>
+      <Label fx:id="lbDescribeRow" layoutX="13.0" layoutY="379.0" prefHeight="62.0" prefWidth="567.0" />
    </children>
 </AnchorPane>

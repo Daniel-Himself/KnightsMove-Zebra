@@ -11,11 +11,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,19 +29,15 @@ public class EditHistoryController implements Initializable {
         private String quesId;
         private STATUS type;
         private String changes;
-        private LocalDateTime dateof;
+        private LocalDate dateof;
 
-        public historyEdit(String quesId, STATUS type, String changes, LocalDateTime dateof) {
+        public historyEdit(String quesId, STATUS type, String changes, LocalDate dateof) {
             this.quesId = quesId;
             this.type = type;
             this.changes = changes;
             this.dateof = dateof;
         }
-        public historyEdit(String quesId, STATUS type, LocalDateTime dateof) {
-            this.quesId = quesId;
-            this.type = type;
-            this.dateof = dateof;
-        }
+
         public String getQuesId() {
             return quesId;
         }
@@ -64,22 +62,18 @@ public class EditHistoryController implements Initializable {
             this.changes = changes;
         }
 
-        public LocalDateTime getDateof() {
+        public LocalDate getDateof() {
             return dateof;
         }
 
-        public void setDateof(LocalDateTime dateof) {
+        public void setDateof(LocalDate dateof) {
             this.dateof = dateof;
         }
 
         @Override
         public String toString() {
-            return "historyEdit{" +
-                    "quesId='" + quesId + '\'' +
-                    ", type=" + type +
-                    ", changes='" + changes + '\'' +
-                    ", dateof=" + dateof +
-                    '}';
+            return "historyEdit" +
+                    "quesId='" + quesId ;
         }
     }
     @FXML
@@ -106,6 +100,9 @@ public class EditHistoryController implements Initializable {
     public  ArrayList<historyEdit> getHistory() {
         return history;
     }
+    @FXML
+    private Label lbDescribeRow;
+
 
     public  void setHistory(ArrayList<historyEdit> history) {
         this.history = history;
@@ -113,15 +110,34 @@ public class EditHistoryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        ObservableList<historyEdit> observableList = null;
+        if(SysData.getInstance().getListOfChange()!=null)
+        {
+            observableList = FXCollections.observableArrayList(SysData.getInstance().getListOfChange());
+        }
         QuestionIdCol.setCellValueFactory(new PropertyValueFactory<>("quesId"));
         StatusCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         changeFiledCol.setCellValueFactory(new PropertyValueFactory<>("changes"));
         DateCol.setCellValueFactory(new PropertyValueFactory<>("dateof"));
-        if(getHistory()!=null) {
-            ObservableList<historyEdit> observableList = FXCollections.observableArrayList(getHistory());
-            tableView_historyEdit.setItems(observableList);
-        }
+        tableView_historyEdit.setItems(observableList);
+
+
+        tableView_historyEdit.setRowFactory( tv -> {
+            TableRow<EditHistoryController.historyEdit> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    historyEdit rowData = row.getItem();
+                    System.out.println("hey");
+                    lbDescribeRow.setText(row.getItem().toString());
+                }
+            });
+            return row;
+        });
+//        tableView_historyEdit
+//        if(!(tableView_historyEdit.getSelectionModel().isEmpty())) {
+//            System.out.println("yes");
+//            lbDescribeRow.setText(String.valueOf(tableView_historyEdit.getSelectionModel().getSelectedItem().toString()));
+//        }
 
     }
 }

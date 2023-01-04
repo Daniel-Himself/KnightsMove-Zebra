@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -174,14 +175,7 @@ public class QuestionAnswerController implements Initializable {
                     AddQuestionController addQuestionController = new AddQuestionController();
                     addQuestionController.receiveQues(newQuestion);
 
-                    HomeController homeController= new HomeController();
-                    homeController.setQuesPage(true);
-                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("MainFrame.fxml"));
-                    HelloApplication.parent = loader.load();
-                    loader.getController();
-                    Scene scene = new Scene(HelloApplication.parent);
-                    HelloApplication.stage.setScene(scene);
-                    HelloApplication.stage.show();
+
                 }
                 else {
                     message.setText("Please click on a row");
@@ -270,15 +264,10 @@ public class QuestionAnswerController implements Initializable {
         TableView_Question.setItems(observableList);
 
         //add the changes the admin did
-        EditHistoryController controller= new EditHistoryController();
-        ArrayList<EditHistoryController.historyEdit> listofchanges= controller.getHistory();
-        if(listofchanges==null)
-        {
-            listofchanges= new ArrayList<>();
-        }
-        EditHistoryController.historyEdit change= new EditHistoryController.historyEdit(quesId, STATUS.DELETE,LocalDateTime.now());
-        listofchanges.add(change);
-        controller.setHistory(listofchanges);
+        String changeDes="Delete"+ selected.getQuesID().toString();
+        EditHistoryController.historyEdit change= new EditHistoryController.historyEdit(quesId, STATUS.DELETE,changeDes,LocalDate.now());
+        SysData.getInstance().getListOfChange().add(change);
+        SysData.getInstance().serJsonChange();
     }
 
 }

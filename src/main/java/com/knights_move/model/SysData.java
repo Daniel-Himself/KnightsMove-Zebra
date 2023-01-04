@@ -1,5 +1,7 @@
 package com.knights_move.model;
 
+import com.knights_move.controller.EditHistoryController;
+import com.knights_move.controller.HistoryController;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -7,6 +9,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,10 +19,13 @@ import java.util.Map;
 public class SysData {
     private static SysData instance = null;
 
-    private HashMap<Player, ArrayList<Game>> playerAndgames;
+    private static HashMap<Player, ArrayList<Game>> playerAndgames;
     private ArrayList<Question> questions;
     private String username; // a string that holds the username of the current user
 
+    private ArrayList<EditHistoryController.historyEdit> listOfChange=new ArrayList<>();
+
+    public static int counterGame=1;
     //singleton constructor
     public static SysData getInstance() {
         if (instance == null) {
@@ -27,8 +33,12 @@ public class SysData {
             instance = new SysData();
             instance.DesJsonQuestions();
             instance.DesJsonGame();
+            instance.DesJsonChange();
         }
         return instance;
+    }
+    public static void setCounterGame(int counterGame) {
+        SysData.counterGame = counterGame;
     }
 
     public String getUsername() {
@@ -53,6 +63,13 @@ public class SysData {
 
     public void setPlayerAndgames(HashMap<Player, ArrayList<Game>> playerAndgames) {
         this.playerAndgames = playerAndgames;
+    }
+    public ArrayList<EditHistoryController.historyEdit> getListOfChange() {
+        return listOfChange;
+    }
+
+    public void setListOfChange(ArrayList<EditHistoryController.historyEdit> listOfChange) {
+        this.listOfChange = listOfChange;
     }
 
     /**
@@ -291,6 +308,86 @@ public class SysData {
         else
             return questionByLevel;
     }
+
+
+    /*save the history of changes by manager*/
+    public void DesJsonChange() {
+        File file = new File(".\\lib\\historyChanges.json");
+        if (file.length() == 0) {
+            System.out.println("the file is empty");
+            return;
+        }
+        JSONParser jsonParser = new JSONParser();
+        try (FileReader reader = new FileReader(file)) {
+            //read json file
+            Object obj = jsonParser.parse(reader);
+            //getting questions array from JSON object
+            JSONArray changeArray = (JSONArray) ((JSONObject) obj).get("changes");
+            if (changeArray != null) {
+                for (Object change : changeArray) {
+                     String quesId=String.valueOf(((JSONObject)change).get("quesId").toString());
+                     STATUS type=STATUS.DELETE;
+                     for(STATUS status:STATUS.values())
+                     {
+                         if((((JSONObject) change).get("status").toString()).compareTo(status.toString())==0)
+                         {
+                             type=status;
+                         }
+                     }
+                     String changeDescription=String.valueOf(((JSONObject) change).get("change").toString());
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+                    LocalDate dateOf = LocalDate.parse((((JSONObject) change).get("DateOfChange").toString()),formatter);
+                    EditHistoryController.historyEdit newChange= new EditHistoryController.historyEdit(quesId,type,changeDescription,dateOf);
+                    listOfChange.add(newChange);
+                }
+            }
+        }
+         catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * write arraylist to json games file, return true if its succeded
+     *
+     * @return
+     */
+    public boolean serJsonChange()
+    {
+        try(FileWriter file=new FileWriter(".\\lib\\historyChanges.json")){
+            //we can write any JSONArray or JSONobject instance to the file
+            //JSONObject questionObj=new JSONObject();
+            JSONArray changesList=new JSONArray();
+            JSONObject listJson=new JSONObject();
+            if(getListOfChange()!=null) {
+                for (EditHistoryController.historyEdit change : getListOfChange()) {
+                    JSONObject changeObj = new JSONObject();
+
+                    changeObj.put("quesId", change.getQuesId());
+                    changeObj.put("status", change.getType().toString());
+                    changeObj.put("change", change.getChanges().toString());
+                    changeObj.put("DateOfChange", change.getDateof().toString());
+
+                    changesList.add(changeObj);
+                }
+                listJson.put("changes", changesList);
+                file.write(listJson.toJSONString());
+                file.flush();
+
+                return true;
+            }
+            return false;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
 
 
 }

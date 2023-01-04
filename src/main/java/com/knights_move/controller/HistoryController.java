@@ -141,7 +141,7 @@ public class HistoryController implements Initializable {
                 if (playerKey.getUserName().compareTo(SysData.getInstance().getUsername()) == 0) {
                     ArrayList<Game> gameValue = entry.getValue();
                     for (Game game : gameValue) {
-                        listOfGames.add(new NewGame(game.getGameID(), playerKey.getUserName(),result.Win, playerKey.getScoreInGame(game), game.getDateOfGame()));
+                        listOfGames.add(new NewGame(game.getGameID(), playerKey.getUserName(),game.getAward(), playerKey.getScoreInGame(game), game.getDateOfGame()));
                     }
                 }
             }
@@ -159,7 +159,6 @@ public class HistoryController implements Initializable {
     //todo point this one to real game -> from play controller -> fix it
     public static void add(Game game)
     {
-        Game g= new Game(11,LocalDate.now());
         HashMap<Player,ArrayList<Game>> map =SysData.getInstance().getPlayerAndgames();
         if(map!=null) {
             for(Player p:map.keySet())
@@ -167,17 +166,23 @@ public class HistoryController implements Initializable {
                 if(p.getUserName().compareTo(SysData.getInstance().getUsername())==0)
                 {
                     ArrayList<Game> gamePlayer=map.get(p);
-                    gamePlayer.add(g);
+                    gamePlayer.add(game);
                     SysData.getInstance().setPlayerAndgames(map);
-                    if(p.getScoreInGame().get(g)==null)
+                    if(p.getScoreInGame().get(game)==null)
                     {
-                        p.setScoreInGame(g,5);
+                        p.setScoreInGame(game,5);
                     }
-                    SysData.getInstance().serJsonGames();
                 }
             }
         }
-
+        else{
+            map=new HashMap<>();
+            Player p= new Player(SysData.getInstance().getUsername());
+            ArrayList<Game> list= new ArrayList<>();
+            list.add(game);
+            map.put(p,list);
+        }
+        SysData.getInstance().serJsonGames();
     }
 
 }
