@@ -217,12 +217,25 @@ public class HomeController {
             }
         }
         if(e.getSource() == historyChangesBtn){
-            try{
-                pnlChoosedPage.getChildren().clear();
-                Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/EditPageForAdmin.fxml")));
-                pnlChoosedPage.getChildren().add(node);
-            } catch(IOException | NullPointerException ex){
-                System.out.println(ex.getMessage());
+            // Restrict access to the changes page only to the "manager" user
+            if(!SysData.getInstance().getUsername().equals("Manager")){
+                try{
+                    pnlChoosedPage.getChildren().clear();
+                    Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/PermissionDeniedPage.fxml")));
+                    System.out.println("Permission denied! A non-manager user tried to access the changes page.");
+                    pnlChoosedPage.getChildren().add(node);
+                } catch(IOException | NullPointerException ex){
+                    System.out.println(ex.getMessage());
+                }
+            }
+            else{
+                try{
+                    pnlChoosedPage.getChildren().clear();
+                    Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/knights_move/view/EditPageForAdmin.fxml")));
+                    pnlChoosedPage.getChildren().add(node);
+                } catch(IOException | NullPointerException ex){
+                    System.out.println(ex.getMessage());
+                }
             }
         }
 
