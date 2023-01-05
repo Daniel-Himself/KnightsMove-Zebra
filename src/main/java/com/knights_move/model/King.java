@@ -85,9 +85,9 @@ public class King extends Figure implements FigureInterface{
 
             if(position.equals(horseCuPosition))
             {
-                System.out.println(position.getX()+" "+position.getY());
                 closerHourse.setX(horseCuPosition.getX());
                 closerHourse.setY(horseCuPosition.getY());
+                return  closerHourse;
             }
 
           else  if (Double.valueOf(currentDis)<Double.valueOf(minDistance))

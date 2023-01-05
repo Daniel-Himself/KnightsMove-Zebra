@@ -213,6 +213,7 @@ public class PlayController {
     private void moveFigure(Button button){
         Board board = game.getGameBoard();
         int level = board.getBoardId();
+
         System.out.println("last 3 tracked: "+board.getLastThreePositions()+"   score: "+board.getLastThreeScoreChange());
         // horse turn
         if(turn == 1){
