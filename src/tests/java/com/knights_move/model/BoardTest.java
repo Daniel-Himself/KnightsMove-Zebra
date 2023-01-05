@@ -34,27 +34,31 @@ class BoardTest {
 
 
     }
-
     @Test
-    void removeVisitedTile() {
-        //should return true. tile is added to the list and not null.
-        Position p1 = new Position(1,1);
-        Tile tile1 = new Tile(p1, TypeTile.EMPTY, Color.WHITE, true);
-        board.addVisitedTile(tile1);
-        boolean removeVisitedTile = board.removeVisitedTile(tile1);
-        assertTrue(removeVisitedTile);
-        assertTrue(tile1.isVisited() == false);
+    void removeEmptyTile() {
+        Position p = new Position(1,1);
+        Tile tile = new Tile(p, TypeTile.EMPTY, Color.WHITE, true);
+        board.addEmptyTile(tile);
+        Boolean removeEmptyTile = board.removeEmptyTile(tile);
+        assertTrue(removeEmptyTile);
 
-        //should return false. tile is not in the list therefore it cannot be removed.
-        Position p2 = new Position(2,1);
-        Tile tile2 = new Tile(p2, TypeTile.EMPTY, Color.WHITE, true);
-        //board.addVisitedTile(tile1);
-        boolean removeVisitedTile1 = board.removeVisitedTile(tile2);
-        assertFalse(removeVisitedTile1);
+        p.setX(5);
+        p.setY(3);
+        tile.setTilePosition(p);
+        Boolean removeEmptyTile0 = board.removeEmptyTile(tile);
+        assertFalse(removeEmptyTile0);
 
-        //should return false. tile is null.
-        boolean removeVisitedTile2 = board.removeVisitedTile(null);
-        assertFalse(removeVisitedTile2);
+        p.setX(2);
+        p.setY(3);
+        tile.setType(TypeTile.FORGOTTEN);
+        tile.setTilePosition(p);
+        Boolean removeEmptyTile1 = board.removeEmptyTile(tile);
+        assertFalse(removeEmptyTile1);
+
+
+        Boolean removeEmptyTile2 = board.removeEmptyTile(null);
+        assertFalse(removeEmptyTile2);
+
     }
 
     //public Tile getTileByPosition(Position p)
