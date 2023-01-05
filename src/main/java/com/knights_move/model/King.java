@@ -66,7 +66,7 @@ public class King extends Figure implements FigureInterface{
         }
         for(int i=0;i<optionForRows.size();i++)
         {
-            for (int j=0;j<optionForCols.size();j++)
+            for(int j=0;j<optionForCols.size();j++)
             {
                 if(!(optionForRows.get(i)==rowX&&optionForCols.get(j)==colY)) {
                     Position newPosition=new Position(optionForRows.get(i), optionForCols.get(j));
@@ -77,20 +77,18 @@ public class King extends Figure implements FigureInterface{
 
 
         for(Position position:potentialMoves)
-        {System.out.println("king valid position  ->" +position);
-            int x=Math.abs(position.getX()-rowHorse);
-            int y=Math.abs(position.getY()-colHorse);
-
-            double currentDis=Math.sqrt(Math.abs(y*y-x*x));
+        {
+            System.out.println("king valid position  ->" +position);
+            double currentDis=Math.abs(position.getX()-rowHorse)+Math.abs(position.getY()-colHorse);
 
             if(position.equals(horseCuPosition))
             {
                 closerHourse.setX(horseCuPosition.getX());
                 closerHourse.setY(horseCuPosition.getY());
-                return  closerHourse;
+                return closerHourse;
             }
 
-          else  if (Double.valueOf(currentDis)<Double.valueOf(minDistance))
+          else if(Double.valueOf(currentDis)<Double.valueOf(minDistance))
             {
                 minDistance=currentDis;
                 closerHourse.setX(position.getX());

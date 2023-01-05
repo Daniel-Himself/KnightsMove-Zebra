@@ -94,6 +94,7 @@ public class PlayController {
         figureGrid.setVisible(false);
 
         startBtn.setOnAction(event -> {
+            levelLbl.setText("Level 1");
             awardImg.setVisible(false);
             if(!initialized) {
                 initFigures();
@@ -132,7 +133,6 @@ public class PlayController {
         game.setTotalScoreInGame(game.getTotalScoreInGame() + game.getCurrentLevelScore());
         game.setCurrentLevelScore(0);
         scoreLbl.setText(""+game.getCurrentLevelScore());
-        levelLbl.setText("Level "+game.getGameBoard().getBoardId());
         PlayAssistController.clearBoard(game.getGameBoard());
         boardGrid.getChildren().removeIf(Objects::nonNull);
         msgTxt.setText("Game level lasted "+(60-sec)+" seconds");
@@ -169,7 +169,7 @@ public class PlayController {
             kingImg.setVisible(true);
         }
     }
-
+    //  initialize buttons on grid
     private void initGrid(Game game){
         int count = 0;
         double s = 38; // side of button in grid
@@ -309,6 +309,8 @@ public class PlayController {
                         msgTxt.setText("Queen Won! Game over");
                     }
                     else{
+                        Button queenPrev = (Button)PlayAssistController.getNodeByRowColumnIndex(king.getPosition().getX(),king.getPosition().getY(), boardGrid);
+                        queenPrev.setGraphic(null);
                         Button nextNode = (Button)PlayAssistController.getNodeByRowColumnIndex(queenNextPosition.getX(),queenNextPosition.getY(), boardGrid);
                         nextNode.setGraphic(queenImg);
                     }
@@ -326,6 +328,8 @@ public class PlayController {
                         endLevel(board.getBoardId(), false);
                     }
                     else{
+                        Button kingPrev = (Button)PlayAssistController.getNodeByRowColumnIndex(king.getPosition().getX(),king.getPosition().getY(), boardGrid);
+                        kingPrev.setGraphic(null);
                         Button nextNode = (Button)PlayAssistController.getNodeByRowColumnIndex(kingNextPosition.getX(),kingNextPosition.getY(), boardGrid);
                         nextNode.setGraphic(kingImg);
                     }
@@ -357,7 +361,6 @@ public class PlayController {
         clearGrid();
         timeline.stop();
         if(success){
-            //todo  -> fix after Noa will improve history -> award logic
             if(level > 4) {
                 timeKing.stop();
                 game.setCurrentQuestion(0);
@@ -369,6 +372,7 @@ public class PlayController {
             }
             else {
                 game.getGameBoard().setBoardId(level);
+                levelLbl.setText("Level "+game.getGameBoard().getBoardId());
                 initGrid(game);
                 setFiguresOnBoard();
                 timeline = initTimer();
@@ -385,7 +389,6 @@ public class PlayController {
             initGrid(game);
             boardGrid.setVisible(false);
             HistoryController.add(game);
-          //  Player p = new Player(SysData.getInstance().getUsername());
 
         }
     }
@@ -402,6 +405,8 @@ public class PlayController {
             endLevel(game.getGameBoard().getBoardId(), false);
         }
         else{
+            Button kingPrev = (Button)PlayAssistController.getNodeByRowColumnIndex(king.getPosition().getX(),king.getPosition().getY(), boardGrid);
+            kingPrev.setGraphic(null);
             Button nextNode = (Button)PlayAssistController.getNodeByRowColumnIndex(kingPosition.getX(),kingPosition.getY(), boardGrid);
             nextNode.setGraphic(kingImg);
         }
