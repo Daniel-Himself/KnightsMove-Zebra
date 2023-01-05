@@ -11,7 +11,7 @@ public class Horse extends Figure implements FigureInterface{
         return false;
     }
 
-    //need to complete
+    // horse move has different return type and implemented at figure class
     @Override
     public Position move(Position horse, Position b) {
         return null;

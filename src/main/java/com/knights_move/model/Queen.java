@@ -36,9 +36,6 @@ public class Queen extends Figure implements FigureInterface{
     // Method to move the queen closer to the target piece
     public Position move(Position queenPosition, Position opponentPosition) {
 
-        /*List<Position> generateQueenMoves = generateQueenMoves(queenPosition, opponentPosition);
-        Random rand = new Random();
-        Position randomNextPosition = generateQueenMoves.get(rand.nextInt(generateQueenMoves.size()));*/
         // If possible, attack the horse
         if(canAttack(queenPosition, opponentPosition)) {
             System.out.println(" i am in move first if");

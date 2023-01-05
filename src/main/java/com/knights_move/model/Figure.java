@@ -8,7 +8,7 @@ public abstract class Figure {
     private Position position;
     private String typeOfFigure;
     private int speedRate;
-    //todo - fix it cause no access to queens method move
+
     public abstract Position move(Position a, Position b);
 
     public Figure(int figureId, Position position, int speedRate) {
@@ -18,40 +18,7 @@ public abstract class Figure {
     }
 
 
-    public int getFigureId() {
-        return figureId;
-    }
-
-    public void setFigureId(int figureId) {
-        this.figureId = figureId;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public int getSpeedRate() {
-        return speedRate;
-    }
-
-    public void setSpeedRate(int speedRate) {
-        this.speedRate = speedRate;
-    }
-
-    @Override
-    public String toString() {
-        return "Figure{" +
-                "figureId=" + figureId +
-                ", position=" + position +
-                ", typeOfFigure='" + typeOfFigure + '\'' +
-                ", speedRate=" + speedRate +
-                '}';
-    }
-
+    // method returns list of possible horse movements
     public List<Position> horseOptions(Position current, Board board) {
         List<Position> optionList = new ArrayList<>();
         int x = current.getX();
@@ -78,7 +45,7 @@ public abstract class Figure {
         return optionList;
     }
 
-
+    // checking valid position on board with attendance to cyclic movements
     private Position validPosition(Position p){
         int x = p.getX();
         int y = p.getY();
@@ -125,4 +92,38 @@ public abstract class Figure {
 
 
     public abstract boolean canAttack(Position position, Position queenCurrPosition);
+
+    public int getFigureId() {
+        return figureId;
+    }
+
+    public void setFigureId(int figureId) {
+        this.figureId = figureId;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public int getSpeedRate() {
+        return speedRate;
+    }
+
+    public void setSpeedRate(int speedRate) {
+        this.speedRate = speedRate;
+    }
+
+    @Override
+    public String toString() {
+        return "Figure{" +
+                "figureId=" + figureId +
+                ", position=" + position +
+                ", typeOfFigure='" + typeOfFigure + '\'' +
+                ", speedRate=" + speedRate +
+                '}';
+    }
 }

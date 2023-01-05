@@ -16,7 +16,6 @@ public class Board {
     private HashMap<Position,Tile> tilePositions;
 
 
-    //todo - fix board controller constructors
     public Board(int boardId, int numOfForgottenTiles, int numOfBlockedTiles, int numOfRandomJumpTiles) {
         //boardID represents level number in game. for each level in game(range 1 - 4) -> new board.
         if(this.boardId <= 1 && this.boardId <= 4) {
@@ -51,26 +50,6 @@ public class Board {
         this.lastThreeScoreChange = new LinkedList<>();
     }
 
-    public int getBoardId() {
-        return boardId;
-    }
-
-    public void setBoardId(int boardId) {
-        this.boardId = boardId;
-    }
-
-    public LinkedList<Position> getLastThreePositions() {
-        return lastThreePositions;
-    }
-
-    public LinkedList<Integer> getLastThreeScoreChange() {
-        return lastThreeScoreChange;
-    }
-    public HashMap<Integer, HashMap<Position, Tile>> getTilesPositionInBoard() {
-        return tilesPositionInBoard;
-    }
-
-    public List<Tile> getVisitedTile() { return visitedTile;}
 
     public int getNumOgSpecialTilesByLevel(int level){
         if(level == 1 || level == 2){
@@ -160,24 +139,6 @@ public class Board {
 
     }
 
-    public boolean removeVisitedTile(Tile tile){
-        try {
-            if(tile != null && visitedTile.contains(tile)) {
-                tile.setVisited(false);
-                visitedTile.remove(tile);
-                System.out.println("visited tile" + tile.getTilePosition() + "removed from visitedTile list");
-                System.out.println("visitedTile list" + visitedTile);
-                return true;
-            }
-            else
-                return false;
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
     public boolean addEmptyTile(Tile tile){
         try {
             //64 tiles in board
@@ -210,43 +171,29 @@ public class Board {
 
     }
 
+    public int getBoardId() {
+        return boardId;
+    }
+
+    public void setBoardId(int boardId) {
+        this.boardId = boardId;
+    }
+
+    public LinkedList<Position> getLastThreePositions() {
+        return lastThreePositions;
+    }
+
+    public LinkedList<Integer> getLastThreeScoreChange() {
+        return lastThreeScoreChange;
+    }
+    public HashMap<Integer, HashMap<Position, Tile>> getTilesPositionInBoard() {
+        return tilesPositionInBoard;
+    }
+
+    public List<Tile> getVisitedTile() { return visitedTile;}
+
     public HashMap<Position, Tile> getTilePositions() {
         return tilePositions;
-    }
-    //all tiles positions in each stage
-    public boolean addTilePosition(Position p, Tile t){
-        try {
-            if(p != null && t != null && !tilePositions.containsKey(p))
-            {
-                //position range of x -> 0 till 7, y -> 0 till 7.
-                if(p.getX() < 8 && p.getY() < 8) {
-                    tilePositions.put(p,t);
-                    return true;
-                }
-                else
-                    return false;
-            }
-            else
-                return false;
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    public boolean removeTilePosition(Position p){
-        try {
-            if(p != null && tilePositions.containsKey(p)) {
-                tilePositions.remove(p);
-                return true;
-            }
-            return false;
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
     }
 
     public List<Tile> getTileList() {
