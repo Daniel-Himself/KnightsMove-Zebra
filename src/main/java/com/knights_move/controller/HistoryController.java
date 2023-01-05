@@ -3,6 +3,7 @@ package com.knights_move.controller;
 import com.knights_move.model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.css.SimpleStyleableObjectProperty;
 import javafx.fxml.FXML;
 
 import java.net.URL;
@@ -25,14 +26,12 @@ public class HistoryController implements Initializable {
         private int gameID;
         private String userName;
         private int scoreOfPlayer;
-        private result statusInGame;
         private LocalDate dateOfGame;
 
 
-        public NewGame(int gameID, String userName, result statusInGame, int scoreOfPlayer, LocalDate dateOfGame) {
+        public NewGame(int gameID, String userName, int scoreOfPlayer, LocalDate dateOfGame) {
             this.gameID = gameID;
             this.userName = userName;
-            this.statusInGame=statusInGame;
             this.scoreOfPlayer = scoreOfPlayer;
             this.dateOfGame = dateOfGame;
         }
@@ -68,13 +67,7 @@ public class HistoryController implements Initializable {
         public void setDateOfGame(LocalDate dateOfGame) {
             this.dateOfGame = dateOfGame;
         }
-        public result getStatusInGame() {
-            return statusInGame;
-        }
 
-        public void setStatusInGame(result statusInGame) {
-            this.statusInGame = statusInGame;
-        }
 
     }
 
@@ -128,61 +121,71 @@ public class HistoryController implements Initializable {
     @FXML
     private Button signInBtn;
 
-    @FXML
-    private Button BTRY;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ArrayList<NewGame> listOfGames=new ArrayList<>();
-        HashMap<Player,ArrayList<Game>> playerAndGame=SysData.getInstance().getPlayerAndgames();
-        if(playerAndGame!=null) {
-            for (Map.Entry<Player, ArrayList<Game>> entry : playerAndGame.entrySet()) {
-                Player playerKey = entry.getKey();
-                if (playerKey.getUserName().compareTo(SysData.getInstance().getUsername()) == 0) {
-                    ArrayList<Game> gameValue = entry.getValue();
-                    for (Game game : gameValue) {
-                        listOfGames.add(new NewGame(game.getGameID(), playerKey.getUserName(),game.getAward(), playerKey.getScoreInGame(game), game.getDateOfGame()));
-                    }
+        SysData.getInstance().DesJsonGame();
+        ArrayList<NewGame> listOfGame= new ArrayList<>();
+        HashMap<Player,ArrayList<Game>> map= new HashMap<>();
+        map=SysData.getInstance().getPlayerAndgames();
+        if(map!=null)
+        {
+            Player p= new Player(SysData.getInstance().getUsername());
+
+            if(map.containsKey(p))
+            {
+                System.out.println(p.getUserName());
+                int count=1;
+                for(Game g:map.get(p))
+                {
+                   // p.setScoreInGame(g,10);
+                    listOfGame.add(new NewGame(count,p.getUserName(),g.getTotalScoreInGame(),g.getDateOfGame()));
+                    count++;
                 }
             }
-        }
-        gameIdCol.setCellValueFactory(new PropertyValueFactory<>("gameID"));
-        userNameCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
-        statusCol.setCellValueFactory(new PropertyValueFactory<>("statusInGame"));
-        scoreCol.setCellValueFactory(new PropertyValueFactory<>("scoreOfPlayer"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("dateOfGame"));
+            gameIdCol.setCellValueFactory(new PropertyValueFactory<>("gameID"));
+            userNameCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
+            scoreCol.setCellValueFactory(new PropertyValueFactory<>("scoreOfPlayer"));
+            dateCol.setCellValueFactory(new PropertyValueFactory<>("dateOfGame"));
 
-        ObservableList<NewGame> observableList = FXCollections.observableArrayList(listOfGames);
-        historTbl.setItems(observableList);
+            ObservableList<NewGame> observableList = FXCollections.observableArrayList(listOfGame);
+            historTbl.setItems(observableList);
+        }
 
     }
-    //todo point this one to real game -> from play controller -> fix it
+
     public static void add(Game game)
     {
-        HashMap<Player,ArrayList<Game>> map =SysData.getInstance().getPlayerAndgames();
-        if(map!=null) {
-            for(Player p:map.keySet())
-            {
-                if(p.getUserName().compareTo(SysData.getInstance().getUsername())==0)
-                {
-                    ArrayList<Game> gamePlayer=map.get(p);
-                    gamePlayer.add(game);
-                    SysData.getInstance().setPlayerAndgames(map);
-                    if(p.getScoreInGame().get(game)==null)
-                    {
-                        p.setScoreInGame(game,5);
-                    }
-                }
-            }
-        }
-        else{
+        boolean b=false;
+        HashMap<Player,ArrayList<Game>> map = SysData.getInstance().getPlayerAndgames();
+        Player p= new Player(SysData.getInstance().getUsername());
+        ArrayList<Game> list= new ArrayList<>();
+        if(map==null)
+        {
+            System.out.println("empty");
             map=new HashMap<>();
-            Player p= new Player(SysData.getInstance().getUsername());
-            ArrayList<Game> list= new ArrayList<>();
             list.add(game);
             map.put(p,list);
         }
+        else {
+
+            for(Player player:map.keySet()) {
+                if (player.getUserName().equals(p.getUserName())) {
+                    b=true;
+                    map.get(p).add(game);
+                }
+            }
+            if(!b)
+            {
+                list.add(game);
+                map.put(p, list);
+            }
+        }
+        SysData.getInstance().setPlayerAndgames(map);
         SysData.getInstance().serJsonGames();
     }
 
+
 }
+

@@ -25,7 +25,7 @@ public class SysData {
 
     private ArrayList<EditHistoryController.historyEdit> listOfChange=new ArrayList<>();
 
-    public static int counterGame=1;
+
     //singleton constructor
     public static SysData getInstance() {
         if (instance == null) {
@@ -37,9 +37,7 @@ public class SysData {
         }
         return instance;
     }
-    public static void setCounterGame(int counterGame) {
-        SysData.counterGame = counterGame;
-    }
+
 
     public String getUsername() {
         return username;
@@ -62,7 +60,14 @@ public class SysData {
     }
 
     public void setPlayerAndgames(HashMap<Player, ArrayList<Game>> playerAndgames) {
-        this.playerAndgames = playerAndgames;
+        if(this.getPlayerAndgames()==null)
+        {
+            this.playerAndgames= new HashMap<>();
+        }
+        for(Player p:playerAndgames.keySet())
+        {
+            this.getPlayerAndgames().put(p,playerAndgames.get(p));
+        }
     }
     public ArrayList<EditHistoryController.historyEdit> getListOfChange() {
         return listOfChange;
@@ -140,7 +145,6 @@ public class SysData {
      *
      * @return true if the json question file  loaded to arraylist
      */
-
     public void DesJsonGame() {
         File file = new File(".\\lib\\Games.json");
         if (file.length() == 0) {
@@ -153,39 +157,29 @@ public class SysData {
             Object obj = jsonParser.parse(reader);
             //getting questions array from JSON object
             JSONArray PlayersArray = ((JSONArray) (((JSONObject) obj).get("Players")));
-            for (Object object : PlayersArray) {
-                //now we iterate through player and games
-                //get the player
-                Player player = new Player(((JSONObject) object).get("player").toString());
-                //get the games the player took part
-                JSONArray arrayGamesJson = (JSONArray) ((JSONObject) object).get("Games");
-                ArrayList<Game> gameOfCurrentPlayer = new ArrayList<Game>();
-                //we iterate through json object
-                for (Object games : arrayGamesJson) {
-                    int gameID = Integer.valueOf (((JSONObject) games).get("gameId").toString());
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-                    LocalDate dateOfGame = LocalDate.parse((((JSONObject) games).get("DateOfGame").toString()),formatter);
-                    Game newGame = new Game(gameID, dateOfGame);
-                    gameOfCurrentPlayer.add(newGame);
-
-                    int score = Integer.valueOf(((JSONObject) games).get("score").toString());
-                    HashMap<Game,Integer> playerGame=player.getScoreInGame();
-                    if(playerGame==null)
-                    {
-                        playerGame= new HashMap<>();
+            if(PlayersArray!=null) {
+                for (Object object : PlayersArray) {
+                    //now we iterate through player and games
+                    //get the player
+                    Player player = new Player(((JSONObject) object).get("player").toString());
+                    //get the games the player took part
+                    JSONArray arrayGamesJson = (JSONArray) ((JSONObject) object).get("Games");
+                    ArrayList<Game> gameOfCurrentPlayer = new ArrayList<Game>();
+                    //we iterate through json object
+                    for (Object games : arrayGamesJson) {
+                        int gameID = Integer.valueOf(((JSONObject) games).get("gameId").toString());
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+                        LocalDate dateOfGame = LocalDate.parse((((JSONObject) games).get("DateOfGame").toString()), formatter);
+                        int score = Integer.valueOf(((JSONObject) games).get("score").toString());
+                        Game newGame = new Game(gameID, dateOfGame,score);
+                        gameOfCurrentPlayer.add(newGame);
                     }
-                    if (!(playerGame.containsKey(newGame)))
-                    {
-                        playerGame.put(newGame,score);
+                    if (this.playerAndgames == null) {
+                        playerAndgames = new HashMap<>();
                     }
-                    player.setScoreInGame(playerGame);
+                    playerAndgames.put(player, gameOfCurrentPlayer);
+                }
 
-                }
-                if(this.playerAndgames==null)
-                {
-                    playerAndgames=new HashMap<>();
-                }
-                playerAndgames.put(player, gameOfCurrentPlayer);
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -195,7 +189,6 @@ public class SysData {
             throw new RuntimeException(e);
         }
     }
-
     /**
      * write arraylist to json games file, return true if its succeded
      *
@@ -206,24 +199,30 @@ public class SysData {
             //we can write any JSONArray or JSONobject instance to the file
             JSONArray playerlist = new JSONArray();
             JSONObject listPlayerJson = new JSONObject();
-
-            for (Map.Entry<Player, ArrayList<Game>> entry : playerAndgames.entrySet()) {
-                JSONArray gamelist = new JSONArray();
+            for(Player p:getPlayerAndgames().keySet())
+            {
+                if(p.equals(new Player(SysData.getInstance().getUsername())))
+                {
+                    for(Game g:playerAndgames.get(p))
+                    {
+                        System.out.println(g.toString());
+                    }
+                }
                 JSONObject playerObj = new JSONObject();
-                Player playerKey = entry.getKey();
-                ArrayList<Game> gameValue = entry.getValue();
-                if (gameValue != null && !(gameValue.isEmpty())) {
-                    for (Game game : gameValue) {
+                ArrayList<Game> gameValue = getPlayerAndgames().get(p);
+                if(gameValue!=null&&!(gameValue.isEmpty()))
+                {
+                    JSONArray gamelist = new JSONArray();
+                    for(Game game: gameValue)
+                    {
                         JSONObject gameobj = new JSONObject();
                         gameobj.put("gameId", game.getGameID());
                         gameobj.put("DateOfGame", game.getDateOfGame().toString());
-                        gameobj.put("score", playerKey.getScoreInGame(game));
-
+                        gameobj.put("score", game.getTotalScoreInGame());
                         gamelist.add(gameobj);
                     }
-                    playerObj.put("player", playerKey.getUserName());
+                    playerObj.put("player", p.getUserName());
                     playerObj.put("Games", gamelist);
-
                     playerlist.add(playerObj);
                 }
             }

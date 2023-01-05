@@ -18,11 +18,11 @@ public class King extends Figure implements FigureInterface{
     @Override
     public Position move(Position horseCuPosition, Position kingCuPosition) {
         List<Position> potentialMoves= new ArrayList<>();
-        int colY=kingCuPosition.getY();
         int rowX=kingCuPosition.getX();
+        int colY=kingCuPosition.getY();
 
-        int colHorse=horseCuPosition.getY();
         int rowHorse=horseCuPosition.getX();
+        int colHorse=horseCuPosition.getY();
 
         ArrayList<Integer> optionForRows= new ArrayList<>();
         ArrayList<Integer> optionForCols=new ArrayList<>();
@@ -77,14 +77,17 @@ public class King extends Figure implements FigureInterface{
 
 
         for(Position position:potentialMoves)
-        {System.out.println("king valid position (Noa) ->" +position);
-            int x=Math.abs(position.getX()-colHorse);
-            int y=Math.abs(position.getY()-rowHorse);
+        {System.out.println("king valid position  ->" +position);
+            int x=Math.abs(position.getX()-rowHorse);
+            int y=Math.abs(position.getY()-colHorse);
 
             double currentDis=Math.sqrt(Math.abs(y*y-x*x));
+
             if(position.equals(horseCuPosition))
             {
-                closerHourse=position;
+                System.out.println(position.getX()+" "+position.getY());
+                closerHourse.setX(horseCuPosition.getX());
+                closerHourse.setY(horseCuPosition.getY());
             }
 
           else  if (Double.valueOf(currentDis)<Double.valueOf(minDistance))

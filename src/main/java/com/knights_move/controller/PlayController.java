@@ -390,8 +390,7 @@ public class PlayController {
             game.setCurrentQuestion(0);
           //  msgTxt.setText("Game Over");
             clearGrid();
-          //  HistoryController.add(game);
-          //  Player p = new Player(SysData.getInstance().getUsername());
+
         }
     }
 

@@ -72,8 +72,7 @@ public class EditHistoryController implements Initializable {
 
         @Override
         public String toString() {
-            return "historyEdit" +
-                    "quesId='" + quesId ;
+            return "question: " + quesId ;
         }
     }
     @FXML

@@ -19,7 +19,7 @@ public class Game {
     private LocalDateTime finishTime;
     private int currentLevelScore = 0;
     private int currentQuestion = 0;
-    private int totalScoreInGame;
+    private int totalScoreInGame=0;
     private result award;
 
 
@@ -31,10 +31,12 @@ public class Game {
         this.dateOfGame=java.time.LocalDate.now();
     }
     //constructor for json
-    public Game(int gameID,LocalDate date) {
+    public Game(int gameID,LocalDate date, int score) {
         this.gameID = gameID;
         this.dateOfGame = date;
+        this.totalScoreInGame=score;
     }
+
 
     public HashMap<Game, Integer> getScoreInGame() {
         return scoreInGame;
@@ -80,9 +82,9 @@ public class Game {
         return gameID;
     }
 
-    public void setGameID(int gameID) {
-        this.gameID = gameID;
-    }
+//    public void setGameID(int gameID) {
+//        this.gameID = gameID;
+//    }
 
     public Board getGameBoard() {
         return gameBoard;
