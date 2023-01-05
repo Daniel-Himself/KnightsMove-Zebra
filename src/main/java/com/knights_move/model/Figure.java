@@ -66,17 +66,15 @@ public abstract class Figure {
         possiblePos.add(new Position(x - 2, y - 1));
         possiblePos.add(new Position(x - 2, y + 1));
         for(Position pp: possiblePos){
-          //  System.out.println("position before check" + pp);
             Position validPosition = validPosition(pp);
             if(validPosition != null) {
                     Tile t = board.getTileByPosition(validPosition);
-             //       System.out.println("validPosition" + validPosition);
                     if(t.getType() != TypeTile.BLOCKED){
                         optionList.add(validPosition);
                     }
             }
         }
-        System.out.println("optionList ->" + optionList);
+        System.out.println("Horse options List -> " + optionList);
         return optionList;
     }
 
@@ -84,7 +82,6 @@ public abstract class Figure {
     private Position validPosition(Position p){
         int x = p.getX();
         int y = p.getY();
-        //case 1 - ok
         if(x <= 7 && x >= 0 && y <= 7 && y >= 0){
             return p;
         }
@@ -125,6 +122,7 @@ public abstract class Figure {
         }
         return null;
     }
+
 
     public abstract boolean canAttack(Position position, Position queenCurrPosition);
 }

@@ -62,12 +62,12 @@ public class PlayAssistController {
                 button.getStyleClass().removeAll("whiteTile");
                 button.getStyleClass().removeAll("vbox");
                 button.getStyleClass().add("blueTile");
-                break;
+                return;
             }
         }
     }
 
-    //returns random number in range 0-7 -> used while generating random Jump destination, next question
+    //returns random number in range 0-7 -> used while generating random Jump destination, next question tile position
     public static int generateRandomPosition(){
         Random rand = new Random();
         int pick = rand.nextInt(8);
