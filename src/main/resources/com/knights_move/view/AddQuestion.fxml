@@ -20,7 +20,7 @@
       <TextField fx:id="text_question" layoutX="208.0" layoutY="39.0" prefHeight="25.0" prefWidth="381.0" promptText="Questions" />
       <ComboBox fx:id="combo_level" layoutX="208.0" layoutY="280.0" prefHeight="26.0" prefWidth="150.0" />
       <ComboBox fx:id="combo_Team" layoutX="208.0" layoutY="320.0" prefHeight="26.0" prefWidth="150.0" />
-      <Button fx:id="button_save" layoutX="197.0" layoutY="388.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="52.0" style="-fx-background-color: green;" text="Save" textFill="#f4ebeb">
+      <Button fx:id="button_save" layoutX="495.0" layoutY="383.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" style="-fx-background-color: green;" text="Save" textFill="#f4ebeb">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -38,7 +38,7 @@
       <TextField fx:id="textFiled_answer2" layoutX="208.0" layoutY="119.0" prefWidth="300.0" />
       <TextField fx:id="textFiled_answer3" layoutX="208.0" layoutY="163.0" prefWidth="300.0" />
       <TextField fx:id="textFiled_answer4" layoutX="208.0" layoutY="202.0" prefWidth="300.0" />
-      <Label fx:id="message" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="401.0" prefHeight="17.0" prefWidth="423.0">
+      <Label fx:id="message" alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="441.0" prefHeight="17.0" prefWidth="423.0">
          <font>
             <Font size="20.0" />
          </font>

@@ -1,9 +1,6 @@
 package com.knights_move.controller;
 
-import com.knights_move.model.Answer;
-import com.knights_move.model.Question;
-import com.knights_move.model.SysData;
-import com.knights_move.model.Team;
+import com.knights_move.model.*;
 import com.knights_move.view.HelloApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +21,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -184,10 +182,17 @@ public class AddQuestionController implements Initializable {
                         message.setText("Question added successfully");
                         message.setStyle("-fx-text-fill: green");
                         System.out.println(SysData.getInstance().getQuestions());
+
+                        //add the changes the admin did
+                        String changeDes="Added "+ questionId;
+                        EditHistoryController.historyEdit change= new EditHistoryController.historyEdit(questionId, STATUS.ADD,changeDes, LocalDate.now());
+                        SysData.getInstance().getListOfChange().add(change);
+                        SysData.getInstance().serJsonChange();
                     }
                 }
             }
             else if(EditMode==true){
+                setEditMode(false);
                 Question q= SysData.getInstance().getQuestionByName(newQuestion.getQuesID());
                 q.setQuesId(questionId);
                 q.setAnswers(answer);
@@ -195,6 +200,12 @@ public class AddQuestionController implements Initializable {
                 q.setLevel(level);
                 q.setTeamNick(team.toString());
                 HelloApplication.alertSuccesful("Successful","the question is up to date");
+
+                //add the changes the admin did
+                String changeDes="Edited "+ questionId;
+                EditHistoryController.historyEdit change= new EditHistoryController.historyEdit(questionId, STATUS.EDIT,changeDes, LocalDate.now());
+                SysData.getInstance().getListOfChange().add(change);
+                SysData.getInstance().serJsonChange();
 
                 //pass pages
                 try {
@@ -210,11 +221,6 @@ public class AddQuestionController implements Initializable {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-
-     //           message.setText("Question updated successfully");
-     //           message.setStyle("-fx-text-fill: green");
-     //           System.out.println("AddQuestionController message: Question updated successfully");
-                //HelloApplication.alertSuccesful("Successful","the question is up to date");
             }
         }
 }

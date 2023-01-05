@@ -385,6 +385,7 @@ public class PlayController {
             boardGrid.setVisible(false);
             HistoryController.add(game);
           //  Player p = new Player(SysData.getInstance().getUsername());
+
         }
     }
 

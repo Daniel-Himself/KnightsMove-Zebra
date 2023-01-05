@@ -170,12 +170,20 @@ public class QuestionAnswerController implements Initializable {
         button_edit.setOnAction(e->{
             try{
                 AddQuestionController.setEditMode(true);
-                if(!TableView_Question.getSelectionModel().isEmpty()) {
+                if(!(TableView_Question.getSelectionModel().isEmpty())) {
                     NewQuestion newQuestion = TableView_Question.getSelectionModel().getSelectedItem();
                     AddQuestionController addQuestionController = new AddQuestionController();
                     addQuestionController.receiveQues(newQuestion);
+                    addQuestionController.setEditMode(true);
 
-
+                    HomeController homeController= new HomeController();
+                    homeController.setQuesPage(true);
+                    FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("MainFrame.fxml"));
+                    HelloApplication.parent = loader.load();
+                    loader.getController();
+                    Scene scene = new Scene(HelloApplication.parent);
+                    HelloApplication.stage.setScene(scene);
+                    HelloApplication.stage.show();
                 }
                 else {
                     message.setText("Please click on a row");

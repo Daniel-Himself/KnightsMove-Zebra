@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -20,7 +19,7 @@
                         <TableColumn fx:id="userNameCol" prefWidth="92.66665649414062" text="UserName" />
                         <TableColumn fx:id="gameIdCol" prefWidth="143.33331298828125" text="gameId" />
                         <TableColumn fx:id="scoreCol" prefWidth="170.6666259765625" text="score" />
-                        <TableColumn fx:id="statusCol" prefWidth="75.0" text="status" />
+                        <TableColumn fx:id="statusCol" prefWidth="75.0" text="status" visible="false" />
                         <TableColumn fx:id="dateCol" prefWidth="184.00006103515625" text="Date" />
                     </columns>
                      <columnResizePolicy>
@@ -32,7 +31,6 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="BTRY" layoutX="28.0" layoutY="49.0" mnemonicParsing="false" text="Button" />
                       </children>
                   </Pane>
          </top>
