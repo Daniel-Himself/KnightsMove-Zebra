@@ -35,10 +35,10 @@ public class Queen extends Figure implements FigureInterface{
     @Override
     // Method to move the queen closer to the target piece
     public Position move(Position queenPosition, Position opponentPosition) {
-
+        System.out.println("opponentPosition ->" + opponentPosition);
         // If possible, attack the horse
         if(canAttack(queenPosition, opponentPosition)) {
-            System.out.println(" i am in move first if");
+            System.out.println(" i am in move first if" + opponentPosition);
             return opponentPosition;
         }
 
@@ -61,9 +61,10 @@ public class Queen extends Figure implements FigureInterface{
         if (col != targetCol) {
             col += colDiff / Math.abs(colDiff);
         }
-
+        Position newPosition = new Position(row, col);
         // Return the new position closer to the horse if queen is unable to attack*/
-        return new Position(row, col);
+        System.out.println("new position queen" + newPosition);
+        return newPosition;
         //return randomNextPosition;
     }
 

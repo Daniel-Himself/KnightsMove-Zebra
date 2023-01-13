@@ -300,11 +300,14 @@ public class PlayController {
             if(turn == 2){
                 if(level == 1 || level == 2){
                     Position queenCurrPosition = queen.getPosition();
+                    //System.out.println("playC " +"queenCurrPosition "+ queenCurrPosition);
                     Position queenNextPosition = queen.move(horse.getPosition(), queenCurrPosition);
+                    System.out.println("queenNextPosition "+ queenNextPosition);
                     Boolean canAttack = queen.canAttack(horse.getPosition(), queenCurrPosition);
+                    queen.setPosition(queenNextPosition);
+                    System.out.println("queen position "+ queen.getPosition());
                     //kill horse case
                     if(canAttack){
-                        queen.setPosition(queenNextPosition);
                         endLevel(board.getBoardId(), false);
                         msgTxt.setText("Queen Won! Game over");
                     }
