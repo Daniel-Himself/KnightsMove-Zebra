@@ -45,32 +45,38 @@ public class Queen extends Figure implements FigureInterface{
         int row = queenPosition.getX();
         int col = queenPosition.getY();
 
-        int targetRow = opponentPosition.getX();
-        int targetCol = opponentPosition.getY();
+        int verticalDistance = Math.abs(col - opponentPosition.getY());
+        int horizontalDistance = Math.abs(row - opponentPosition.getX());
 
-        int rowDiff = targetRow - row;
-        int colDiff = targetCol - col;
+        double diagonalDistance=Math.abs(horizontalDistance)+Math.abs(verticalDistance);
 
-        // If the queen is not already in the same row or column as the target piece,
-        // move the queen towards the target piece by incrementing or decrementing the row or column coordinate
-        // by the maximum number of steps that can be taken in that direction without going past the target piece
+        if( diagonalDistance <= verticalDistance && diagonalDistance <= horizontalDistance){
+            row = opponentPosition.getX();
 
-        int maxSteps = 7; // maximum number of steps that can be taken in any direction
-
-        if (row != targetRow) {
-            int steps = Math.min(Math.abs(rowDiff), maxSteps) -1;
-            System.out.println("row steps ->" + steps);
-            row += steps * (rowDiff / Math.abs(rowDiff));
         }
-        if (col != targetCol) {
-            int steps = Math.min(Math.abs(colDiff), maxSteps) -1;
-            System.out.println("col steps ->" + steps);
-            col += steps * (colDiff / Math.abs(colDiff));
+        else if (horizontalDistance > verticalDistance) {
+            row = opponentPosition.getX();
         }
-        Position newPosition = new Position(row, col);
-        // Return the new position closer to the horse if queen is unable to attack*/
-        System.out.println("new position queen" + newPosition);
-        return newPosition;
+        else {
+            col = opponentPosition.getY();
+        }
+        return new Position(row, col);
+
+
+//        // If the queen is not already in the same row or column as the target piece,
+//        // move the queen towards the target piece by incrementing or decrementing the row or column coordinate
+//        // by the maximum number of steps that can be taken in that direction without going past the target piece
+//        if (row != targetRow) {
+//            row += rowDiff / Math.abs(rowDiff);
+//        }
+//        if (col != targetCol) {
+//            col += colDiff / Math.abs(colDiff);
+//        }
+//
+//        Position newPosition = new Position(row, col);
+//        // Return the new position closer to the horse if queen is unable to attack*/
+//        System.out.println("new position queen" + newPosition);
+//        return newPosition;
     }
 
 
