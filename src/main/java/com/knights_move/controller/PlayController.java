@@ -232,7 +232,7 @@ public class PlayController {
                     previousBtn.setGraphic(null);
                     t.setVisited(true);
                     button.getStyleClass().add("vbox"); // set visited on the board
-                    if(t.getTileQuestion() != null){    // question tile case
+                    if(t.getTileQuestion() != null && button.getStyleClass().contains("blueTile")){    // question tile case
                         t.setTileColor(Color.WHITE);
                         PlayAssistController.setNextQuestion(game, boardGrid);
                         boardGrid.setDisable(true);
