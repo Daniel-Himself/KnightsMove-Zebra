@@ -266,7 +266,7 @@ public class PlayController {
                             forgotten.setVisited(false);    // removing from visited list + visited false
                             board.getVisitedTile().remove(forgotten);
                             horseNewPos = p;
-                        };
+                        }
                         button.getStyleClass().add("vbox");
                         button.setGraphic(horseImg);
 
@@ -301,18 +301,14 @@ public class PlayController {
                 msgTxt.setText("Horse can't move that way");
                 PlayAssistController.disappear(msgTxt, null, 2);
             }
-            if(turn == 1 && level ==2) {
-
-            }
             // implements computer turn of queen/king
             if(turn == 2){
                 if(level == 1 || level == 2){
                     Position queenCurrPosition = queen.getPosition();
-                    //System.out.println("playC " +"queenCurrPosition "+ queenCurrPosition);
                     Position queenNextPosition = queen.move(horse.getPosition(), queenCurrPosition);
-                    System.out.println("queenNextPosition "+ queenNextPosition);
                     Boolean canAttack = queen.canAttack(horse.getPosition(), queenCurrPosition);
                     queen.setPosition(queenNextPosition);
+                    System.out.println("DANIEL$ queen is moving from" +queenCurrPosition+" to "+queenNextPosition);
                     System.out.println("queen position "+ queen.getPosition());
                     //kill horse case
                     if(canAttack){
@@ -432,7 +428,6 @@ public class PlayController {
     public Timeline initKingMoveTimer(){
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e ->{
             kingSec++;
-            int trigger = 0;
             if(kingSec < 60 && kingSec >= 50 ){
                 if(kingSec%0.5 == 0){
                     kingMoveOnSpeedIncrease(king.move(horse.getPosition(), king.getPosition()), horse.getPosition());

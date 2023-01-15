@@ -92,6 +92,7 @@ public abstract class Figure {
     }
 
     // checking valid position on board with attendance to cyclic movements
+    // todo fix queen movement when horse is doing a cyclic movement, maybe the horse position is not updated in time for the queen to react or smth
     private Position validPosition(Position p){
         int x = p.getX();
         int y = p.getY();

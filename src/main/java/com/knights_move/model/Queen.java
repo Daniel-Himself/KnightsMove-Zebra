@@ -34,11 +34,10 @@ public class Queen extends Figure implements FigureInterface{
 
     @Override
     // Method to move the queen closer to the target piece
-    public Position move(Position queenPosition, Position opponentPosition) {
+    public Position move(Position opponentPosition, Position queenPosition) {
         System.out.println("opponentPosition ->" + opponentPosition);
         // If possible, attack the horse
         if(canAttack(queenPosition, opponentPosition)) {
-            System.out.println(" i am in move first if" + opponentPosition);
             return opponentPosition;
         }
 
@@ -55,17 +54,23 @@ public class Queen extends Figure implements FigureInterface{
         // If the queen is not already in the same row or column as the target piece,
         // move the queen towards the target piece by incrementing or decrementing the row or column coordinate
         // by the maximum number of steps that can be taken in that direction without going past the target piece
+
+        int maxSteps = 7; // maximum number of steps that can be taken in any direction
+
         if (row != targetRow) {
-            row += rowDiff / Math.abs(rowDiff);
+            int steps = Math.min(Math.abs(rowDiff), maxSteps) -1;
+            System.out.println("row steps ->" + steps);
+            row += steps * (rowDiff / Math.abs(rowDiff));
         }
         if (col != targetCol) {
-            col += colDiff / Math.abs(colDiff);
+            int steps = Math.min(Math.abs(colDiff), maxSteps) -1;
+            System.out.println("col steps ->" + steps);
+            col += steps * (colDiff / Math.abs(colDiff));
         }
         Position newPosition = new Position(row, col);
         // Return the new position closer to the horse if queen is unable to attack*/
         System.out.println("new position queen" + newPosition);
         return newPosition;
-        //return randomNextPosition;
     }
 
 
