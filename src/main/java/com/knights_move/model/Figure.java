@@ -45,6 +45,52 @@ public abstract class Figure {
         return optionList;
     }
 
+    public List<Position> horseOptionsLevel2(Position current, Board board){
+        List<Position> optionList = new ArrayList<>();
+        int x = current.getX();
+        int y = current.getY();
+        List<Position> possiblePos = new ArrayList<>();
+        //two squares straight and one diagonally
+        possiblePos.add(new Position(x + 1, y + 3));
+        possiblePos.add(new Position(x + 1, y - 3));
+        possiblePos.add(new Position(x - 1, y + 3));
+        possiblePos.add(new Position(x - 1, y - 3));
+
+        possiblePos.add(new Position(x + 3, y + 1));
+        possiblePos.add(new Position(x + 3, y - 1));
+        possiblePos.add(new Position(x - 3, y + 1));
+        possiblePos.add(new Position(x - 3, y - 1));
+
+        //two squares diagonally and one straight
+        possiblePos.add(new Position(x + 2, y - 1));
+        possiblePos.add(new Position(x + 2, y + 1));
+        possiblePos.add(new Position(x - 2, y - 1));
+        possiblePos.add(new Position(x - 2, y + 1));
+
+        possiblePos.add(new Position(x + 2, y - 2));
+        possiblePos.add(new Position(x + 2, y + 2));
+        possiblePos.add(new Position(x - 2, y - 2));
+        possiblePos.add(new Position(x - 2, y + 2));
+
+        possiblePos.add(new Position(x + 2, y - 3));
+        possiblePos.add(new Position(x + 2, y + 3));
+        possiblePos.add(new Position(x - 2, y - 3));
+        possiblePos.add(new Position(x - 2, y + 3));
+
+        for(Position pp: possiblePos){
+            Position validPosition = validPosition(pp);
+            if(validPosition != null) {
+                Tile t = board.getTileByPosition(validPosition);
+                if(t.getType() != TypeTile.BLOCKED){
+                    optionList.add(validPosition);
+                }
+            }
+        }
+        System.out.println("Horse options level 2 List -> " + optionList);
+        return optionList;
+
+    }
+
     // checking valid position on board with attendance to cyclic movements
     private Position validPosition(Position p){
         int x = p.getX();

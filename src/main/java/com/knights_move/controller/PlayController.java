@@ -213,11 +213,16 @@ public class PlayController {
     private void moveFigure(Button button){
         Board board = game.getGameBoard();
         int level = board.getBoardId();
-
+        List<Position> horseOptions;
         System.out.println("last 3 tracked: "+board.getLastThreePositions()+"   score: "+board.getLastThreeScoreChange());
         // horse turn
         if(turn == 1){
-            List<Position> horseOptions = horse.horseOptions(horse.getPosition(), board);  // horse valid movements
+            if(level==2){
+                horseOptions = horse.horseOptionsLevel2(horse.getPosition(), board);  // horse valid movements
+            }
+            else {
+                horseOptions = horse.horseOptions(horse.getPosition(), board);  // horse valid movements
+            }
             Position horseNewPos = new Position(GridPane.getRowIndex(button), GridPane.getColumnIndex(button));
             if(horseOptions.contains(horseNewPos)){
                 int scoreChange = 0;
@@ -295,6 +300,9 @@ public class PlayController {
             else {
                 msgTxt.setText("Horse can't move that way");
                 PlayAssistController.disappear(msgTxt, null, 2);
+            }
+            if(turn == 1 && level ==2) {
+
             }
             // implements computer turn of queen/king
             if(turn == 2){
