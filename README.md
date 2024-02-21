@@ -19,6 +19,10 @@ Question Tiles - encounter question tiles to introduce strategic challenges and 
 
 Wall Tiles -navigate around wall tiles, adding an obstacle to your strategic movements.
 
+<h3>Board</h3>
+
+The board consists of 8x8 squares, allowing the knight, as well as the king and queen, to exit at one end of the board and re-enter at the other end, demonstrating rotational or cyclic movement.
+
 <h3>How to Play</h3>
 
 Use standard chess moves for Horse.
