@@ -32,4 +32,6 @@ Jump Tiles for unexpected moves.
 Question Tiles for strategic challenges.
 Wall Tiles as obstacles.
 
+<h3>Game Preview</h3>
 
+![](https://github.com/Daniel-Himself/KnightsMove-Zebra/blob/master/src/main/resources/com/knights_move/view/21.02.2024_15.46.38_REC-ezgif.com-video-to-gif-converter.gif)
